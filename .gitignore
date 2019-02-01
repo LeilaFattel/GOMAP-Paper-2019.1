@@ -76,7 +76,7 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-/data/
+# /data/ we want our data to be published
 
 # Mac OS-specific storage files
 .DS_Store
