@@ -3,21 +3,46 @@
 # annotation sets (e.g. from Gramene)
 annotation_quantities = read.csv("data/mocks/annotation_quantities.mock.csv", header = T)
 
-# @TODO generalize
-plot_data = t(as.matrix(annotation_quantities[1:2,3:5]))
-colnames(plot_data) = c("GOMAP", "Gramene")
+n_genomes = length(unique(annotation_quantities$genome))
+row_counter = 0
+par(family='serif', mar=c(0.5,5,0.5,0.5))
 
-par(family='serif')
-y_coordinates = barplot(plot_data, horiz=T, las=1)
-text(annotation_quantities[1,]$n_c+annotation_quantities[1,]$n_f+annotation_quantities[1,]$n_p/2, y_coordinates[1], 
-     formatC(annotation_quantities[1,]$n_p, format='d', big.mark=','))
-text(annotation_quantities[1,]$n_c+annotation_quantities[1,]$n_f/2, y_coordinates[1],
-     formatC(annotation_quantities[1,]$n_f, format='d', big.mark=','))
-text(annotation_quantities[1,]$n_c/2, y_coordinates[1],
-     formatC(annotation_quantities[1,]$n_c, format='d', big.mark=','))
+# Make a new barplot for each genome
+for(current_genome in unique(annotation_quantities$genome)) {
+  par(fig=c(
+    0, 0.1, row_counter * (1/n_genomes),
+    (row_counter + 1) * (1/n_genomes)
+  ), new=T, mar=c(0,0,0,0))
+  plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n', xpd=F)
+  brackets(1, 0.1, 1, 0.9, lwd=2)
+  text(0.95,0.5, current_genome, cex = 2, pos=2)
+  
+  par(fig=c(
+    0.1, 1, row_counter * (1/n_genomes),
+    (row_counter + 1) * (1/n_genomes)
+  ), new=T, mar=c(0.5,5,0.5,0.5))
+  
+  current_data = subset(annotation_quantities, genome == current_genome)
+  # Now sort in ascending order by number of total annotations
+  current_data = current_data[rank(current_data$n_c+current_data$n_f+current_data$n_p),]
+  # Only use n_c, n_f, and n_p for plotting
+  plot_data = t(as.matrix(current_data[,3:5]))
+  colnames(plot_data) = current_data$source
+  
+  
+  y_coordinates = barplot(plot_data, horiz=T, las=1, axes=F, border=F, col=c('#F57A75', '#7A75F5', '#75F57A'), space=0.1)
+  for(bar_index in 1:nrow(current_data)) {
+    bar = current_data[bar_index,]
+    text(bar$n_c+bar$n_f+bar$n_p/2, y_coordinates[bar_index], 
+         formatC(bar$n_p, format='d', big.mark=','))
+    text(bar$n_c+bar$n_f/2, y_coordinates[bar_index],
+         formatC(bar$n_f, format='d', big.mark=','))
+    text(bar$n_c/2, y_coordinates[bar_index],
+         formatC(bar$n_c, format='d', big.mark=','))
+  }
+  
+  row_counter = row_counter + 1
+}
 
 # more @TODOs
-# - sort so that largest column top
-# - choose nice colors
-# - make a nicer axis at bottom
 # - put labels on first barplot (molecular function, cellular component, etc.)
