@@ -1,0 +1,16 @@
+---
+title: 'STAT587 -- Homework Assignment #12'
+author: "Dennis Psaroudakis (Wednesday lab group)"
+date: "October 30th 2018"
+output:
+  pdf_document:
+    dev: pdf
+    md_extensions: +link_attributes+multiline_tables
+    pandoc_args: --listings
+    template: ~/Projects/IASTATE/STAT587/Homework/template.tex
+mainfontoptions: Numbers=OldStyle
+papersize: letter
+language: en-US
+---
+
+Hello, world!
