@@ -1,4 +1,4 @@
-organism,source,n_c,n_f,n_p,n_genes
+genome,source,n_c,n_f,n_p,n_genes
 wheat,GOMAP,267742,218839,786028,1272609
 wheat,Gramene,167342,18839,586028,1272609
 rice,GOMAP,167742,118839,586028,672609
