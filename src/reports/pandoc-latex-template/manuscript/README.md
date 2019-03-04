@@ -1,0 +1,1 @@
+This is the Frontiers template, taken from http://www.frontiersin.org/design/zip/Frontiers_LaTeX_Templates.zip (as referenced from the [Author Guidelines](https://www.frontiersin.org/about/author-guidelines)). It was modified to work with pandoc so we can render it from RMarkdown instead of having to write LaTeX ourselves.
