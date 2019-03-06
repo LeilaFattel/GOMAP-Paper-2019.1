@@ -7,23 +7,24 @@ n_genomes = length(unique(annotation_quantities$genome))
 row_counter = 0
 
 pdf("reports/figures/annotation_quantities.pdf", 18, 6)
-par(family='serif', mar=c(0.5,5,0.5,0.5))
 library(pBrackets)
+
+axis_drawn = F
 
 # Make a new barplot for each genome
 for(current_genome in unique(annotation_quantities$genome)) {
   par(fig=c(
-    0, 0.1, row_counter * (1/n_genomes),
-    (row_counter + 1) * (1/n_genomes)
+    0, 0.1, row_counter * (1/n_genomes)  * 0.90 + 0.05,
+    (row_counter + 1) * (1/n_genomes) * 0.90  + 0.05
   ), new=T, mar=c(0,0,0,0))
   plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n', xpd=F)
   brackets(1, 0.1, 1, 0.9, lwd=2)
   text(0.95,0.5, current_genome, cex = 2, pos=2)
   
   par(fig=c(
-    0.1, 1, row_counter * (1/n_genomes),
-    (row_counter + 1) * (1/n_genomes)
-  ), new=T, mar=c(0.5,5,0.5,0.5))
+    0.1, 1, row_counter * (1/n_genomes) * 0.90 + 0.05,
+    (row_counter + 1) * (1/n_genomes) * 0.90  + 0.05
+  ), new=T, mar=c(0.5,5,0.5,1.5))
   
   current_data = subset(annotation_quantities, genome == current_genome)
   # Now sort in ascending order by number of total annotations
@@ -42,11 +43,27 @@ for(current_genome in unique(annotation_quantities$genome)) {
          formatC(bar$n_f, format='d', big.mark=','))
     text(bar$n_c/2, y_coordinates[bar_index],
          formatC(bar$n_c, format='d', big.mark=','))
+    #mtext(text=formatC(bar$n_c + bar$n_f + bar$n_p, format='d', big.mark=','), side=4, at=y_coordinates[bar_index], las=1)
+    #text(bar$n_c+bar$n_f+bar$n_p, y_coordinates[bar_index], formatC(bar$n_p+bar$n_c+bar$n_f, format='d', big.mark=','), pos = 4)
+  }
+  
+  if(!axis_drawn) {
+    axis(side = 1, lwd = 0, lwd.ticks = 1, at=seq(0, max(annotation_quantities$n_c + annotation_quantities$n_f + annotation_quantities$n_p), 50), col.axis="#BBBBBB", col="#BBBBBB")
+    axis(side = 1, lwd = 0, lwd.ticks = 1, at=seq(0, max(annotation_quantities$n_c + annotation_quantities$n_f + annotation_quantities$n_p), 10), labels=F, col="#BBBBBB", tck=-0.04
+    )
+    axis_drawn = T
   }
   
   row_counter = row_counter + 1
 }
+
+mtext("Cellular Component", side=3, at=bar$n_c/2)
+mtext("Biological Process", side=3, at=bar$n_c+bar$n_f+bar$n_p/2)
+mtext("Molecular Function", side=3, at=bar$n_c+bar$n_f/2)
+
 dev.off()
+
+
 
 # more @TODOs
 # - put labels on first barplot (molecular function, cellular component, etc.)
