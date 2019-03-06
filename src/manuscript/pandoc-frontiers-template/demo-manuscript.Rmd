@@ -53,7 +53,7 @@ head(annotation_quantities)
 summary(annotation_quantities$n_c)
 ```
 
-The annotation set for rice had a total of `r rice$n_c + rice$n_p + rice$n_f` annotations.
+The annotation set for rice had a total of `r rice$n_c` annotations for cellular component.
 
 
 ## Plots
