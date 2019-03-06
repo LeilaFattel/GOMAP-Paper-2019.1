@@ -66,3 +66,7 @@ pie(a$n_c+a$n_f+a$n_p, labels=paste(a$genome, a$source))
 ```{r plot2}
 barplot(a$n_c+a$n_f+a$n_p, las=2)
 ```
+
+Now here is an actual figure I've been working on:
+
+![Quantitiative lalala](../../../reports/figures/annotation_quantities.pdf)
