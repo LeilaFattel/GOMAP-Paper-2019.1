@@ -1,9 +1,6 @@
-src/manuscript/pandoc-frontiers-template/demo-manuscript.pdf: src/manuscript/pandoc-frontiers-template/demo-manuscript.Rmd reports/figures/annotation_quantities.pdf
-	cd src/manuscript/pandoc-frontiers-template && R -e 'library(rmarkdown); render("demo-manuscript.Rmd")'
-
-reports/figures/annotation_quantities.pdf: data/mocks/processed/annotation_quantities.csv src/data/count_annotations.R
-	Rscript src/figures/quantity_barcharts.R
+manuscript/Manuscript.pdf: manuscript/Manuscript.Rmd $(wildcard data/results/*) $(wildcard figures/*)
+	cd manuscript && R -e 'library(rmarkdown); render("Manuscript.Rmd")'
 
 # @TODO the middle one is not working
-data/mocks/processed/annotation_quantities.csv: $(wildcard data/mocks/raw/annotation_sets/*.gaf) $(wildcard data/mocks/external/annotation_sets/*/*.gaf) $(wildcard data/mocks/external/peptide_sequences/*.fa)
-	Rscript src/data/count_annotations.R
+data/results/quantity_table.csv: $(wildcard data/raw/go_annotation_sets/*.gaf) data/raw/n_genes_per_genome.csv
+	Rscript src/data/create_quantity_table.R

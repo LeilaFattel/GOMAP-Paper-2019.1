@@ -1,0 +1,7 @@
+"genome","n_genes","dataset","annotations_c","annotations_f","annotations_p","annotations_a","genes_annotated_c","genes_annotated_f","genes_annotated_p","genes_annotated_a","median_annotations_per_gene_c","median_annotations_per_gene_f","median_annotations_per_gene_p","median_annotations_per_gene_a"
+"maize_v3",300,"GOMAP",135251,87953,291855,515059,34867,38099,39469,39469,3,2,6,11
+"maize_v3",300,"Gramene49",20072,31139,30102,81313,11834,18033,15800,21926,1,1,1,3
+"maize_v3",300,"Phytozome",4787,19098,13100,36985,4524,13775,11365,16132,0,1,1,2
+"maize_v4",320,"GOMAP",88831,82849,278952,450632,36717,37431,39324,39324,2,2,6,10
+"rice",200,"GOMAP",72782,64783,248713,386278,28619,29876,35824,35825,2,2,6,9
+"wheat",500,"GOMAP",267742,218839,786028,1272609,95604,98224,107890,107891,2,2,6,10
