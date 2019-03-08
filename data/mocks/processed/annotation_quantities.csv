@@ -1,7 +1,0 @@
-"genome","source","n_c","n_f","n_p","n_genes"
-maize_v3,GOMAP,95,56,169,11
-maize_v3,Gramene49,63,83,74,11
-maize_v3,Phytozome,14,67,59,11
-maize_v4,GOMAP,52,65,213,11
-rice,GOMAP,60,67,223,11
-wheat,GOMAP,109,78,313,16
