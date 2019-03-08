@@ -11,7 +11,7 @@
 %%% In http://www.ctan.org/ you can find the packages and how to install them, if necessary. %%%
 %%%  NB logo1.jpg is required in the path in order to correctly compile front page header %%%
 
-\documentclass[utf8,$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$$if(papersize)$$papersize$,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{frontiersSCNS} % for Science, Engineering and Humanities and Social Sciences articles
+\documentclass[utf8,]{frontiersSCNS} % for Science, Engineering and Humanities and Social Sciences articles
 %\documentclass[utf8]{frontiersHLTH} % for Health articles
 %\documentclass[utf8]{frontiersFPHY} % for Physics and Applied Mathematics and Statistics articles
 
@@ -19,42 +19,6 @@
 \usepackage{url,hyperref,lineno,microtype,subcaption}
 \usepackage[onehalfspacing]{setspace}
 
-$if(listings)$
-\usepackage{listings}
-$endif$
-$if(lhs)$
-\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
-$endif$
-$if(highlighting-macros)$
-$highlighting-macros$
-$endif$
-$if(verbatim-in-note)$
-\usepackage{fancyvrb}
-$endif$
-$if(tables)$
-\usepackage{longtable,booktabs}
-$endif$
-$if(graphics)$
-\usepackage{graphicx}
-% Redefine \includegraphics so that, unless explicit options are
-% given, the image width will not exceed the width of the page.
-% Images get their normal width if they fit onto the page, but
-% are scaled down if they would overflow the margins.
-\makeatletter
-\def\ScaleIfNeeded{%
-  \ifdim\Gin@nat@width>\linewidth
-    \linewidth
-  \else
-    \Gin@nat@width
-  \fi
-}
-\makeatother
-\let\Oldincludegraphics\includegraphics
-{%
- \catcode`\@=11\relax%
- \gdef\includegraphics{\@ifnextchar[{\Oldincludegraphics}{\Oldincludegraphics[width=\ScaleIfNeeded]}}%
-}%
-$endif$
 
 \linenumbers
 
@@ -75,16 +39,27 @@ $endif$
 \def\corrEmail{email@uni.edu}
 
 
-$for(header-includes)$
-$header-includes$
-$endfor$
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 
 
 \begin{document}
 \onecolumn
 \firstpage{1}
 
-\title[Running Title]{$title$} 
+\title[Running Title]{TBD} 
 
 \author[\firstAuthorLast ]{\Authors} %This field will be automatically populated
 \address{} %This field will be automatically populated
@@ -99,21 +74,49 @@ $endfor$
 
 \begin{abstract}
 
-$if(abstract)$
-$abstract$
-$endif$
+Hello, this is the abstract.
 
-$if(keywords)$
   \tiny
-   \keyFont{ \section{Keywords:} $keywords$} %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
-$endif$
+   \keyFont{ \section{Keywords:} keyword1, kw2, kw3\ldots{} have to have at least 5, max 8} %All article types: you may provide up to 8 keywords; at least 5 are mandatory.
 
 \end{abstract}
 
-$body$
+\section{Results}\label{results}
 
-$for(include-after)$
-$include-after$
+\ldots{} a quantitative comparison of the datasets in Table
+\ref{tab:t_annotation_quantities}.
 
-$endfor$
+\begin{table}[t]
+
+\caption{\label{tab:t_annotation_quantities}Quantitative metrics of the generated and existing functional annotation sets. C, F, P, and A refer to the aspects of the GO: Cellular Component, Biological Function, Molecular Process, and Any/All.}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{threeparttable}
+\begin{tabular}{lrlrrr>{\bfseries}r|rrr>{\bfseries}r|rrr>{\bfseries}r}
+\toprule
+\multicolumn{3}{c}{ } & \multicolumn{4}{c}{Annotations\textsuperscript{a}} & \multicolumn{4}{c}{Annotated Genes\textsuperscript{b}} & \multicolumn{4}{c}{Median Ann. per G.\textsuperscript{c}} \\
+\cmidrule(l{3pt}r{3pt}){4-7} \cmidrule(l{3pt}r{3pt}){8-11} \cmidrule(l{3pt}r{3pt}){12-15}
+Genome & Genes & Dataset & C & F & P & A & C & F & P & A & C & F & P & A\\
+\midrule
+\rowcolor{gray!6}   &  & GOMAP & 135251 & 87953 & 291855 & 515059 & 34867 & 38099 & 39469 & 39469 & 3 & 2 & 6 & 11\\
+
+ &  & Gramene49 & 20072 & 31139 & 30102 & 81313 & 11834 & 18033 & 15800 & 21926 & 1 & 1 & 1 & 3\\
+
+\rowcolor{gray!6}  \multirow{-3}{*}{\raggedright\arraybackslash maize\_v3} & \multirow{-3}{*}{\raggedleft\arraybackslash 300} & Phytozome & 4787 & 19098 & 13100 & 36985 & 4524 & 13775 & 11365 & 16132 & 0 & 1 & 1 & 2\\
+\cmidrule{1-15}
+maize\_v4 & 320 & GOMAP & 88831 & 82849 & 278952 & 450632 & 36717 & 37431 & 39324 & 39324 & 2 & 2 & 6 & 10\\
+\cmidrule{1-15}
+\rowcolor{gray!6}  rice & 200 & GOMAP & 72782 & 64783 & 248713 & 386278 & 28619 & 29876 & 35824 & 35825 & 2 & 2 & 6 & 9\\
+\cmidrule{1-15}
+wheat & 500 & GOMAP & 267742 & 218839 & 786028 & 1272609 & 95604 & 98224 & 107890 & 107891 & 2 & 2 & 6 & 10\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[a] How many annotations in the C, F, and P aspect does this dataset contain? A = How many in total? $A = C + F + P$
+\item[b] How many genes in the genome have at least one GO term from the C, F, P aspect annotated to them? A = How many at least one from any aspect? ($A = C \cup F \cup P$)
+\item[c] Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Ask your favorite statistician why $A \neq C + F +P$
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
 \end{document}
