@@ -77,6 +77,8 @@ target/
 
 # exclude data from source control by default
 # /data/ we want our data to be published
+# But exclude interim data
+data/interim
 
 # Mac OS-specific storage files
 .DS_Store
@@ -87,3 +89,6 @@ target/
 
 # Mypy cache
 .mypy_cache/
+
+# Rhistories
+.Rhistory
