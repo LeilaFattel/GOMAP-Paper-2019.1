@@ -6,6 +6,7 @@
 #     "GO:122341": ["GO:1243", "GO:1532"],
 #     ...
 #   },
+#   "main_id" : {"GO:1443":"GO:532", "GO:2533":"GO:5234"}
 #   "obsolete": ["GO:1432", "GO:4322", ...]
 # }
 
@@ -13,6 +14,7 @@ from cleanup_resources import obo_parser
 import json
 
 parents = {}
+main_id = {}
 obsolete = []
 with open("go.obo") as obofile:
   parser = obo_parser.Parser(obofile)
@@ -29,11 +31,11 @@ with open("go.obo") as obofile:
 
     if 'alt_id' in stanza.tags:
       for alt_id in stanza.tags['alt_id']:
-        pass
+        main_id[alt_id] = go_id
 
     if 'is_obsolete' in stanza.tags and stanza.tags['is_obsolete'][0] == "true":
       obsolete.append(go_id)
 
 with open('slimGO.json', 'w') as f:
-  f.write(json.dumps({"parents":parents,"obsolete":obsolete},indent=2))
+  f.write(json.dumps({"parents":parents,"main_id":main_id,"obsolete":obsolete},indent=2))
 
