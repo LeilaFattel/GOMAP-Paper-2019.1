@@ -20,6 +20,7 @@ Alternatively, you can use the table below:
 | PINE                     |                                    | 
 | Sorghum bicolor          |                                    | 
 | Triticum aestivum        | https://doi.org/10.25739/65kf-jz20 | `/3_IWGSC_v1.1_HC.cleaned.gaf.gz`
+| Vigna unguiculata        |                                    | `3_final-result/3.1_Vigna_unguiculata.JGI.v1.1.cleaned.gaf.gz`
 | Zea mays.B73.v3          | http://doi.org/10.7946/P2S62P      | `e.agg_data/maize_v3.agg.nr.gaf.gz`
 | Zea mays.B73.v4          | http://doi.org/10.7946/P2M925      | `e.agg_data/maize.B73.AGPv4.aggregate.gaf.gz`
 | Zea mays.Mo17            | https://doi.org/10.25739/m634-cn58 | `e.agg_data/maize.Mo17.AGPv1.aggregate.gaf.gz`
