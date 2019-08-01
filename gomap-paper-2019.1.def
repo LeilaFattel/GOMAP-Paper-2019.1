@@ -1,0 +1,17 @@
+# Recipe to build the singularity container used to make this paper reproducible
+# Instead of building the container yourself, best pull it from ...
+BootStrap: library
+From: ubuntu:18.04
+
+%post
+  # Add universe repository
+  echo "deb http://us.archive.ubuntu.com/ubuntu bionic universe" >> /etc/apt/sources.list
+  apt -y update
+  # Install R
+  apt install -y r-base-core
+
+%environment
+  export LC_ALL="en_US.UTF-8"
+
+%labels
+  Author Thyra
