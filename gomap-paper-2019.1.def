@@ -7,11 +7,20 @@ From: ubuntu:18.04
   # Add universe repository
   echo "deb http://us.archive.ubuntu.com/ubuntu bionic universe" >> /etc/apt/sources.list
   apt -y update
-  # Install R
-  apt install -y r-base-core
+  # Install utilites
+  apt install -y wget vim libcurl4-openssl-dev libxml2-dev libssl-dev
+  # Install R, LaTeX, and pandoc
+  apt install -y r-base-core texlive texlive-latex-extra
+  wget https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-1-amd64.deb
+  apt install -y ./pandoc-2.7.3-1-amd64.deb
+  ## Install RMarkdown
+  R --slave -e 'install.packages(c("rmarkdown", "kableExtra"))'
+
+  # Clean
+  apt-get clean
 
 %environment
-  export LC_ALL="en_US.UTF-8"
+  export LC_ALL="C"
 
 %labels
   Author Thyra
