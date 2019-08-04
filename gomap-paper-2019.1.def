@@ -9,6 +9,12 @@ From: ubuntu:18.04
   apt -y update
   # Install utilites
   apt install -y wget vim libcurl4-openssl-dev libxml2-dev libssl-dev
+  # Install Python
+  apt install -y python python-pip
+  pip install biopython
+  # Install Ruby
+  apt install -y ruby
+  gem install rake
   # Install R, LaTeX, and pandoc
   apt install -y r-base-core texlive texlive-latex-extra
   wget https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-1-amd64.deb
@@ -21,6 +27,9 @@ From: ubuntu:18.04
 
 %environment
   export LC_ALL="C"
+
+%runscript
+  rake
 
 %labels
   Author Thyra

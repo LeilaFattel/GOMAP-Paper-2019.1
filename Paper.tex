@@ -1,0 +1,160 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={TBD},
+            pdfauthor={The Pickles},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\providecommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{TBD}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{The Pickles}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{Febcember 32nd 3023}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
+
+\begin{document}
+\maketitle
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\ldots{} a quantitative comparison of the datasets in Table.
+
+\begin{table}[t]
+
+\caption{\label{tab:t_annotation_quantities}Quantitative metrics of the generated and existing functional annotation sets. C, F, P, and A refer to the aspects of the GO: Cellular Component, Biological Function, Molecular Process, and Any/All.}
+\centering
+\resizebox{\linewidth}{!}{
+\begin{threeparttable}
+\begin{tabular}{lrlrrr>{\bfseries}r|rrr>{\bfseries}r|rrr>{\bfseries}r}
+\toprule
+\multicolumn{3}{c}{ } & \multicolumn{4}{c}{Annotations\textsuperscript{a}} & \multicolumn{4}{c}{Annotated Genes\textsuperscript{b}} & \multicolumn{4}{c}{Median Ann. per G.\textsuperscript{c}} \\
+\cmidrule(l{3pt}r{3pt}){4-7} \cmidrule(l{3pt}r{3pt}){8-11} \cmidrule(l{3pt}r{3pt}){12-15}
+Genome & Genes & Dataset & C & F & P & A & C & F & P & A & C & F & P & A\\
+\midrule
+\rowcolor{gray!6}  Arachis\_hypogaea &  & GOMAP & 153433 & 132944 & 493799 & 780176 & 57667 & 56855 & 67123 & 67124 & 2 & 2 & 6 & 10\\
+
+Glycine\_max &  & GOMAP & 129215 & 114010 & 417575 & 660800 & 46020 & 47087 & 52871 & 52872 & 2 & 2 & 6 & 11\\
+
+\rowcolor{gray!6}  Hordeum\_vulgarum &  & GOMAP & 88130 & 80371 & 272835 & 441336 & 35237 & 36487 & 39733 & 39734 & 2 & 2 & 5 & 10\\
+
+Medicago\_truncatula.A17 &  & GOMAP & 107362 & 99719 & 364065 & 571146 & 42325 & 43736 & 50443 & 50444 & 2 & 2 & 6 & 10\\
+
+\rowcolor{gray!6}  Medicago\_truncatula.R108 &  & GOMAP & 112343 & 108031 & 382322 & 602696 & 40332 & 50220 & 55706 & 55706 & 1 & 2 & 5 & 9\\
+
+Oryza\_sativa &  & GOMAP & 72782 & 64783 & 248713 & 386278 & 28619 & 29876 & 35824 & 35825 & 2 & 2 & 6 & 9\\
+
+\rowcolor{gray!6}  Phaseolus\_vulgaris &  & GOMAP & 72005 & 64583 & 229630 & 366218 & 25934 & 25539 & 27432 & 27433 & 2 & 2 & 6 & 11\\
+
+Triticum\_aestivum &  & GOMAP & 267742 & 218839 & 786028 & 1272609 & 95604 & 98224 & 107890 & 107891 & 2 & 2 & 6 & 10\\
+
+\rowcolor{gray!6}  Vigna\_unguiculata &  & GOMAP & 75867 & 68313 & 243278 & 387458 & 27173 & 27124 & 29772 & 29773 & 2 & 2 & 6 & 11\\
+
+Zea\_mays.B73.v3 &  & GOMAP & 135251 & 87953 & 291855 & 515059 & 34867 & 38099 & 39469 & 39469 & 3 & 2 & 6 & 11\\
+
+\rowcolor{gray!6}  Zea\_mays.B73.v4 &  & GOMAP & 88831 & 82849 & 278952 & 450632 & 36717 & 37431 & 39324 & 39324 & 2 & 2 & 6 & 10\\
+
+Zea\_mays.Mo17 &  & GOMAP & 87573 & 79755 & 278043 & 445371 & 33618 & 35177 & 38620 & 38620 & 2 & 2 & 6 & 10\\
+
+\rowcolor{gray!6}  Zea\_mays.PH207 &  & GOMAP & 90625 & 86106 & 288937 & 465668 & 35170 & 36843 & 40557 & 40557 & 2 & 2 & 6 & 10\\
+
+Zea\_mays.W22 & \multirow{-14}{*}{\raggedleft\arraybackslash 100} & GOMAP & 95397 & 85616 & 290032 & 471045 & 36987 & 37764 & 40690 & 40690 & 2 & 2 & 6 & 10\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item[a] How many annotations in the C, F, and P aspect does this dataset contain? A = How many in total? $A = C + F + P$
+\item[b] How many genes in the genome have at least one GO term from the C, F, P aspect annotated to them? A = How many at least one from any aspect? ($A = C \cup F \cup P$)
+\item[c] Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Ask your favorite statistician why $A \neq C + F +P$
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+
+\end{document}

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo=FALSE)
 ... a quantitative comparison of the datasets in Table.
 
 ```{r t_annotation_quantities}
-dt2 <- read.csv("../analyses/quantity/results/quantity_table.csv", header=T)
+dt2 <- read.csv("analyses/quantity/results/quantity_table.csv", header=T)
 headers_above = c(a = 3, b = 4, c = 4, d =4)
 names(headers_above) <- c(" ", 
   paste0("Annotations", footnote_marker_alphabet(1, double_escape=T)),

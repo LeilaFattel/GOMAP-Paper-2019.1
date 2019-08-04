@@ -63,8 +63,8 @@ csv = data.frame(
   median_annotations_per_gene_a = 0
 )
 
-n_genes_per_genome = read.csv("../../data/n_genes_per_genome.csv", header = T)
-genomes = list.dirs("../../data/go_annotation_sets", recursive = F)
+n_genes_per_genome = read.csv("data/n_genes_per_genome.csv", header = T)
+genomes = list.dirs("data/go_annotation_sets", recursive = F)
 for(genome_path in genomes) {
   genome_name = basename(genome_path)
   print(genome_name)
@@ -96,4 +96,4 @@ for(genome_path in genomes) {
 }
 csv <- csv[2:nrow(csv),] # Drop empty dummy row
 
-write.csv(csv, 'results/quantity_table.csv', row.names = F)
+write.csv(csv, 'analyses/quantity/results/quantity_table.csv', row.names = F)
