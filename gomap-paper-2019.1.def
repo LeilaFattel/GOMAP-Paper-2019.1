@@ -1,5 +1,5 @@
 # Recipe to build the singularity container used to make this paper reproducible
-# Instead of building the container yourself, best pull it from ...
+# Instead of building the container yourself, best pull it from https://cloud.sylabs.io/library/merlin/default/gomap-paper-2019.1
 BootStrap: library
 From: ubuntu:18.04
 

@@ -21,7 +21,7 @@ singularity pull library://merlin/default/gomap-paper-2019.1
 
 # 4a. To re-perform all analyses and re-render the paper (e.g. after you've modified data or scripts)
 ./gomap-paper-2019.1_latest.sif # OR
-singularity exec gomap-paper-2019.1_latest.sif
+singularity run gomap-paper-2019.1_latest.sif
 
 # 4b. To perform steps manually or use the installed software for something else, enter the container
 singularity shell gomap-paper-2019.1_latest.sif

@@ -8,7 +8,7 @@ possibly_read_gaf <- function(gaf_file) {
   if(is.data.frame(gaf_file))
     return(gaf_file)
   if(is.character(gaf_file))
-    return(read.csv(gaf_file, skip=1, header=T, sep="\t"))
+    return(read.csv(gaf_file, header=T, sep="\t"))
   # If neither dataframe nor string: something is wrong:
   stop("Passed argument is neither data frame nor path to GAF file!")
 }
@@ -64,11 +64,11 @@ csv = data.frame(
 )
 
 n_genes_per_genome = read.csv("data/n_genes_per_genome.csv", header = T)
-genomes = list.dirs("data/go_annotation_sets", recursive = F)
+genomes = list.dirs("analyses/cleanup/results", recursive = F)
 for(genome_path in genomes) {
   genome_name = basename(genome_path)
   print(genome_name)
-  for(gaf_file in list.files(genome_path, pattern = ".gaf", full.names = T)) {
+  for(gaf_file in list.files(genome_path, pattern = ".mgaf", full.names = T)) {
     print(gaf_file)
     gaf_df = possibly_read_gaf(gaf_file)
     aspect_counts = count_aspects(gaf_df)
