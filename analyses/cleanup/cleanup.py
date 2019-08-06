@@ -88,9 +88,7 @@ for genome in [x for x in os.listdir("data/go_annotation_sets") if os.path.isdir
     dataset = ".".join(os.path.basename(dataset).split(".")[:-2])
     stats_table.append([genome, dataset] + process_gaf(genome, dataset))
 
-# @TODO this doesn't work yet
-puts stats_table
 with open("analyses/cleanup/results/cleanup_table.csv", "w") as f:
   writer = csv.writer(f, delimiter=",")
   for r in stats_table:
-    writer.writerow[r]
+    writer.writerow(r)

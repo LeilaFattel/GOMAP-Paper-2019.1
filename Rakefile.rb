@@ -5,10 +5,6 @@ file 'Paper.pdf' => ['analyses/quantity/results/quantity_table.csv', 'text/Paper
   sh %q(R -e 'library("rmarkdown"); render("text/Paper.Rmd", output_file="../Paper.pdf", knit_root_dir="../", clean=T)')
 end
 
-desc 'Quantity analysis'
-file 'analyses/quantity/results/quantity_table.csv' => [:cleanup, 'data/n_genes_per_genome.csv', 'analyses/quantity/quantity.R'] do
-  sh "Rscript analyses/quantity/quantity.R"
-end
 
 # Cleanup
 def cleanup
@@ -32,3 +28,8 @@ end
 desc 'Clean up datasets'
 # Cleanup depends on all cleanup target files
 task :cleanup => cleanup_targets
+
+desc 'Quantity analysis'
+file 'analyses/quantity/results/quantity_table.csv' => cleanup_targets + ['data/n_genes_per_genome.csv', 'analyses/quantity/quantity.R'] do
+  sh "Rscript analyses/quantity/quantity.R"
+end
