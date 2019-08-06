@@ -35,10 +35,12 @@ kable(dt2, booktabs=T, caption = "Number of removed annotations during cleanup."
 
 ```{r t_annotation_quantities}
 dt2 <- read.csv("analyses/quantity/results/quantity_table.csv", header=T)
+# Drop the absolute 'genes annotated' counts, we only want the percentual ones
+dt2 <- dt2[, !names(dt2) %in% c("genes_annotated_c", "genes_annotated_f", "genes_annotated_p", "genes_annotated_a")]
 headers_above = c(a = 3, b = 4, c = 4, d =4)
 names(headers_above) <- c(" ", 
   paste0("Annotations", footnote_marker_alphabet(1, double_escape=T)),
-  paste0("Annotated Genes", footnote_marker_alphabet(2, double_escape=T)), 
+  paste0("Annotated Genes [\\\\%]", footnote_marker_alphabet(2, double_escape=T)), 
   paste0("Median Ann. per G.", footnote_marker_alphabet(3, double_escape=T)))
 kable(dt2, booktabs=T, caption = "Quantitative metrics of the cleaned functional annotation sets. C, F, P, and A refer to the aspects of the GO: Cellular Component, Biological Function, Molecular Process, and Any/All.", col.names=c("Genome", "Genes", "Dataset", "C", "F", "P", "A","C", "F", "P", "A","C", "F", "P", "A")) %>%
   kable_styling(latex_options = c("striped", "scale_down")) %>%
