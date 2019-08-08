@@ -12,6 +12,13 @@ def cleanup
   sh 'python analyses/cleanup/cleanup.py'
 end
 
+# converted GO files
+['analyses/cleanup/results/GO.json', 'analyses/cleanup/results/GO_names.json'].each do |f|
+  file f => ['analyses/cleanup/convert_obo.py', 'analyses/cleanup/go.obo.gz', 'analyses/cleanup/obo_parser.py'] do
+    sh 'python analyses/cleanup/convert_obo.py'
+  end
+end
+
 # Each individual cleaned up file depends on its non-cleaned source
 cleanup_targets = ['analyses/cleanup/results/cleanup_table.csv']
 file cleanup_targets.first do
@@ -19,7 +26,7 @@ file cleanup_targets.first do
 end
 FileList.new("data/go_annotation_sets/*/*.gaf.gz").to_a.each do |f|
   target = "analyses/cleanup/results/" + ((f.split(".")[0..-3] + ["mgaf.gz"]).join(".").split("/")[2..-1]).join("/")
-  file target => f do
+  file target => [f, 'analyses/cleanup/cleanup.py', 'analyses/cleanup/go.obo.gz'] do
     cleanup
   end
   cleanup_targets << target

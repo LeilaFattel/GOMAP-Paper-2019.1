@@ -9,6 +9,11 @@ From: ubuntu:18.04
   apt -y update
   # Install utilites
   apt install -y wget vim libcurl4-openssl-dev libxml2-dev libssl-dev
+  # Install crystal
+  apt-key adv --keyserver hkp://keys.gnupg.net:80 --recv-keys 09617FD37CC06B54
+  echo "deb https://dist.crystal-lang.org/apt crystal main" > /etc/apt/sources.list.d/crystal.list
+  apt -y update
+  apt -y install crystal libyaml-dev libgmp-dev libreadline-dev
   # Install Python
   apt install -y python python-pip
   pip install biopython
