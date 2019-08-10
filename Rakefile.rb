@@ -12,24 +12,40 @@ def cleanup
   sh 'python analyses/cleanup/cleanup.py'
 end
 
-# converted GO files
-['analyses/cleanup/results/GO.json', 'analyses/cleanup/results/GO_names.json'].each do |f|
+## cleanup executable
+file 'analyses/cleanup/cleanup' => 'analyses/cleanup/cleanup.cr' do
+  sh 'crystal build --release --no-debug -o analyses/cleanup/cleanup analyses/cleanup/cleanup.cr'
+end
+
+## converted GO files
+go_files = ['analyses/cleanup/results/GO.json', 'analyses/cleanup/results/GO_names.json']
+go_files.each do |f|
   file f => ['analyses/cleanup/convert_obo.py', 'analyses/cleanup/go.obo.gz', 'analyses/cleanup/obo_parser.py'] do
     sh 'python analyses/cleanup/convert_obo.py'
   end
 end
 
-# Each individual cleaned up file depends on its non-cleaned source
+## Collect everything that needs to be up-to-date after cleanup
 cleanup_targets = ['analyses/cleanup/results/cleanup_table.csv']
-file cleanup_targets.first do
-  cleanup
-end
+
+## For each raw dataset there should be an up-to-date cleaned one
 FileList.new("data/go_annotation_sets/*/*.gaf.gz").to_a.each do |f|
+  # Corresponding cleaned up file:
   target = "analyses/cleanup/results/" + ((f.split(".")[0..-3] + ["mgaf.gz"]).join(".").split("/")[2..-1]).join("/")
-  file target => [f, 'analyses/cleanup/cleanup.py', 'analyses/cleanup/go.obo.gz'] do
-    cleanup
+  # The cleaned up file depends on its source file, the cleanup executable and the go_files
+  file target => [f, 'analyses/cleanup/cleanup'] + go_files do
+    sh "analyses/cleanup/cleanup #{f}"
+  end
+  # The cleanup_table also depends on each of these things (in the loop because it depends on all source files)
+  file 'analyses/cleanup/results/cleanup_table.csv' => [f, 'analyses/cleanup/cleanup'] + go_files do
+    sh "analyses/cleanup/cleanup #{f}"
   end
   cleanup_targets << target
+end
+
+## If there are any cleaned up files that do not have a source file anymore, remove them
+(FileList.new("analyses/cleanup/results/*/*.mgaf.gz").to_a - cleanup_targets).each do |f|
+    sh "analyses/cleanup/cleanup --delete #{f}"
 end
 
 desc 'Clean up datasets'
