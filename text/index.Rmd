@@ -1,0 +1,24 @@
+---
+title: "This is the title"
+author: "The Pickles"
+date: "Febcember 32nd 3023"
+language: en-US
+site: "bookdown::bookdown_site"
+output:
+  bookdown::pdf_book:
+    keep_tex: true
+    keep_md: true
+    includes:
+      in_header:
+        preamble.tex
+documentclass: book
+---
+
+```{r load_libs, include=F}
+library(knitr)
+library(kableExtra)
+knitr::opts_chunk$set(echo=FALSE)
+```
+
+# Introduction
+Hello, how are we doing?

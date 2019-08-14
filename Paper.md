@@ -1,158 +1,45 @@
-\documentclass[]{book}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-\fi
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\usepackage{hyperref}
-\hypersetup{unicode=true,
-            pdftitle={This is the title},
-            pdfauthor={The Pickles},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
-\usepackage{longtable,booktabs}
-\usepackage{graphicx,grffile}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
+---
+title: "This is the title"
+author: "The Pickles"
+date: "Febcember 32nd 3023"
+language: en-US
+site: "bookdown::bookdown_site"
+output:
+  bookdown::pdf_book:
+    keep_tex: true
+    keep_md: true
+    includes:
+      in_header:
+        preamble.tex
+documentclass: book
+---
 
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
 
-%%% Change title format to be more compact
-\usepackage{titling}
 
-% Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
-  \posttitle{
-    \begin{center}\large#1\end{center}
-    }
-}
-
-\setlength{\droptitle}{-2em}
-
-  \title{This is the title}
-    \pretitle{\vspace{\droptitle}\centering\huge}
-  \posttitle{\par}
-    \author{The Pickles}
-    \preauthor{\centering\large\emph}
-  \postauthor{\par}
-      \predate{\centering\large\emph}
-  \postdate{\par}
-    \date{Febcember 32nd 3023}
-
-\usepackage[table]{xcolor}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multirow}
-\usepackage{wrapfig}
-\usepackage{float}
-\usepackage{colortbl}
-\usepackage{pdflscape}
-\usepackage{tabu}
-\usepackage{threeparttable}
-\usepackage{threeparttablex}
-\usepackage[normalem]{ulem}
-\usepackage{makecell}
-\usepackage{xcolor}
-
-\begin{document}
-\maketitle
-
-{
-\setcounter{tocdepth}{1}
-\tableofcontents
-}
-\hypertarget{introduction}{%
-\chapter{Introduction}\label{introduction}}
-
+# Introduction
 Hello, how are we doing?
 
-\hypertarget{methods}{%
-\chapter{Methods}\label{methods}}
+<!--chapter:end:index.Rmd-->
 
-\hypertarget{clean-up}{%
-\section{Clean up}\label{clean-up}}
+# Methods
 
+## Clean up
 All functional annotation sets were cleaned up the following way (using definitions from the Gene Ontology version 2019-07-01):
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Any annotations where the GO accession was marked as obsolete were removed.
-\item
-  Some terms in the GO have `alternative ids'. When naively removing duplicates, two entries will not be recognized as duplicates if they have different accessions pointing to the same GO term. Therefore, all GO accessions were changed to their respecitve `main id' and the dataset was again scanned for duplicates.
-\end{enumerate}
+1. Any annotations where the GO accession was marked as obsolete were removed.
+2. Some terms in the GO have 'alternative ids'. When naively removing duplicates, two entries will not be recognized as duplicates if they have different accessions pointing to the same GO term. Therefore, all GO accessions were changed to their respecitve 'main id' and the dataset was again scanned for duplicates.
 
 Table 1 provides information on the number of annotations that were removed this way from each dataset.
 All further analyses were performed on the cleaned datasets since we assume the user will only be interested in still valid and non-redundant functional annotations.
 
-\hypertarget{results}{%
-\chapter{Results}\label{results}}
+<!--chapter:end:02-methods.Rmd-->
 
-\ldots{} a quantitative comparison of the datasets in Table.
+# Results
+... a quantitative comparison of the datasets in Table.
 
 \begin{table}[t]
 
-\caption{\label{tab:cleanup-table}Number of removed annotations during cleanup.}
+\caption{(\#tab:cleanup-table)Number of removed annotations during cleanup.}
 \centering
 \begin{tabular}{llrr}
 \toprule
@@ -193,7 +80,7 @@ Medicago\_truncatula.A17 & GOMAP & 0 & 0\\
 
 \begin{table}[t]
 
-\caption{\label{tab:annotation-quantities}Quantitative metrics of the cleaned functional annotation sets. C, F, P, and A refer to the aspects of the GO: Cellular Component, Biological Function, Molecular Process, and Any/All.}
+\caption{(\#tab:annotation-quantities)Quantitative metrics of the cleaned functional annotation sets. C, F, P, and A refer to the aspects of the GO: Cellular Component, Biological Function, Molecular Process, and Any/All.}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{threeparttable}
@@ -242,5 +129,5 @@ Zea\_mays.PH207 &  & GOMAP & 90617 & 85500 & 288677 & 464794 & 351.70 & 367.62 &
 \end{threeparttable}}
 \end{table}
 
+<!--chapter:end:03-results.Rmd-->
 
-\end{document}

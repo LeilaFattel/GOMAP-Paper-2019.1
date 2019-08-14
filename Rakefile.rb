@@ -1,8 +1,8 @@
 task :default => 'Paper.pdf'
 
 desc 'Typeset the Paper'
-file 'Paper.pdf' => ['analyses/quantity/results/quantity_table.csv', 'text/Paper.Rmd'] do
-  sh %q(R -e 'library("rmarkdown"); render("text/Paper.Rmd", output_file="../Paper.pdf", knit_root_dir="../", clean=T)')
+file 'Paper.pdf' => ['analyses/quantity/results/quantity_table.csv'] + FileList.new("text/*") do
+  sh %q(R -e 'library("bookdown"); xfun::in_dir("text", render_book("index.Rmd", output_file="../../Paper.pdf", clean=T))')
 end
 
 
