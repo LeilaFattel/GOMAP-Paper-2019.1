@@ -25,7 +25,7 @@ From: ubuntu:18.04
   wget https://github.com/jgm/pandoc/releases/download/2.7.3/pandoc-2.7.3-1-amd64.deb
   apt install -y ./pandoc-2.7.3-1-amd64.deb
   ## Install RMarkdown
-  R --slave -e 'install.packages(c("rmarkdown", "kableExtra", "bookdown"))'
+  R --slave -e 'install.packages(c("rmarkdown", "kableExtra", "bookdown", "rticles"))'
 
   # Clean
   apt-get clean

@@ -1,17 +1,54 @@
 ---
-title: "This is the title"
-author: "The Pickles"
+title: "Article Title"
+runtitle: "Short Title"
+documentclass: frontiersSCNS  # or frontiersHLTH, or frontiersFPHY
+author:
+  - name: First Author
+    affiliation: '1'
+    etal: LASTNAME # First author's last name. 
+  - name: Co-Author
+    affiliation: '2'
+  - name: Co-Author
+    affiliation: '1,3'
+    email: email@uni.edu # Indicates corresponding Author
+    institution: Laboratory X, Institute X, Department X, Organization X
+    street: Street X
+    city: City X
+    state: State XX # only USA, Australia, Canada
+    zip: Zip Code X
+    country: Country X
+affiliation:
+  - id: '1'
+    department: Department X
+    institution: Institution X
+    city: City X
+    state: State XX # only USA, Australia, Canada
+    country: Country X
+  - id: '2' 
+    department: Department X
+    institution: Institution X
+    city: City X
+    state: State XX # only USA, Australia, Canada
+    country: Country X
+  - id: '3' 
+    department: Department X
+    institution: Institution X
+    city: City X
+    state: State XX # only USA, Australia, Canada
+    country: Country X
 date: "Febcember 32nd 3023"
 language: en-US
 site: "bookdown::bookdown_site"
+csl: frontiers.csl
+bibliography: test.bib
 output:
   bookdown::pdf_book:
     keep_tex: true
     keep_md: true
+    base_format: rticles::frontiers_article
     includes:
       in_header:
         preamble.tex
-documentclass: book
 ---
 
 ```{r load_libs, include=F}
@@ -19,6 +56,18 @@ library(knitr)
 library(kableExtra)
 knitr::opts_chunk$set(echo=FALSE)
 ```
+
+\begin{abstract}
+
+Abstract length and content varies depending on article type. Refer to 
+\url{http://www.frontiersin.org/about/AuthorGuidelines} for abstract requirement
+and length according to article type.
+
+%All article types: you may provide up to 8 keywords; at least 5 are mandatory.
+\tiny
+ \keyFont{ \section{Keywords:} Text Text Text Text Text Text Text Text } 
+
+\end{abstract}
 
 # Introduction
 Hello, how are we doing?
