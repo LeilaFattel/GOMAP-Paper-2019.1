@@ -56,3 +56,8 @@ desc 'Quantity analysis'
 file 'analyses/quantity/results/quantity_table.csv' => cleanup_targets + ['data/n_genes_per_genome.csv', 'analyses/quantity/quantity.R'] do
   sh "Rscript analyses/quantity/quantity.R"
 end
+
+desc 'Run unit tests for analyses code'
+task :test do
+  sh 'crystal spec'
+end
