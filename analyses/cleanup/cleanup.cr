@@ -1,5 +1,3 @@
-KEEP_COLUMNS = [1,3,4,8]
-
 require "csv"
 require "gzip"
 require "../common_lib.cr"
@@ -43,7 +41,7 @@ end
 
 if ARGV.first == "--delete"
   genome, dataset = filepath2genome_dataset(ARGV[1])
-  File.delete("analyses/cleanup/results/#{genome}/#{dataset}.mgaf.gz")
+  File.delete("analyses/cleanup/results/#{genome}/#{dataset}.gaf.gz")
   update_csv(genome, dataset, nil, nil)
 else
   abort "File #{ARGV.first} not found" unless File.exists? ARGV.first
@@ -59,16 +57,17 @@ else
   n_duplicates = 0
   Gzip::Reader.open(ARGV.first) do |infile|
     reader = CSV.new(infile, separator:'\t')
-    Gzip::Writer.open("analyses/cleanup/results/#{genome}/#{dataset}.mgaf.gz", Gzip::BEST_COMPRESSION) do |outfile|
+    Dir.mkdir_p("analyses/cleanup/results/#{genome}")
+    Gzip::Writer.open("analyses/cleanup/results/#{genome}/#{dataset}.gaf.gz", Gzip::BEST_COMPRESSION) do |outfile|
 
       printed_tuples = Set(Tuple(String, String)).new
 
       CSV.build(outfile, separator:'\t') do |writer|
-        # Skip first GAF header
-        reader.next
-        # Write selected parts of second GAF header
-        reader.next
-        writer.row KEEP_COLUMNS.map { |i| reader.row[i] }
+        # Write GAF headers
+        2.times do
+          reader.next
+          writer.row reader.row.to_a
+        end
 
         while reader.next
           row = reader.row.to_a
@@ -78,7 +77,7 @@ else
             next
           end
           if printed_tuples.add?({row[1], row[4]}) # This returns false if the tuple is already present in the sent
-            writer.row KEEP_COLUMNS.map { |i| row[i] }
+            writer.row row.to_a
           else
             n_duplicates += 1
           end

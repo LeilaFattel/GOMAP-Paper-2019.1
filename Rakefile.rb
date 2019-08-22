@@ -31,7 +31,7 @@ cleanup_targets = ['analyses/cleanup/results/cleanup_table.csv']
 ## For each raw dataset there should be an up-to-date cleaned one
 FileList.new("data/go_annotation_sets/*/*.gaf.gz").to_a.each do |f|
   # Corresponding cleaned up file:
-  target = "analyses/cleanup/results/" + ((f.split(".")[0..-3] + ["mgaf.gz"]).join(".").split("/")[2..-1]).join("/")
+  target = "analyses/cleanup/results/" + ((f.split(".")[0..-3] + ["gaf.gz"]).join(".").split("/")[2..-1]).join("/")
   # The cleaned up file depends on its source file, the cleanup executable and the go_files
   file target => [f, 'analyses/cleanup/cleanup'] + go_files do
     sh "analyses/cleanup/cleanup #{f}"
@@ -44,7 +44,7 @@ FileList.new("data/go_annotation_sets/*/*.gaf.gz").to_a.each do |f|
 end
 
 ## If there are any cleaned up files that do not have a source file anymore, remove them
-(FileList.new("analyses/cleanup/results/*/*.mgaf.gz").to_a - cleanup_targets).each do |f|
+(FileList.new("analyses/cleanup/results/*/*.gaf.gz").to_a - cleanup_targets).each do |f|
     sh "analyses/cleanup/cleanup --delete #{f}"
 end
 
