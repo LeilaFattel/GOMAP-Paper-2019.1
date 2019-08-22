@@ -10,8 +10,8 @@ You may also just want to use our software for your own data or play around with
 Please [install singularity](https://sylabs.io/guides/3.3/user-guide/quick_start.html#quick-installation-steps) and then follow these steps:
 
 ```bash
-# 1. Download the git repository
-git clone https://github.com/Dill-PICL/GOMAP-Paper-2019.1.git
+# 1. Download the git repository and its submodules
+git clone --recurse-submodules https://github.com/Dill-PICL/GOMAP-Paper-2019.1.git
 
 # 2. Change into the newly downloaded folder
 cd GOMAP-Paper-2019.1
