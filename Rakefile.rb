@@ -1,7 +1,9 @@
+require "csv"
+
 task :default => 'Paper.pdf'
 
 desc 'Typeset the Paper'
-file 'Paper.pdf' => ['analyses/quantity/results/quantity_table.csv'] + FileList.new("text/*") do
+file 'Paper.pdf' => ['analyses/quantity/results/quantity_table.csv', 'analyses/quality/quality_table.csv'] + FileList.new("text/*") do
   sh %q(R -e 'library("bookdown"); xfun::in_dir("text", render_book("index.Rmd", output_file="../../Paper.pdf", clean=T))')
 end
 
@@ -61,3 +63,56 @@ desc 'Run unit tests for analyses code'
 task :test do
   sh 'crystal spec'
 end
+
+# Quality Evaluation
+## For each Gold Standard there should be an ADS equivalent
+quality_targets = []
+FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
+  genome = File.basename(File.dirname(f))
+  # We're taking the corresponding ic.tab file as a representative for all files created by ADS
+  file "analyses/quality/#{genome}/ic.tab" => f do
+    Dir.chdir("analyses/quality/ads/") do # ADS requires to be run from the ads directory
+      sh "gunzip -k ../../cleanup/results/#{genome}/GoldStandard.gaf.gz"
+      sh "gunzip -k ../../cleanup/go.obo.gz"
+      rm_f "../#{genome}/ic.* ../#{genome}/goparents.tab" # Remove old files to start from a clean slate
+      sh "perl pipeline.pl --datadir ../#{genome}/ --obo ../../cleanup/go.obo --goa ../../cleanup/results/#{genome}/GoldStandard.gaf --pipev 1,2"
+      sh "tail -n+3 ../../cleanup/results/#{genome}/GoldStandard.gaf | cut -f2,5 > ../#{genome}/GoldStandard.tsv"
+      rm "../../cleanup/results/#{genome}/GoldStandard.gaf"
+      rm "../../cleanup/go.obo"
+    end
+  end
+
+  # For each of the genomes where a Gold Standard is present, all other datasets should also be evaluated
+  FileList.new("analyses/cleanup/results/#{genome}/*.gaf.gz").to_a.each do |ds|
+    dataset = File.basename(ds).split(".").first
+    target = "analyses/quality/#{genome}/#{dataset}.SimGIC2"
+    file target => [ds, "analyses/quality/#{genome}/ic.tab"] do
+      Dir.chdir("analyses/quality/ads/") do # ADS requires to be run from the ads directory
+        sh "gunzip -k ../../cleanup/go.obo.gz"
+        sh "gunzip -k ../../cleanup/results/#{genome}/#{dataset}.gaf.gz"
+        IO.write("../#{genome}/#{dataset}.predictions", "foobar\tGO:00000331\t0")
+        sh "tail -n+3 ../../cleanup/results/#{genome}/#{dataset}.gaf | cut -f2,5 | awk '{print $0\"\\t1\"}' >> ../#{genome}/#{dataset}.predictions"
+        sh "bin/goscores -p ../#{genome}/#{dataset}.predictions -t ../#{genome}/GoldStandard.tsv -g -b ../../cleanup/go.obo -i ../#{genome}/ic.tab ../#{genome}/goparents.tab -m 'SF=SimGIC2' > ../#{genome}/#{dataset}.SimGIC2"
+        rm "../../cleanup/go.obo"
+        rm "../../cleanup/results/#{genome}/#{dataset}.gaf"
+      end
+    end
+    quality_targets << target
+  end
+end
+
+# Collect all SimGIC2 scores in a table
+file 'analyses/quality/quality_table.csv' => quality_targets do
+  CSV.open("analyses/quality/quality_table.csv", "wb+") do |csv|
+    csv << ["genome", "dataset", "SimGIC2"]
+    quality_targets.each do |t|
+      dataset = File.basename(t).split(".").first
+      genome = File.basename(File.dirname(t))
+      score = IO.read(t).chomp
+      csv << [genome, dataset, score]
+    end
+  end
+end
+
+desc 'Perform Quality evaluation'
+task :quality => 'analyses/quality/quality_table.csv'

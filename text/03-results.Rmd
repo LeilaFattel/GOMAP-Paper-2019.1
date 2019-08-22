@@ -29,3 +29,10 @@ kable(dt2, booktabs=T, caption = "Quantitative metrics of the cleaned functional
     "Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Ask your favorite statistician why $A \\\\neq C + F +P$"
   ), threeparttable=T, escape=F)
 ```
+
+```{r quality-table}
+dt2 <- read.csv("../analyses/quality/quality_table.csv", header=T)
+kable(dt2, booktabs=TRUE, caption = "Quality evaluation of the used GO annotation sets.", col.names=c("Genome", "Dataset", "SimGIC2 score")) %>%
+ kable_styling(latex_options = c("striped")) %>%
+ collapse_rows(columns = 1, latex_hline="major")
+```

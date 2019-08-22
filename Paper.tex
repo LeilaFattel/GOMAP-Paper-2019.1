@@ -174,35 +174,31 @@ All further analyses were performed on the cleaned datasets since we assume the 
 \toprule
 Genome & Dataset & Obsolete Annotations & Duplicates\\
 \midrule
-\rowcolor{gray!6}  Triticum\_aestivum & GOMAP & 285 & 0\\
-\cmidrule{1-4}
-Hordeum\_vulgarum & GOMAP & 101 & 0\\
-\cmidrule{1-4}
-\rowcolor{gray!6}  Glycine\_max & GOMAP & 203 & 0\\
-\cmidrule{1-4}
-Arachis\_hypogaea & GOMAP & 0 & 0\\
-\cmidrule{1-4}
-\rowcolor{gray!6}  Zea\_mays.PH207 & GOMAP & 798 & 76\\
-\cmidrule{1-4}
-Zea\_mays.Mo17 & GOMAP & 726 & 77\\
-\cmidrule{1-4}
-\rowcolor{gray!6}  Phaseolus\_vulgaris & GOMAP & 0 & 0\\
-\cmidrule{1-4}
-Vigna\_unguiculata & GOMAP & 0 & 0\\
-\cmidrule{1-4}
-\rowcolor{gray!6}  Medicago\_truncatula.R108 & GOMAP & 0 & 0\\
-\cmidrule{1-4}
-Zea\_mays.B73.v3 & GOMAP & 1107 & 70\\
-\cmidrule{1-4}
-\rowcolor{gray!6}  Zea\_mays.W22 & GOMAP & 754 & 82\\
+\rowcolor{gray!6}  Hordeum\_vulgarum & GOMAP & 101 & 0\\
 \cmidrule{1-4}
 Medicago\_truncatula.A17 & GOMAP & 0 & 0\\
 \cmidrule{1-4}
-\rowcolor{gray!6}  Zea\_mays.B73.v4 & GOMAP & 752 & 83\\
+\rowcolor{gray!6}  Medicago\_truncatula.R108 & GOMAP & 0 & 0\\
 \cmidrule{1-4}
- & GoldStandard & 38 & 556\\
+ & GOMAP & 111 & 2\\
 
-\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash Oryza\_sativa} & GOMAP & 111 & 2\\
+\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash Oryza\_sativa} & GoldStandard & 38 & 556\\
+\cmidrule{1-4}
+Phaseolus\_vulgaris & GOMAP & 0 & 0\\
+\cmidrule{1-4}
+\rowcolor{gray!6}  Triticum\_aestivum & GOMAP & 285 & 0\\
+\cmidrule{1-4}
+Vigna\_unguiculata & GOMAP & 0 & 0\\
+\cmidrule{1-4}
+\rowcolor{gray!6}  Zea\_mays.B73.v3 & GOMAP & 1107 & 70\\
+\cmidrule{1-4}
+Zea\_mays.B73.v4 & GOMAP & 752 & 83\\
+\cmidrule{1-4}
+\rowcolor{gray!6}  Zea\_mays.Mo17 & GOMAP & 726 & 77\\
+\cmidrule{1-4}
+Zea\_mays.PH207 & GOMAP & 798 & 76\\
+\cmidrule{1-4}
+\rowcolor{gray!6}  Zea\_mays.W22 & GOMAP & 754 & 82\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -256,6 +252,21 @@ Zea\_mays.PH207 &  & GOMAP & 90617 & 85500 & 288677 & 464794 & 351.70 & 367.62 &
 \item[c] Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Ask your favorite statistician why $A \neq C + F +P$
 \end{tablenotes}
 \end{threeparttable}}
+\end{table}
+
+\begin{table}[t]
+
+\caption{\label{tab:quality-table}Quality evaluation of the used GO annotation sets.}
+\centering
+\begin{tabular}{llr}
+\toprule
+Genome & Dataset & SimGIC2 score\\
+\midrule
+\rowcolor{gray!6}   & GOMAP & 0.248394\\
+
+\multirow{-2}{*}{\raggedright\arraybackslash Oryza\_sativa} & GoldStandard & 0.999974\\
+\bottomrule
+\end{tabular}
 \end{table}
 
 \end{document}
