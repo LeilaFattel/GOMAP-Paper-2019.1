@@ -57,6 +57,19 @@ library(kableExtra)
 knitr::opts_chunk$set(echo=FALSE)
 ```
 
+```{r helper-functions}
+format_genome <- function(genomes) {
+  return(unlist(lapply(strsplit(genomes, "\\."), function(x) { 
+    if(length(x) > 1) {
+      paste0("\\textit{",gsub("_", " ",x[1]),"} ", paste(x[2:length(x)], collapse="."))
+    } else {
+      paste0("\\textit{",gsub("_", " ",x[1]),"} ")
+    }
+  }))
+  )
+}
+```
+
 \begin{abstract}
 
 Abstract length and content varies depending on article type. Refer to 

@@ -4,6 +4,7 @@ task :default => 'Paper.pdf'
 
 desc 'Typeset the Paper'
 file 'Paper.pdf' => ['analyses/quantity/results/quantity_table.csv', 'analyses/quality/quality_table.csv'] + FileList.new("text/*") do
+  rm_f 'text/_main.Rmd'
   sh %q(R -e 'library("bookdown"); xfun::in_dir("text", render_book("index.Rmd", output_file="../../Paper.pdf", clean=T))')
 end
 

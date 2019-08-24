@@ -53,6 +53,8 @@ output:
 
 
 
+
+
 \begin{abstract}
 
 Abstract length and content varies depending on article type. Refer to 
@@ -94,38 +96,52 @@ All further analyses were performed on the cleaned datasets since we assume the 
 \toprule
 Genome & Dataset & Obsolete Annotations & Duplicates\\
 \midrule
-\rowcolor{gray!6}  Hordeum\_vulgarum & GOMAP & 101 & 0\\
+\rowcolor{gray!6}  \textit{Glycine max} & GOMAP & 203 & 0\\
 \cmidrule{1-4}
-Medicago\_truncatula.A17 & GOMAP & 0 & 0\\
+\textit{Hordeum vulgarum} & GOMAP & 101 & 0\\
 \cmidrule{1-4}
-\rowcolor{gray!6}  Medicago\_truncatula.R108 & GOMAP & 0 & 0\\
+\rowcolor{gray!6}  \textit{Medicago truncatula} A17 & GOMAP & 0 & 0\\
 \cmidrule{1-4}
- & GOMAP & 111 & 2\\
+\textit{Medicago truncatula} R108 & GOMAP & 0 & 0\\
+\cmidrule{1-4}
+\rowcolor{gray!6}   & GOMAP & 111 & 2\\
 
-\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash Oryza\_sativa} & GoldStandard & 38 & 556\\
+\multirow{-2}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & GoldStandard & 38 & 556\\
 \cmidrule{1-4}
-Phaseolus\_vulgaris & GOMAP & 0 & 0\\
+\rowcolor{gray!6}  \textit{Phaseolus vulgaris} & GOMAP & 0 & 0\\
 \cmidrule{1-4}
-\rowcolor{gray!6}  Triticum\_aestivum & GOMAP & 285 & 0\\
+\textit{Triticum aestivum} & GOMAP & 285 & 0\\
 \cmidrule{1-4}
-Vigna\_unguiculata & GOMAP & 0 & 0\\
+\rowcolor{gray!6}  \textit{Vigna unguiculata} & GOMAP & 0 & 0\\
 \cmidrule{1-4}
-\rowcolor{gray!6}  Zea\_mays.B73.v3 & GOMAP & 1107 & 70\\
+\textit{Zea mays} B73.v4 & GOMAP & 752 & 83\\
 \cmidrule{1-4}
-Zea\_mays.B73.v4 & GOMAP & 752 & 83\\
+\rowcolor{gray!6}  \textit{Zea mays} Mo17 & GOMAP & 726 & 77\\
 \cmidrule{1-4}
-\rowcolor{gray!6}  Zea\_mays.Mo17 & GOMAP & 726 & 77\\
+\textit{Zea mays} PH207 & GOMAP & 798 & 76\\
 \cmidrule{1-4}
-Zea\_mays.PH207 & GOMAP & 798 & 76\\
+\rowcolor{gray!6}  \textit{Zea mays} W22 & GOMAP & 754 & 82\\
 \cmidrule{1-4}
-\rowcolor{gray!6}  Zea\_mays.W22 & GOMAP & 754 & 82\\
+\textit{Arachis hypogaea} & GOMAP & 0 & 0\\
+\cmidrule{1-4}
+\rowcolor{gray!6}   & GOMAP & 1107 & 70\\
+
+ & GoldStandard & 1 & 0\\
+
+\rowcolor{gray!6}   & Gramene49 & 94 & 2\\
+
+\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 54 & 0\\
+\cmidrule{1-4}
+\rowcolor{gray!6}   & Gramene61-IEA & 10 & 14\\
+
+\multirow{-2}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-all & 48 & 9565\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \begin{table}[t]
 
-\caption{(\#tab:annotation-quantities)Quantitative metrics of the cleaned functional annotation sets. C, F, P, and A refer to the aspects of the GO: Cellular Component, Biological Function, Molecular Process, and Any/All.}
+\caption{(\#tab:annotation-quantities)Quantitative metrics of the cleaned functional annotation sets. CC, BF, MP, and A refer to the aspects of the GO: Cellular Component, Biological Function, Molecular Process, and Any/All.}
 \centering
 \resizebox{\linewidth}{!}{
 \begin{threeparttable}
@@ -133,43 +149,53 @@ Zea\_mays.PH207 & GOMAP & 798 & 76\\
 \toprule
 \multicolumn{3}{c}{ } & \multicolumn{4}{c}{Annotations\textsuperscript{a}} & \multicolumn{4}{c}{Annotated Genes [\%]\textsuperscript{b}} & \multicolumn{4}{c}{Median Ann. per G.\textsuperscript{c}} \\
 \cmidrule(l{3pt}r{3pt}){4-7} \cmidrule(l{3pt}r{3pt}){8-11} \cmidrule(l{3pt}r{3pt}){12-15}
-Genome & Genes & Dataset & C & F & P & A & C & F & P & A & C & F & P & A\\
+Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & A\\
 \midrule
-\rowcolor{gray!6}  Arachis\_hypogaea &  & GOMAP & 153433 & 132944 & 493799 & 780176 & 576.67 & 568.55 & 671.23 & 671.24 & 2 & 2 & 6 & 10\\
+\rowcolor{gray!6}  \textit{Arachis hypogaea} &  & GOMAP & 153433 & 132944 & 493799 & 780176 & 57667 & 56855 & 67123 & 67124 & 2 & 2 & 6 & 10\\
 
-Glycine\_max &  & GOMAP & 129215 & 113827 & 417555 & 660597 & 460.20 & 470.34 & 528.71 & 528.72 & 2 & 2 & 6 & 11\\
+\textit{Glycine max} &  & GOMAP & 129215 & 113827 & 417555 & 660597 & 46020 & 47034 & 52871 & 52872 & 2 & 2 & 6 & 11\\
 
-\rowcolor{gray!6}  Hordeum\_vulgarum &  & GOMAP & 88130 & 80282 & 272823 & 441235 & 352.37 & 364.70 & 397.33 & 397.34 & 2 & 2 & 5 & 10\\
+\rowcolor{gray!6}  \textit{Hordeum vulgarum} &  & GOMAP & 88130 & 80282 & 272823 & 441235 & 35237 & 36470 & 39733 & 39734 & 2 & 2 & 5 & 10\\
 
-Medicago\_truncatula.A17 &  & GOMAP & 107362 & 99719 & 364065 & 571146 & 423.25 & 437.36 & 504.43 & 504.44 & 2 & 2 & 6 & 10\\
+\textit{Medicago truncatula} A17 &  & GOMAP & 107362 & 99719 & 364065 & 571146 & 42325 & 43736 & 50443 & 50444 & 2 & 2 & 6 & 10\\
 
-\rowcolor{gray!6}  Medicago\_truncatula.R108 &  & GOMAP & 112343 & 108031 & 382322 & 602696 & 403.32 & 502.20 & 557.06 & 557.06 & 1 & 2 & 5 & 9\\
+\rowcolor{gray!6}  \textit{Medicago truncatula} R108 &  & GOMAP & 112343 & 108031 & 382322 & 602696 & 40332 & 50220 & 55706 & 55706 & 1 & 2 & 5 & 9\\
 
- &  & GOMAP & 72780 & 64685 & 248700 & 386165 & 286.19 & 298.53 & 358.24 & 358.25 & 2 & 2 & 6 & 9\\
+ &  & GOMAP & 72780 & 64685 & 248700 & 386165 & 28619 & 29853 & 35824 & 35825 & 2 & 2 & 6 & 9\\
 
-\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash Oryza\_sativa} &  & GoldStandard & 7730 & 11060 & 19378 & 38176 & 57.25 & 73.83 & 90.31 & 113.87 & 1 & 1 & 1 & 3\\
+\rowcolor{gray!6}   &  & GoldStandard & 7730 & 11060 & 19378 & 38176 & 5725 & 7383 & 9031 & 11387 & 1 & 1 & 1 & 3\\
 
-Phaseolus\_vulgaris &  & GOMAP & 72005 & 64583 & 229630 & 366218 & 259.34 & 255.39 & 274.32 & 274.33 & 2 & 2 & 6 & 11\\
+ &  & Gramene61-IEA & 14633 & 32787 & 39105 & 86529 & 10771 & 15537 & 16705 & 21446 & 1 & 1 & 1 & 3\\
 
-\rowcolor{gray!6}  Triticum\_aestivum &  & GOMAP & 267741 & 218623 & 785960 & 1272324 & 956.04 & 981.87 & 1078.90 & 1078.91 & 2 & 2 & 6 & 10\\
+\rowcolor{gray!6}  \multirow{-4}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} &  & Gramene61-all & 20622 & 40674 & 54402 & 115710 & 13272 & 16962 & 18513 & 22272 & 1 & 1 & 2 & 4\\
 
-Vigna\_unguiculata &  & GOMAP & 75867 & 68313 & 243278 & 387458 & 271.73 & 271.24 & 297.72 & 297.73 & 2 & 2 & 6 & 11\\
+\textit{Phaseolus vulgaris} &  & GOMAP & 72005 & 64583 & 229630 & 366218 & 25934 & 25539 & 27432 & 27433 & 2 & 2 & 6 & 11\\
 
-\rowcolor{gray!6}  Zea\_mays.B73.v3 &  & GOMAP & 135211 & 87420 & 291251 & 513882 & 348.66 & 380.73 & 394.68 & 394.69 & 3 & 2 & 6 & 11\\
+\rowcolor{gray!6}  \textit{Triticum aestivum} &  & GOMAP & 267741 & 218623 & 785960 & 1272324 & 95604 & 98187 & 107890 & 107891 & 2 & 2 & 6 & 10\\
 
-Zea\_mays.B73.v4 &  & GOMAP & 88827 & 82251 & 278719 & 449797 & 367.17 & 373.37 & 393.23 & 393.24 & 2 & 2 & 6 & 10\\
+\textit{Vigna unguiculata} &  & GOMAP & 75867 & 68313 & 243278 & 387458 & 27173 & 27124 & 29772 & 29773 & 2 & 2 & 6 & 11\\
 
-\rowcolor{gray!6}  Zea\_mays.Mo17 &  & GOMAP & 87567 & 79214 & 277787 & 444568 & 336.18 & 351.05 & 386.19 & 386.20 & 2 & 2 & 6 & 10\\
+\rowcolor{gray!6}   &  & GOMAP & 135211 & 87420 & 291251 & 513882 & 34866 & 38073 & 39468 & 39469 & 3 & 2 & 6 & 11\\
 
-Zea\_mays.PH207 &  & GOMAP & 90617 & 85500 & 288677 & 464794 & 351.70 & 367.62 & 405.56 & 405.57 & 2 & 2 & 6 & 10\\
+ &  & GoldStandard & 1565 & 65 & 299 & 1929 & 1548 & 60 & 151 & 1634 & 1 & 0 & 0 & 1\\
 
-\rowcolor{gray!6}  Zea\_mays.W22 & \multirow{-15}{*}{\raggedleft\arraybackslash 100} & GOMAP & 95390 & 85039 & 289780 & 470209 & 369.87 & 376.85 & 406.89 & 406.90 & 2 & 2 & 6 & 10\\
+\rowcolor{gray!6}   &  & Gramene49 & 20072 & 31056 & 30089 & 81217 & 11834 & 17991 & 15800 & 21926 & 1 & 1 & 1 & 3\\
+
+\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} &  & Phytozome & 4787 & 19044 & 13100 & 36931 & 4524 & 13728 & 11365 & 16132 & 0 & 1 & 1 & 2\\
+
+\rowcolor{gray!6}  \textit{Zea mays} B73.v4 &  & GOMAP & 88827 & 82251 & 278719 & 449797 & 36717 & 37337 & 39323 & 39324 & 2 & 2 & 6 & 10\\
+
+\textit{Zea mays} Mo17 &  & GOMAP & 87567 & 79214 & 277787 & 444568 & 33618 & 35105 & 38619 & 38620 & 2 & 2 & 6 & 10\\
+
+\rowcolor{gray!6}  \textit{Zea mays} PH207 &  & GOMAP & 90617 & 85500 & 288677 & 464794 & 35170 & 36762 & 40556 & 40557 & 2 & 2 & 6 & 10\\
+
+\textit{Zea mays} W22 & \multirow{-20}{*}{\raggedleft\arraybackslash 100} & GOMAP & 95390 & 85039 & 289780 & 470209 & 36987 & 37685 & 40689 & 40690 & 2 & 2 & 6 & 10\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
-\item[a] How many annotations in the C, F, and P aspect does this dataset contain? A = How many in total? $A = C + F + P$
-\item[b] How many genes in the genome have at least one GO term from the C, F, P aspect annotated to them? A = How many at least one from any aspect? ($A = C \cup F \cup P$)
-\item[c] Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Ask your favorite statistician why $A \neq C + F +P$
+\item[a] How many annotations in the CC, BF, and MP aspect does this dataset contain? A = How many in total? $\textrm{A} = \textrm{CC} + \textrm{BF} + \textrm{MP}$
+\item[b] How many genes in the genome have at least one GO term from the CC, BF, MP aspect annotated to them? A = How many at least one from any aspect? ($\textrm{A} = \textrm{CC} \cup \textrm{BF} \cup \textrm{MP}$)
+\item[c] Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Ask your favorite statistician why $\textrm{A} \neq \textrm{CC} + \textrm{BF} +\textrm{MP}$
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
@@ -184,7 +210,19 @@ Genome & Dataset & SimGIC2 score\\
 \midrule
 \rowcolor{gray!6}   & GOMAP & 0.248394\\
 
-\multirow{-2}{*}{\raggedright\arraybackslash Oryza\_sativa} & GoldStandard & 0.999974\\
+ & GoldStandard & 0.999974\\
+
+\rowcolor{gray!6}   & Gramene61-IEA & 0.319345\\
+
+\multirow{-4}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-all & 0.732175\\
+\cmidrule{1-3}
+\rowcolor{gray!6}   & GOMAP & 0.024565\\
+
+ & GoldStandard & 0.996264\\
+
+\rowcolor{gray!6}   & Gramene49 & 0.043521\\
+
+\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 0.021982\\
 \bottomrule
 \end{tabular}
 \end{table}

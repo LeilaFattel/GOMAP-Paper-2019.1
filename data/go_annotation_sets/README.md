@@ -8,19 +8,19 @@ Alternatively, you can use the table below:
 
 | Genome                   | DOI                                | Filepath under DOI                                        |
 |--------------------------|------------------------------------|-----------------------------------------------------------|
-| Arachis hypogaea         |                                    | `3_final-result/3.1_Arachis_hypogaea_IPGI_Tifrunner.gnm1.ann1.cleaned.gaf.gz`
+| Arachis hypogaea         | http://doi.org/10.25739/chab-0e35  | `3_final-result/3.1_Arachis_hypogaea_IPGI_Tifrunner.gnm1.ann1.cleaned.gaf.gz`
 | Brachypodium distachyon  |                                    | 
 | Glycine max              | https://doi.org/10.25739/59ec-1719 | `3_final-result/3.1_Glycine_max_JGI_Wm82.a4.v1.cleaned.gaf.gz`
 | Gossypium herbaceum      |                                    | 
 | Hordeum vulgarum         | https://doi.org/10.25739/zvgv-8e37 | `3_final-result/3.1_Hordeum_vulgare.PGSB-1.0.cleaned.gaf.gz`
-| Medicago truncatula.A17  |                                    | `3_final-result/3.1_Medicago_truncatula_A17_HM341_Mt4.0v2.cleaned.gaf.gz`
-| Medicago truncatula.R108 |                                    | `3_final-result/3.1_Medicago_truncatula_R108_HM340_v1.0.cleaned.gaf.gz`
+| Medicago truncatula.A17  | http://doi.org/10.25739/py38-yb08  | `3_final-result/3.1_Medicago_truncatula_A17_HM341_Mt4.0v2.cleaned.gaf.gz`
+| Medicago truncatula.R108 | http://doi.org/10.25739/2sqc-j140  | `3_final-result/3.1_Medicago_truncatula_R108_HM340_v1.0.cleaned.gaf.gz`
 | Oryza sativa             | http://doi.org/10.25739/53g0-j859  | `3_final-result/3.1_Oryza_sativa.IRGSP-1.0.cleaned.gaf.gz`
-| Phaseolus vulgaris       |                                    | `3_final-result/3.1_Phaseolus_vulgaris.v2.0.cleaned.gaf.gz`
+| Phaseolus vulgaris       | http://doi.org/10.25739/1ywe-ew96  | `3_final-result/3.1_Phaseolus_vulgaris.v2.0.cleaned.gaf.gz`
 | PINE                     |                                    | 
 | Sorghum bicolor          |                                    | 
 | Triticum aestivum        | https://doi.org/10.25739/65kf-jz20 | `/3_IWGSC_v1.1_HC.cleaned.gaf.gz`
-| Vigna unguiculata        |                                    | `3_final-result/3.1_Vigna_unguiculata.JGI.v1.1.cleaned.gaf.gz`
+| Vigna unguiculata        | https://doi.org/10.25739/cdx9-wr97 | `3_final-result/3.1_Vigna_unguiculata.JGI.v1.1.cleaned.gaf.gz`
 | Zea mays.B73.v3          | http://doi.org/10.7946/P2S62P      | `e.agg_data/maize_v3.agg.nr.gaf.gz`
 | Zea mays.B73.v4          | http://doi.org/10.7946/P2M925      | `e.agg_data/maize.B73.AGPv4.aggregate.gaf.gz`
 | Zea mays.Mo17            | https://doi.org/10.25739/m634-cn58 | `e.agg_data/maize.Mo17.AGPv1.aggregate.gaf.gz`
