@@ -41,11 +41,13 @@ language: en-US
 site: "bookdown::bookdown_site"
 csl: frontiers.csl
 bibliography: test.bib
+link-citations: true
 output:
   bookdown::pdf_book:
     keep_tex: true
     keep_md: true
     base_format: rticles::frontiers_article
+    citation_package: natbib
     includes:
       in_header:
         preamble.tex
@@ -70,6 +72,7 @@ and length according to article type.
 # Introduction
 Hello, how are we doing?
 
+
 <!--chapter:end:index.Rmd-->
 
 # Methods
@@ -87,6 +90,7 @@ All further analyses were performed on the cleaned datasets since we assume the 
 
 # Results
 ... a quantitative comparison of the datasets in Table.
+Test citation: @Neuro2013 says that its wrong [@Gene2012]
 
 \begin{table}[t]
 
@@ -228,4 +232,8 @@ Genome & Dataset & SimGIC2 score\\
 \end{table}
 
 <!--chapter:end:03-results.Rmd-->
+
+\bibliography{test}
+
+<!--chapter:end:06-backmatter.Rmd-->
 
