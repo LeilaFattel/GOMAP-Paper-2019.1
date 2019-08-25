@@ -8,3 +8,15 @@ All functional annotation sets were cleaned up the following way (using definiti
 
 Table 1 provides information on the number of annotations that were removed this way from each dataset.
 All further analyses were performed on the cleaned datasets since we assume the user will only be interested in still valid and non-redundant functional annotations.
+
+## Choosing the right evaluation metric
+A plethora of different metric to evaluate the quality of functional annotation predictions is available using different approaches and there seems to be no clear standard yet. `TODO: THIS IS WEAK`
+Additionally, each of the metrics has a different focus and lalala so choosing a metric for quality evaluation is not trivial.
+When we first published GOMAP [@Wimalanathan2018], we used a modified version of the hierarchical evaluation metrics originally introduced in [@Verspoor2006] because they were simple, clear, and part of an earlier attempt at unifying and standardizing GO annotation comparisons [@Defoin-Platel2011].
+In the meantime, @Plyusnin2018 have published an approach for evaluating different metrics showing substantial differences within the robustness of different approaches.
+`TODO DESCRIBE THEIR APPROACH`
+We have applied their method on the Gold Standards available to us to determine which evaluation metric is the most appropriate in our case.
+The results of this analysis can be seen in `TODO`.
+
+We then evaluated our predictions and the other annotation sets using the best performing metrics as well as the one we previously used.
+`TODO`
