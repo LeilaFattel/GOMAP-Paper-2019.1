@@ -88,24 +88,44 @@
 
 
 \def\Authors{
-  First Author\,\textsuperscript{1},
-  Co-Author\,\textsuperscript{2},
-  Co-Author\,\textsuperscript{1,3*}}
+  Dennis Psaroudakis\,\textsuperscript{1},
+  Ha Vu\,\textsuperscript{1},
+  Colleen Yanarella\,\textsuperscript{1},
+  Steven Cannon\,\textsuperscript{1},
+  Darwin Campbell\,\textsuperscript{1},
+  Parnal Joshi\,\textsuperscript{1},
+  Iddo Friedberg\,\textsuperscript{1,4},
+  Kokulapalan Wimalanathan\,\textsuperscript{1,2},
+  Carolyn J. Lawrence-Dill\,\textsuperscript{1,2,3*}}
 
 \def\Address{
 
-  \textsuperscript{1} Department X, Institution X,  City X,  State XX,  Country X
+  \textsuperscript{1} Bioinformatics and Computational Biology, Iowa State University,  Ames,  IA,  USA
   
-  \textsuperscript{2} Department X, Institution X,  City X,  State XX,  Country X
+  \textsuperscript{2} Department of Genetics, Development, and Cell Biology, Iowa State University,  Ames,  IA,  USA
   
-  \textsuperscript{3} Department X, Institution X,  City X,  State XX,  Country X
+  \textsuperscript{3} Department of Agronomy, Iowa State University,  Ames,  IA,  USA
+  
+  \textsuperscript{4} Department of Veterinary Microbiology, Iowa State University,  Ames,  IA,  USA
   }
 
   
-  \def\firstAuthorLast{LASTNAME {et~al.}}
+  \def\firstAuthorLast{Psaroudakis {et~al.}}
   
   
-  \def\corrAuthor{Co-Author}\def\corrAddress{Laboratory X, Institute X, Department X, Organization X\\Street X\\City X, State XX, Zip Code X Country X}\def\corrEmail{\href{mailto:email@uni.edu}{\nolinkurl{email@uni.edu}}}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  \def\corrAuthor{Carolyn J. Lawrence-Dill}\def\corrAddress{Roy J. Carver Co-Lab, Iowa State University\\1111 WOI Rd\\Ames, State IA, 50011 USA}\def\corrEmail{\href{mailto:triffid@iastate.edu}{\nolinkurl{triffid@iastate.edu}}}
   
 
 
@@ -161,11 +181,24 @@ All functional annotation sets were cleaned up the following way (using definiti
 Table 1 provides information on the number of annotations that were removed this way from each dataset.
 All further analyses were performed on the cleaned datasets since we assume the user will only be interested in still valid and non-redundant functional annotations.
 
+\hypertarget{choosing-the-right-evaluation-metric}{%
+\subsection{Choosing the right evaluation metric}\label{choosing-the-right-evaluation-metric}}
+
+A plethora of different metric to evaluate the quality of functional annotation predictions is available using different approaches and there seems to be no clear standard yet. \texttt{TODO:\ THIS\ IS\ WEAK}
+Additionally, each of the metrics has a different focus and lalala so choosing a metric for quality evaluation is not trivial.
+When we first published GOMAP \citep{Wimalanathan2018}, we used a modified version of the hierarchical evaluation metrics originally introduced in \citep{Verspoor2006} because they were simple, clear, and part of an earlier attempt at unifying and standardizing GO annotation comparisons \citep{Defoin-Platel2011}.
+In the meantime, \citet{Plyusnin2018} have published an approach for evaluating different metrics showing substantial differences within the robustness of different approaches.
+\texttt{TODO\ DESCRIBE\ THEIR\ APPROACH}
+We have applied their method on the Gold Standards available to us to determine which evaluation metric is the most appropriate in our case.
+The results of this analysis can be seen in \texttt{TODO}.
+
+We then evaluated our predictions and the other annotation sets using the best performing metrics as well as the one we previously used.
+\texttt{TODO}
+
 \hypertarget{results}{%
 \section{Results}\label{results}}
 
 \ldots{} a quantitative comparison of the datasets in Table.
-Test citation: \citet{Neuro2013} says that its wrong \citep{Gene2012}
 
 \begin{table}[t]
 
@@ -279,6 +312,11 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \end{threeparttable}}
 \end{table}
 
+\hypertarget{quality-evaluation}{%
+\subsection{Quality Evaluation}\label{quality-evaluation}}
+
+\texttt{TODO} If it turns out that our predictions are good with hF but bad with more approriate metrics, explanation would be that score thresholds for the prediction tools used in the GOMAP pipeline have been chosen to maximize this hF value. It now seems reasonable to re-adjust these thresholds to maximize a different metric which will likely result in a drop in hF score but increase in other metrics. Again emphasizes the importance of choosing the right evaluation metric.
+
 \begin{table}[t]
 
 \caption{\label{tab:quality-table}Quality evaluation of the used GO annotation sets.}
@@ -287,25 +325,25 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \toprule
 Genome & Dataset & SimGIC2 score\\
 \midrule
-\rowcolor{gray!6}   & GOMAP & 0.248394\\
+\rowcolor{gray!6}   & GOMAP & 0.241470\\
 
- & GoldStandard & 0.999974\\
+ & GoldStandard & 0.999971\\
 
-\rowcolor{gray!6}   & Gramene61-IEA & 0.319345\\
+\rowcolor{gray!6}   & Gramene61-IEA & 0.324831\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-all & 0.732175\\
+\multirow{-4}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-all & 0.732289\\
 \cmidrule{1-3}
-\rowcolor{gray!6}   & GOMAP & 0.024565\\
+\rowcolor{gray!6}   & GOMAP & 0.072971\\
 
- & GoldStandard & 0.996264\\
+ & GoldStandard & 0.998562\\
 
-\rowcolor{gray!6}   & Gramene49 & 0.043521\\
+\rowcolor{gray!6}   & Gramene49 & 0.126450\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 0.021982\\
+\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 0.032693\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\bibliography{test}
+\bibliography{GOMAP-Paper-Used}
 
 \end{document}

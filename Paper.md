@@ -3,44 +3,61 @@ title: "Article Title"
 runtitle: "Short Title"
 documentclass: frontiersSCNS  # or frontiersHLTH, or frontiersFPHY
 author:
-  - name: First Author
+  - name: Dennis Psaroudakis
     affiliation: '1'
-    etal: LASTNAME # First author's last name. 
-  - name: Co-Author
-    affiliation: '2'
-  - name: Co-Author
-    affiliation: '1,3'
-    email: email@uni.edu # Indicates corresponding Author
-    institution: Laboratory X, Institute X, Department X, Organization X
-    street: Street X
-    city: City X
-    state: State XX # only USA, Australia, Canada
-    zip: Zip Code X
-    country: Country X
+    etal: Psaroudakis # First author's last name. 
+  - name: Ha Vu
+    affiliation: '1'
+  - name: Colleen Yanarella
+    affiliation: '1'
+  - name: Steven Cannon
+    affiliation: '1'
+  - name: Darwin Campbell
+    affiliation: '1'
+  - name: Parnal Joshi
+    affiliation: '1'
+  - name: Iddo Friedberg
+    affiliation: '1,4'
+  - name: Kokulapalan Wimalanathan
+    affiliation: '1,2'
+  - name: Carolyn J. Lawrence-Dill
+    affiliation: '1,2,3'
+    email: triffid@iastate.edu
+    institution: Roy J. Carver Co-Lab, Iowa State University
+    street: 1111 WOI Rd
+    city: Ames
+    state: State IA # only USA, Australia, Canada
+    zip: 50011
+    country: USA
 affiliation:
   - id: '1'
-    department: Department X
-    institution: Institution X
-    city: City X
-    state: State XX # only USA, Australia, Canada
-    country: Country X
-  - id: '2' 
-    department: Department X
-    institution: Institution X
-    city: City X
-    state: State XX # only USA, Australia, Canada
-    country: Country X
-  - id: '3' 
-    department: Department X
-    institution: Institution X
-    city: City X
-    state: State XX # only USA, Australia, Canada
-    country: Country X
+    department: Bioinformatics and Computational Biology
+    institution: Iowa State University
+    city: Ames
+    state: IA # only USA, Australia, Canada
+    country: USA
+  - id: '2'
+    department: Department of Genetics, Development, and Cell Biology
+    institution: Iowa State University
+    city: Ames
+    state: IA # only USA, Australia, Canada
+    country: USA
+  - id: '3'
+    department: Department of Agronomy
+    institution: Iowa State University
+    city: Ames
+    state: IA # only USA, Australia, Canada
+    country: USA
+  - id: '4'
+    department: Department of Veterinary Microbiology
+    institution: Iowa State University
+    city: Ames
+    state: IA # only USA, Australia, Canada
+    country: USA
 date: "Febcember 32nd 3023"
 language: en-US
 site: "bookdown::bookdown_site"
 csl: frontiers.csl
-bibliography: test.bib
 link-citations: true
 output:
   bookdown::pdf_book:
@@ -86,11 +103,22 @@ All functional annotation sets were cleaned up the following way (using definiti
 Table 1 provides information on the number of annotations that were removed this way from each dataset.
 All further analyses were performed on the cleaned datasets since we assume the user will only be interested in still valid and non-redundant functional annotations.
 
+## Choosing the right evaluation metric
+A plethora of different metric to evaluate the quality of functional annotation predictions is available using different approaches and there seems to be no clear standard yet. `TODO: THIS IS WEAK`
+Additionally, each of the metrics has a different focus and lalala so choosing a metric for quality evaluation is not trivial.
+When we first published GOMAP [@Wimalanathan2018], we used a modified version of the hierarchical evaluation metrics originally introduced in [@Verspoor2006] because they were simple, clear, and part of an earlier attempt at unifying and standardizing GO annotation comparisons [@Defoin-Platel2011].
+In the meantime, @Plyusnin2018 have published an approach for evaluating different metrics showing substantial differences within the robustness of different approaches.
+`TODO DESCRIBE THEIR APPROACH`
+We have applied their method on the Gold Standards available to us to determine which evaluation metric is the most appropriate in our case.
+The results of this analysis can be seen in `TODO`.
+
+We then evaluated our predictions and the other annotation sets using the best performing metrics as well as the one we previously used.
+`TODO`
+
 <!--chapter:end:02-methods.Rmd-->
 
 # Results
 ... a quantitative comparison of the datasets in Table.
-Test citation: @Neuro2013 says that its wrong [@Gene2012]
 
 \begin{table}[t]
 
@@ -204,6 +232,11 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \end{threeparttable}}
 \end{table}
 
+## Quality Evaluation
+
+`TODO` If it turns out that our predictions are good with hF but bad with more approriate metrics, explanation would be that score thresholds for the prediction tools used in the GOMAP pipeline have been chosen to maximize this hF value. It now seems reasonable to re-adjust these thresholds to maximize a different metric which will likely result in a drop in hF score but increase in other metrics. Again emphasizes the importance of choosing the right evaluation metric.
+
+
 \begin{table}[t]
 
 \caption{(\#tab:quality-table)Quality evaluation of the used GO annotation sets.}
@@ -212,28 +245,28 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \toprule
 Genome & Dataset & SimGIC2 score\\
 \midrule
-\rowcolor{gray!6}   & GOMAP & 0.248394\\
+\rowcolor{gray!6}   & GOMAP & 0.241470\\
 
- & GoldStandard & 0.999974\\
+ & GoldStandard & 0.999971\\
 
-\rowcolor{gray!6}   & Gramene61-IEA & 0.319345\\
+\rowcolor{gray!6}   & Gramene61-IEA & 0.324831\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-all & 0.732175\\
+\multirow{-4}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-all & 0.732289\\
 \cmidrule{1-3}
-\rowcolor{gray!6}   & GOMAP & 0.024565\\
+\rowcolor{gray!6}   & GOMAP & 0.072971\\
 
- & GoldStandard & 0.996264\\
+ & GoldStandard & 0.998562\\
 
-\rowcolor{gray!6}   & Gramene49 & 0.043521\\
+\rowcolor{gray!6}   & Gramene49 & 0.126450\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 0.021982\\
+\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 0.032693\\
 \bottomrule
 \end{tabular}
 \end{table}
 
 <!--chapter:end:03-results.Rmd-->
 
-\bibliography{test}
+\bibliography{GOMAP-Paper-Used}
 
 <!--chapter:end:06-backmatter.Rmd-->
 

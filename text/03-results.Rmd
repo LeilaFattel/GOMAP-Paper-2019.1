@@ -33,6 +33,11 @@ kable(dt2, booktabs=T, escape=F, caption = "Quantitative metrics of the cleaned 
   ), threeparttable=T, escape=F)
 ```
 
+## Quality Evaluation
+
+`TODO` If it turns out that our predictions are good with hF but bad with more approriate metrics, explanation would be that score thresholds for the prediction tools used in the GOMAP pipeline have been chosen to maximize this hF value. It now seems reasonable to re-adjust these thresholds to maximize a different metric which will likely result in a drop in hF score but increase in other metrics. Again emphasizes the importance of choosing the right evaluation metric.
+
+
 ```{r quality-table}
 dt2 <- read.csv("../analyses/quality/quality_table.csv", header=T, stringsAsFactors=F)
 dt2$genome = format_genome(dt2$genome)

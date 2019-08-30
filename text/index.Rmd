@@ -3,39 +3,57 @@ title: "Article Title"
 runtitle: "Short Title"
 documentclass: frontiersSCNS  # or frontiersHLTH, or frontiersFPHY
 author:
-  - name: First Author
+  - name: Dennis Psaroudakis
     affiliation: '1'
-    etal: LASTNAME # First author's last name. 
-  - name: Co-Author
-    affiliation: '2'
-  - name: Co-Author
-    affiliation: '1,3'
-    email: email@uni.edu # Indicates corresponding Author
-    institution: Laboratory X, Institute X, Department X, Organization X
-    street: Street X
-    city: City X
-    state: State XX # only USA, Australia, Canada
-    zip: Zip Code X
-    country: Country X
+    etal: Psaroudakis # First author's last name. 
+  - name: Ha Vu
+    affiliation: '1'
+  - name: Colleen Yanarella
+    affiliation: '1'
+  - name: Steven Cannon
+    affiliation: '1'
+  - name: Darwin Campbell
+    affiliation: '1'
+  - name: Parnal Joshi
+    affiliation: '1'
+  - name: Iddo Friedberg
+    affiliation: '1,4'
+  - name: Kokulapalan Wimalanathan
+    affiliation: '1,2'
+  - name: Carolyn J. Lawrence-Dill
+    affiliation: '1,2,3'
+    email: triffid@iastate.edu
+    institution: Roy J. Carver Co-Lab, Iowa State University
+    street: 1111 WOI Rd
+    city: Ames
+    state: State IA # only USA, Australia, Canada
+    zip: 50011
+    country: USA
 affiliation:
   - id: '1'
-    department: Department X
-    institution: Institution X
-    city: City X
-    state: State XX # only USA, Australia, Canada
-    country: Country X
-  - id: '2' 
-    department: Department X
-    institution: Institution X
-    city: City X
-    state: State XX # only USA, Australia, Canada
-    country: Country X
-  - id: '3' 
-    department: Department X
-    institution: Institution X
-    city: City X
-    state: State XX # only USA, Australia, Canada
-    country: Country X
+    department: Bioinformatics and Computational Biology
+    institution: Iowa State University
+    city: Ames
+    state: IA # only USA, Australia, Canada
+    country: USA
+  - id: '2'
+    department: Department of Genetics, Development, and Cell Biology
+    institution: Iowa State University
+    city: Ames
+    state: IA # only USA, Australia, Canada
+    country: USA
+  - id: '3'
+    department: Department of Agronomy
+    institution: Iowa State University
+    city: Ames
+    state: IA # only USA, Australia, Canada
+    country: USA
+  - id: '4'
+    department: Department of Veterinary Microbiology
+    institution: Iowa State University
+    city: Ames
+    state: IA # only USA, Australia, Canada
+    country: USA
 date: "Febcember 32nd 3023"
 language: en-US
 site: "bookdown::bookdown_site"
