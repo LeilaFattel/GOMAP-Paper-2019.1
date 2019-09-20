@@ -1,0 +1,3 @@
+[submodule "analyses/shared/ads"]
+	path = analyses/shared/ads
+	url = https://plyusnin@bitbucket.org/plyusnin/ads.git

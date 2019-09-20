@@ -128,17 +128,21 @@ We then evaluated our predictions and the other annotation sets using the best p
 \toprule
 Genome & Dataset & Obsolete Annotations & Duplicates\\
 \midrule
-\rowcolor{gray!6}  \textit{Glycine max} & GOMAP & 203 & 0\\
+\rowcolor{gray!6}  \textit{Arachis hypogaea} & GOMAP & 0 & 0\\
 \cmidrule{1-4}
-\textit{Hordeum vulgarum} & GOMAP & 101 & 0\\
+\textit{Glycine max} & GOMAP & 203 & 0\\
 \cmidrule{1-4}
-\rowcolor{gray!6}  \textit{Medicago truncatula} A17 & GOMAP & 0 & 0\\
+\rowcolor{gray!6}  \textit{Hordeum vulgarum} & GOMAP & 101 & 0\\
 \cmidrule{1-4}
-\textit{Medicago truncatula} R108 & GOMAP & 0 & 0\\
+\textit{Medicago truncatula} A17 & GOMAP & 0 & 0\\
 \cmidrule{1-4}
-\rowcolor{gray!6}   & GOMAP & 111 & 2\\
+\rowcolor{gray!6}  \textit{Medicago truncatula} R108 & GOMAP & 0 & 0\\
+\cmidrule{1-4}
+ & GOMAP & 111 & 2\\
 
-\multirow{-2}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & GoldStandard & 38 & 556\\
+\rowcolor{gray!6}   & GoldStandard & 38 & 556\\
+
+\multirow{-3}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-IEA & 10 & 14\\
 \cmidrule{1-4}
 \rowcolor{gray!6}  \textit{Phaseolus vulgaris} & GOMAP & 0 & 0\\
 \cmidrule{1-4}
@@ -146,27 +150,23 @@ Genome & Dataset & Obsolete Annotations & Duplicates\\
 \cmidrule{1-4}
 \rowcolor{gray!6}  \textit{Vigna unguiculata} & GOMAP & 0 & 0\\
 \cmidrule{1-4}
-\textit{Zea mays} B73.v4 & GOMAP & 752 & 83\\
-\cmidrule{1-4}
-\rowcolor{gray!6}  \textit{Zea mays} Mo17 & GOMAP & 726 & 77\\
-\cmidrule{1-4}
-\textit{Zea mays} PH207 & GOMAP & 798 & 76\\
-\cmidrule{1-4}
-\rowcolor{gray!6}  \textit{Zea mays} W22 & GOMAP & 754 & 82\\
-\cmidrule{1-4}
-\textit{Arachis hypogaea} & GOMAP & 0 & 0\\
-\cmidrule{1-4}
-\rowcolor{gray!6}   & GOMAP & 1107 & 70\\
+ & GOMAP & 1107 & 70\\
 
- & GoldStandard & 1 & 0\\
+\rowcolor{gray!6}   & GoldStandard & 1 & 0\\
 
-\rowcolor{gray!6}   & Gramene49 & 94 & 2\\
+ & Gramene49 & 94 & 2\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 54 & 0\\
+\rowcolor{gray!6}  \multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 54 & 0\\
 \cmidrule{1-4}
-\rowcolor{gray!6}   & Gramene61-IEA & 10 & 14\\
+ & GOMAP & 752 & 83\\
 
-\multirow{-2}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-all & 48 & 9565\\
+\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v4} & GoldStandard & 1 & 23\\
+\cmidrule{1-4}
+\textit{Zea mays} Mo17 & GOMAP & 726 & 77\\
+\cmidrule{1-4}
+\rowcolor{gray!6}  \textit{Zea mays} PH207 & GOMAP & 798 & 76\\
+\cmidrule{1-4}
+\textit{Zea mays} W22 & GOMAP & 754 & 82\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -197,25 +197,25 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 
 \rowcolor{gray!6}   &  & GoldStandard & 7730 & 11060 & 19378 & 38176 & 5725 & 7383 & 9031 & 11387 & 1 & 1 & 1 & 3\\
 
- &  & Gramene61-IEA & 14633 & 32787 & 39105 & 86529 & 10771 & 15537 & 16705 & 21446 & 1 & 1 & 1 & 3\\
+\multirow{-3}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} &  & Gramene61-IEA & 14633 & 32787 & 39105 & 86529 & 10771 & 15537 & 16705 & 21446 & 1 & 1 & 1 & 3\\
 
-\rowcolor{gray!6}  \multirow{-4}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} &  & Gramene61-all & 20622 & 40674 & 54402 & 115710 & 13272 & 16962 & 18513 & 22272 & 1 & 1 & 2 & 4\\
+\rowcolor{gray!6}  \textit{Phaseolus vulgaris} &  & GOMAP & 72005 & 64583 & 229630 & 366218 & 25934 & 25539 & 27432 & 27433 & 2 & 2 & 6 & 11\\
 
-\textit{Phaseolus vulgaris} &  & GOMAP & 72005 & 64583 & 229630 & 366218 & 25934 & 25539 & 27432 & 27433 & 2 & 2 & 6 & 11\\
+\textit{Triticum aestivum} &  & GOMAP & 267741 & 218623 & 785960 & 1272324 & 95604 & 98187 & 107890 & 107891 & 2 & 2 & 6 & 10\\
 
-\rowcolor{gray!6}  \textit{Triticum aestivum} &  & GOMAP & 267741 & 218623 & 785960 & 1272324 & 95604 & 98187 & 107890 & 107891 & 2 & 2 & 6 & 10\\
+\rowcolor{gray!6}  \textit{Vigna unguiculata} &  & GOMAP & 75867 & 68313 & 243278 & 387458 & 27173 & 27124 & 29772 & 29773 & 2 & 2 & 6 & 11\\
 
-\textit{Vigna unguiculata} &  & GOMAP & 75867 & 68313 & 243278 & 387458 & 27173 & 27124 & 29772 & 29773 & 2 & 2 & 6 & 11\\
+ &  & GOMAP & 135211 & 87420 & 291251 & 513882 & 34866 & 38073 & 39468 & 39469 & 3 & 2 & 6 & 11\\
 
-\rowcolor{gray!6}   &  & GOMAP & 135211 & 87420 & 291251 & 513882 & 34866 & 38073 & 39468 & 39469 & 3 & 2 & 6 & 11\\
+\rowcolor{gray!6}   &  & GoldStandard & 1565 & 65 & 299 & 1929 & 1548 & 60 & 151 & 1634 & 1 & 0 & 0 & 1\\
 
- &  & GoldStandard & 1565 & 65 & 299 & 1929 & 1548 & 60 & 151 & 1634 & 1 & 0 & 0 & 1\\
+ &  & Gramene49 & 20072 & 31056 & 30089 & 81217 & 11834 & 17991 & 15800 & 21926 & 1 & 1 & 1 & 3\\
 
-\rowcolor{gray!6}   &  & Gramene49 & 20072 & 31056 & 30089 & 81217 & 11834 & 17991 & 15800 & 21926 & 1 & 1 & 1 & 3\\
+\rowcolor{gray!6}  \multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} &  & Phytozome & 4787 & 19044 & 13100 & 36931 & 4524 & 13728 & 11365 & 16132 & 0 & 1 & 1 & 2\\
 
-\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} &  & Phytozome & 4787 & 19044 & 13100 & 36931 & 4524 & 13728 & 11365 & 16132 & 0 & 1 & 1 & 2\\
+ &  & GOMAP & 88827 & 82251 & 278719 & 449797 & 36717 & 37337 & 39323 & 39324 & 2 & 2 & 6 & 10\\
 
-\rowcolor{gray!6}  \textit{Zea mays} B73.v4 &  & GOMAP & 88827 & 82251 & 278719 & 449797 & 36717 & 37337 & 39323 & 39324 & 2 & 2 & 6 & 10\\
+\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v4} &  & GoldStandard & 1371 & 63 & 286 & 1720 & 1349 & 58 & 144 & 1428 & 1 & 0 & 0 & 1\\
 
 \textit{Zea mays} Mo17 &  & GOMAP & 87567 & 79214 & 277787 & 444568 & 33618 & 35105 & 38619 & 38620 & 2 & 2 & 6 & 10\\
 
@@ -245,21 +245,17 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \toprule
 Genome & Dataset & SimGIC2 score\\
 \midrule
-\rowcolor{gray!6}   & GOMAP & 0.241470\\
+\rowcolor{gray!6}   & GOMAP & 0.253680\\
 
- & GoldStandard & 0.999971\\
-
-\rowcolor{gray!6}   & Gramene61-IEA & 0.324831\\
-
-\multirow{-4}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-all & 0.732289\\
+\multirow{-2}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-IEA & 0.330437\\
 \cmidrule{1-3}
-\rowcolor{gray!6}   & GOMAP & 0.072971\\
+\rowcolor{gray!6}   & GOMAP & 0.052182\\
 
- & GoldStandard & 0.998562\\
+ & Gramene49 & 0.091475\\
 
-\rowcolor{gray!6}   & Gramene49 & 0.126450\\
-
-\multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 0.032693\\
+\rowcolor{gray!6}  \multirow{-3}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 0.028721\\
+\cmidrule{1-3}
+\textit{Zea mays} B73.v4 & GOMAP & 0.050760\\
 \bottomrule
 \end{tabular}
 \end{table}
