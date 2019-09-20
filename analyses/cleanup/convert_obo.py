@@ -25,7 +25,7 @@ parents = {}
 main_id = {}
 obsolete = []
 go_names = {}
-with gzip.open("analyses/cleanup/go.obo.gz") as obofile:
+with gzip.open("data/go.obo.gz") as obofile:
   parser = obo_parser.Parser(obofile)
   for stanza in parser:
     if not stanza.name == "Term":

@@ -1,6 +1,6 @@
 require "csv"
 require "gzip"
-require "../common_lib.cr"
+require "../shared/common_lib.cr"
 
 abort "No arguments given" unless ARGV.size > 0
 
@@ -18,6 +18,7 @@ end
 # - if it does not, it is created
 def update_csv(genome, dataset, obsolete, duplicates)
   table = CSV.parse(File.open("analyses/cleanup/results/cleanup_table.csv")).to_a
+  table.shift # Remove header
   if obsolete.nil? || duplicates.nil?
     table.reject! {|r| r[0] == genome && r[1] == dataset }
   else
@@ -32,8 +33,10 @@ def update_csv(genome, dataset, obsolete, duplicates)
       abort("Duplicate entry for #{genome}/#{dataset}")
     end
   end
+  table = table.sort {|a,b| a[0]+a[1] <=> b[0]+b[1]} # Sort by Genome->Dataset
   File.open("analyses/cleanup/results/cleanup_table.csv", "w") do |f|
     CSV.build(f) do |writer|
+      writer.row(["genome","dataset","obsolete","duplicates"])
       table.each {|row| writer.row(row) }
     end
   end

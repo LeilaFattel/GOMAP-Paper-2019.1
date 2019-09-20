@@ -2,8 +2,8 @@
 ... a quantitative comparison of the datasets in Table.
 
 ```{r cleanup-table}
-dt2 <- read.csv("../analyses/cleanup/results/cleanup_table.csv", header=F, stringsAsFactors=F)
-dt2$V1 = format_genome(dt2$V1)
+dt2 <- read.csv("../analyses/cleanup/results/cleanup_table.csv", header=T, stringsAsFactors=F)
+dt2$genome = format_genome(dt2$genome)
 kable(dt2, booktabs=TRUE, escape=F, caption = "Number of removed annotations during cleanup.", col.names=c("Genome", "Dataset", "Obsolete Annotations", "Duplicates")) %>%
  kable_styling(latex_options = c("striped")) %>%
  collapse_rows(columns = 1, latex_hline="major")

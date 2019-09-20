@@ -1,5 +1,5 @@
 require "./spec_helper.cr"
-require "../analyses/common_lib.cr"
+require "../analyses/shared/common_lib.cr"
 
 go = File.open("spec/assets/specGO.json") do |gofile|
   Ontology.from_json(gofile)
