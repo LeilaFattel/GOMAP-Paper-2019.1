@@ -7,7 +7,7 @@ The Gold Standard was downloaded on 08/07/2019 from [Gramene Biomart](http://ens
 4. again on the left hand side, select *Attributes*, open *GENE* and make sure only Gene stable ID is checked, then open *EXTERNAL* and check _GO term accession, GO term evidence code,_ and _GO domain_.
 5. Then click *Results* in the black top bar menu and export all results to a TSV file (check *Unique results only*).
 
-The file was saved to `GoldStandard.tsv` and then converted to GAF format using our `biomart2gaf.sh` script: `bash ../biomart2gaf.sh GoldStandard.tsv "Gramene/Plant_Genes_61/IRGSP-1.0" > GoldStandard.gaf`
+The file was saved to `GoldStandard.tsv` and then converted to GAF format using our `biomart2gaf.sh` script: `bash ../biomart2gaf.sh GoldStandard.tsv "Gramene/Plant_Genes_61/IRGSP-1.0" "4530" > GoldStandard.gaf`
 
 # Gramene61-IEA
 Completely analogous to the Gold Standard, just select entries with IEA evidence code.

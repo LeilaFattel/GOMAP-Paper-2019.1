@@ -10,11 +10,6 @@ end
 
 
 # Cleanup
-def cleanup
-  rm_rf 'analyses/cleanup/results/*'
-  sh 'python analyses/cleanup/cleanup.py'
-end
-
 ## cleanup executable
 file 'analyses/cleanup/cleanup' => 'analyses/cleanup/cleanup.cr' do
   sh 'crystal build --release --no-debug -o analyses/cleanup/cleanup analyses/cleanup/cleanup.cr'
@@ -40,9 +35,10 @@ FileList.new("data/go_annotation_sets/*/*.gaf.gz").to_a.each do |f|
     sh "analyses/cleanup/cleanup #{f}"
   end
   # The cleanup_table also depends on each of these things (in the loop because it depends on all source files)
-  file 'analyses/cleanup/results/cleanup_table.csv' => [f, 'analyses/cleanup/cleanup'] + go_files do
-    sh "analyses/cleanup/cleanup #{f}"
-  end
+  # @TODO for some reason this causes all datasets to be cleaned up again when just one changes
+  # file 'analyses/cleanup/results/cleanup_table.csv' => [f, 'analyses/cleanup/cleanup'] + go_files do
+  #   sh "analyses/cleanup/cleanup #{f}"
+  # end
   cleanup_targets << target
 end
 

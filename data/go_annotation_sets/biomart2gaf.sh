@@ -2,9 +2,9 @@
 
 # This file converts the TSV files downloaded from Gramene to the GAF 2 format
 # Usage:
-# biomart2gaf.sh <TSV file> <db column string>
+# biomart2gaf.sh <TSV file> <db column string> <taxon id>
 # Example:
-#  biomart2gaf.sh Oryza_sativa/Gramene61_IEA "Gramene/Plant_Genes_61/IRGSP-1.0" > Oryza_sativa/Gramene61_IEA.gaf
+#  biomart2gaf.sh Oryza_sativa/Gramene61_IEA "Gramene/Plant_Genes_61/IRGSP-1.0" 4530 > Oryza_sativa/Gramene61_IEA.gaf
 
 # Print GAF headers
 echo "!gaf-version:2.0"
@@ -27,7 +27,7 @@ tail -n +2 $1 | awk -F $'\t' 'BEGIN {OFS = FS}
    "",
    "",
    "protein",
-   "taxon:4530",
+   "taxon:'"${3}"'",
    "",
    "",
    "",
