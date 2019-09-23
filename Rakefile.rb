@@ -24,7 +24,7 @@ go_files.each do |f|
 end
 
 ## Collect everything that needs to be up-to-date after cleanup
-cleanup_targets = ['analyses/cleanup/results/cleanup_table.csv']
+cleanup_targets = [] # ['analyses/cleanup/results/cleanup_table.csv']
 
 ## For each raw dataset there should be an up-to-date cleaned one
 FileList.new("data/go_annotation_sets/*/*.gaf.gz").to_a.each do |f|
@@ -41,6 +41,7 @@ FileList.new("data/go_annotation_sets/*/*.gaf.gz").to_a.each do |f|
   # end
   cleanup_targets << target
 end
+
 
 ## If there are any cleaned up files that do not have a source file anymore, remove them
 (FileList.new("analyses/cleanup/results/*/*.gaf.gz").to_a - cleanup_targets).each do |f|
@@ -63,12 +64,12 @@ end
 
 # Quality Evaluation
 # Stuff that needs to be created only once from the GOA/OBO
-file "analyses/quality/ads_files/ic.tab" => ["data/go.obo.gz", "data/goa_arabidopsis.gaf.gz"] do
+file "analyses/quality/results/ads_files/ic.tab" => ["data/go.obo.gz", "data/goa_arabidopsis.gaf.gz"] do
   sh "gunzip -k data/go.obo.gz"
-  sh "gunzip -k data/goa_arabidopsis.gz"
-  rm_rf "analyses/quality/ads_files/*" # make a clean slate
+  sh "gunzip -k data/goa_arabidopsis.gaf.gz"
+  rm_rf "analyses/quality/results/ads_files/*" # make a clean slate
   Dir.chdir("analyses/shared/ads/") do # ADS requires to be run from the ads directory
-    sh "perl pipeline.pl --datadir ../../quality/ads_files --obo ../../../data/go.obo --goa ../../../data/goa_arabidopsis.gaf --pipev 1,2"
+    sh "perl pipeline.pl --datadir ../../quality/results/ads_files --obo ../../../data/go.obo --goa ../../../data/goa_arabidopsis.gaf --pipev 1,2"
   end
   rm "data/go.obo"
   rm "data/goa_arabidopsis.gaf"

@@ -39,7 +39,7 @@ kable(dt2, booktabs=T, escape=F, caption = "Quantitative metrics of the cleaned 
 
 
 ```{r quality-table}
-dt2 <- read.csv("../analyses/quality/quality_table.csv", header=T, stringsAsFactors=F)
+dt2 <- read.csv("../analyses/quality/results/quality_table.csv", header=T, stringsAsFactors=F)
 dt2$genome = format_genome(dt2$genome)
 kable(dt2, booktabs=TRUE, escape=F, caption = "Quality evaluation of the used GO annotation sets.", col.names=c("Genome", "Dataset", "SimGIC2 score")) %>%
  kable_styling(latex_options = c("striped")) %>%

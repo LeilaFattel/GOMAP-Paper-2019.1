@@ -1,4 +1,5 @@
 *.pyc
 *.sif
 analyses/*/results/*
-!analyses/*/results/.gitkeep
+!**/.gitkeep
+!analyses/cleanup/results/cleanup_table.csv
