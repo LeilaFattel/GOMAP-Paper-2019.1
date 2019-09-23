@@ -3,7 +3,7 @@ require "csv"
 task :default => 'Paper.pdf'
 
 desc 'Typeset the Paper'
-file 'Paper.pdf' => ['analyses/quantity/results/quantity_table.csv', 'analyses/quality/quality_table.csv'] + FileList.new("text/*") do
+file 'Paper.pdf' => ['analyses/quantity/results/quantity_table.csv', 'analyses/quality/results/quality_table.csv'] + FileList.new("text/*") do
   rm_f 'text/_main.Rmd'
   sh %q(R -e 'library("bookdown"); xfun::in_dir("text", render_book("index.Rmd", output_file="../../Paper.pdf", clean=T))')
 end
@@ -79,10 +79,10 @@ quality_targets = []
 FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
   genome = File.basename(File.dirname(f))
   # Reformat the Gold Standard GAF to the format ADS requires
-  file "analyses/quality/#{genome}/GoldStandard.tsv" => f do
-    sh "mkdir -p analyses/quality/#{genome}"
+  file "analyses/quality/results/#{genome}/GoldStandard.tsv" => f do
+    sh "mkdir -p analyses/quality/results/#{genome}"
     sh "gunzip -k analyses/cleanup/results/#{genome}/GoldStandard.gaf.gz"
-    sh "tail -n+3 analyses/cleanup/results/#{genome}/GoldStandard.gaf | cut -f2,5 > analyses/quality/#{genome}/GoldStandard.tsv"
+    sh "tail -n+3 analyses/cleanup/results/#{genome}/GoldStandard.gaf | cut -f2,5 > analyses/quality/results/#{genome}/GoldStandard.tsv"
     rm "analyses/cleanup/results/#{genome}/GoldStandard.gaf"
   end
 
@@ -90,18 +90,18 @@ FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
   FileList.new("analyses/cleanup/results/#{genome}/*.gaf.gz").to_a.each do |ds|
     dataset = File.basename(ds).split(".").first
     next if dataset == "GoldStandard" # We don't need to evaluate the GoldStandard against itself.
-    target = "analyses/quality/#{genome}/#{dataset}.SimGIC2"
-    file target => [ds, "analyses/quality/ads_files/ic.tab", "analyses/quality/#{genome}/GoldStandard.tsv"] do
+    target = "analyses/quality/results/#{genome}/#{dataset}.SimGIC2"
+    file target => [ds, "analyses/quality/results/ads_files/ic.tab", "analyses/quality/results/#{genome}/GoldStandard.tsv"] do
       # Reformat GAF to required format
       sh "gunzip -k analyses/cleanup/results/#{genome}/#{dataset}.gaf.gz"
       # @TODO ADS requires a score for each prediction and they can't all be 1, so I'm adding a dummy entry
-      IO.write("analyses/quality/#{genome}/#{dataset}.predictions", "foobar\tGO:00000331\t0")
-      sh "tail -n+3 analyses/cleanup/results/#{genome}/#{dataset}.gaf | cut -f2,5 | awk '{print $0\"\\t1\"}' >> analyses/quality/#{genome}/#{dataset}.predictions"
+      IO.write("analyses/quality/results/#{genome}/#{dataset}.predictions", "foobar\tGO:00000331\t0")
+      sh "tail -n+3 analyses/cleanup/results/#{genome}/#{dataset}.gaf | cut -f2,5 | awk '{print $0\"\\t1\"}' >> analyses/quality/results/#{genome}/#{dataset}.predictions"
       rm "analyses/cleanup/results/#{genome}/#{dataset}.gaf"
 
       sh "gunzip -k data/go.obo.gz"
       Dir.chdir("analyses/shared/ads/") do # ADS requires to be run from the ads directory
-        sh "bin/goscores -p ../../quality/#{genome}/#{dataset}.predictions -t ../../quality/#{genome}/GoldStandard.tsv -g -b ../../../data/go.obo -i ../../quality/ads_files/ic.tab ../../quality/ads_files/goparents.tab -m 'SF=SimGIC2' > ../../quality/#{genome}/#{dataset}.SimGIC2"
+        sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.predictions -t ../../quality/results/#{genome}/GoldStandard.tsv -g -b ../../../data/go.obo -i ../../quality/results/ads_files/ic.tab ../../quality/results/ads_files/goparents.tab -m 'SF=SimGIC2' > ../../quality/results/#{genome}/#{dataset}.SimGIC2"
       end
       rm "data/go.obo"
     end
@@ -110,8 +110,8 @@ FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
 end
 
 # Collect all SimGIC2 scores in a table
-file 'analyses/quality/quality_table.csv' => quality_targets do
-  CSV.open("analyses/quality/quality_table.csv", "wb+") do |csv|
+file 'analyses/quality/results/quality_table.csv' => quality_targets do
+  CSV.open("analyses/quality/results/quality_table.csv", "wb+") do |csv|
     csv << ["genome", "dataset", "SimGIC2"]
     quality_targets.each do |t|
       dataset = File.basename(t).split(".").first
@@ -123,4 +123,4 @@ file 'analyses/quality/quality_table.csv' => quality_targets do
 end
 
 desc 'Perform Quality evaluation'
-task :quality => 'analyses/quality/quality_table.csv'
+task :quality => 'analyses/quality/results/quality_table.csv'

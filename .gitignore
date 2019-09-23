@@ -1,2 +1,4 @@
 *.pyc
 *.sif
+analyses/*/results/*
+!analyses/*/results/.gitkeep
