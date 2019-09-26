@@ -11,7 +11,7 @@ Alternatively, you can use the table below:
 | Arachis hypogaea         | http://doi.org/10.25739/chab-0e35  | `3_final-result/3.1_Arachis_hypogaea_IPGI_Tifrunner.gnm1.ann1.cleaned.gaf.gz`
 | Brachypodium distachyon  |                                    | 
 | Glycine max              | https://doi.org/10.25739/59ec-1719 | `3_final-result/3.1_Glycine_max_JGI_Wm82.a4.v1.cleaned.gaf.gz`
-| Gossypium herbaceum      |                                    | 
+| Gossypium raimondii      |                                    | 
 | Hordeum vulgarum         | https://doi.org/10.25739/zvgv-8e37 | `3_final-result/3.1_Hordeum_vulgare.PGSB-1.0.cleaned.gaf.gz`
 | Medicago truncatula.A17  | http://doi.org/10.25739/py38-yb08  | `3_final-result/3.1_Medicago_truncatula_A17_HM341_Mt4.0v2.cleaned.gaf.gz`
 | Medicago truncatula.R108 | http://doi.org/10.25739/2sqc-j140  | `3_final-result/3.1_Medicago_truncatula_R108_HM340_v1.0.cleaned.gaf.gz`

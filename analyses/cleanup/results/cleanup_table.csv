@@ -1,7 +1,8 @@
 genome,dataset,obsolete,duplicates
+Gossypium_raimondii,GOMAP,184,0
+Hordeum_vulgarum,GoldStandard,0,4
 Medicago_truncatula.A17,GOMAP,0,0
 Medicago_truncatula.R108,GOMAP,0,0
-Oriza_sativa,GOMAP,0,10
 Oryza_sativa,GOMAP,111,2
 Oryza_sativa,GoldStandard,38,556
 Oryza_sativa,Gramene61-IEA,10,14
