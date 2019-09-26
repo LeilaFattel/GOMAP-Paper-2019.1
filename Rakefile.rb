@@ -103,6 +103,7 @@ FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
       sh "gunzip -k data/go.obo.gz"
       Dir.chdir("analyses/shared/ads/") do # ADS requires to be run from the ads directory
         sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.predictions -t ../../quality/results/#{genome}/GoldStandard.tsv -g -b ../../../data/go.obo -i ../../quality/results/ads_files/ic.tab ../../quality/results/ads_files/goparents.tab -m 'SF=SimGIC2' > ../../quality/results/#{genome}/#{dataset}.SimGIC2"
+        sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.predictions -t ../../quality/results/#{genome}/GoldStandard.tsv -g -b ../../../data/go.obo -m 'LIST=gene,TH=all,SUMF1=mean,SF=AUCPR' > ../../quality/results/#{genome}/#{dataset}.TC_AUCPCR"
       end
       rm "data/go.obo"
     end
@@ -113,12 +114,13 @@ end
 # Collect all SimGIC2 scores in a table
 file 'analyses/quality/results/quality_table.csv' => quality_targets do
   CSV.open("analyses/quality/results/quality_table.csv", "wb+") do |csv|
-    csv << ["genome", "dataset", "SimGIC2"]
+    csv << ["genome", "dataset", "SimGIC2", "TC_AUCPCR"]
     quality_targets.each do |t|
       dataset = File.basename(t).split(".").first
       genome = File.basename(File.dirname(t))
-      score = IO.read(t).chomp
-      csv << [genome, dataset, score]
+      simgic2_score = IO.read(t).chomp
+      tc_aucpcr_score = IO.read("analyses/quality/results/#{genome}/#{dataset}.TC_AUCPCR").chomp
+      csv << [genome, dataset, simgic2_score, tc_aucpcr_score]
     end
   end
 end

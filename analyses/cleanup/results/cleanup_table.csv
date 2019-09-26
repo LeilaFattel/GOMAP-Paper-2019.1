@@ -1,4 +1,5 @@
 genome,dataset,obsolete,duplicates
+Brachypodium_distachyon,GOMAP,696,43
 Gossypium_raimondii,GOMAP,184,0
 Hordeum_vulgarum,GoldStandard,0,4
 Medicago_truncatula.A17,GOMAP,0,0
@@ -7,6 +8,7 @@ Oryza_sativa,GOMAP,111,2
 Oryza_sativa,GoldStandard,38,556
 Oryza_sativa,Gramene61-IEA,10,14
 Phaseolus_vulgaris,GOMAP,0,0
+Sorghum_bicolor,GOMAP,690,59
 Triticum_aestivum,GOMAP,285,0
 Triticum_aestivum,GoldStandard,0,10
 Triticum_aestivum,Gramene61-IEA,47,48
