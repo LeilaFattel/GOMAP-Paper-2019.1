@@ -96,7 +96,7 @@ FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
       # Reformat GAF to required format
       sh "gunzip -k analyses/cleanup/results/#{genome}/#{dataset}.gaf.gz"
       # @TODO ADS requires a score for each prediction and they can't all be 1, so I'm adding a dummy entry
-      IO.write("analyses/quality/results/#{genome}/#{dataset}.predictions", "foobar\tGO:00000331\t0")
+      IO.write("analyses/quality/results/#{genome}/#{dataset}.predictions", "foobar\tGO:00000331\t0\n")
       sh "tail -n+3 analyses/cleanup/results/#{genome}/#{dataset}.gaf | cut -f2,5 | awk '{print $0\"\\t1\"}' >> analyses/quality/results/#{genome}/#{dataset}.predictions"
       rm "analyses/cleanup/results/#{genome}/#{dataset}.gaf"
 
