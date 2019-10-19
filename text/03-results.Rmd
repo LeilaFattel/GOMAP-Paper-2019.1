@@ -35,7 +35,6 @@ kable(dt2, booktabs=T, digits=2, format.args=list(big.mark=","), escape=F, capti
 ```
 
 ## Quality Evaluation
- [Open as CSV](https://github.com/Dill-PICL/GOMAP-Paper-2019.1/blob/master/analyses/quantity/results/quantity_table.csv)
 `TODO` If it turns out that our predictions are good with hF but bad with more approriate metrics, explanation would be that score thresholds for the prediction tools used in the GOMAP pipeline have been chosen to maximize this hF value. It now seems reasonable to re-adjust these thresholds to maximize a different metric which will likely result in a drop in hF score but increase in other metrics. Again emphasizes the importance of choosing the right evaluation metric.
 Also shows how comparison between different pipelines/predictions can be difficult if chose different metric or optimized for different metric.
 Also: if an annotation is not present in the gold standard, there is no way of knowing whether that gene truly doesn't have that function or whether it has just never been characterized/examined. So we cannot distinguish between a biologically true negative and an actually false negative in the gold standard.
@@ -50,8 +49,12 @@ The scores we can generate so far are by far not as meaningful.
 ```{r quality-table}
 dt2 <- read.csv("../analyses/quality/results/quality_table.csv", header=T, stringsAsFactors=F)
 dt2$genome = format_genome(dt2$genome)
-kable(dt2, booktabs=TRUE, escape=F, caption = "Quality evaluation of the used GO annotation sets.", col.names=c("Genome", "Dataset", "SimGIC2 score", "TC AUCPCR score")) %>%
- kable_styling(latex_options = c("striped")) %>%
+headers_above = c(a = 2, b = 3, c = 3)
+names(headers_above) <- c(" ", "SimGIC2", "TC-AUCPCR")
+kable(dt2, booktabs=TRUE, escape=F, caption = "Quality evaluation of the used GO annotation sets.", col.names=c("Genome", "Dataset", "CC", "MF", "BP", "CC", "MF", "BP")) %>%
+ kable_styling(latex_options = c("striped", "scale_down")) %>%
+ add_header_above(headers_above, escape=F)%>%
+ column_spec(c(5), border_right = T) %>%
  collapse_rows(columns = 1, latex_hline="major") %>%
  footnote(general=c("\\\\href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/quality/results/quality_table.csv}{Download this table (CSV)}"), general_title="", threeparttable=T, escape=F)
 ```

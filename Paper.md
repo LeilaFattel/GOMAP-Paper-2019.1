@@ -173,7 +173,7 @@ Genome & Dataset & Obsolete Annotations & Duplicates\\
 \cmidrule{1-4}
 \rowcolor{gray!6}   & GOMAP & 1107 & 70\\
 
- & GoldStandard & 1 & 0\\
+ & GoldStandard-OFF & 1 & 0\\
 
 \rowcolor{gray!6}   & Gramene49 & 94 & 2\\
 
@@ -246,7 +246,7 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \cmidrule{1-15}
  &  & GOMAP & 88.34 & 96.46 & 100.00 & 100.00 & 135,211 & 87,420 & 291,251 & 513,882 & 3 & 2 & 6 & 11\\
 
-\rowcolor{gray!6}   &  & GoldStandard & 3.92 & 0.15 & 0.38 & 4.14 & 1,565 & 65 & 299 & 1,929 & 1 & 0 & 0 & 1\\
+\rowcolor{gray!6}   &  & GoldStandard-OFF & 3.92 & 0.15 & 0.38 & 4.14 & 1,565 & 65 & 299 & 1,929 & 1 & 0 & 0 & 1\\
 
  &  & Gramene49 & 29.98 & 45.58 & 40.03 & 55.55 & 20,072 & 31,056 & 30,089 & 81,217 & 1 & 1 & 1 & 3\\
 
@@ -275,7 +275,6 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \end{table}
 
 ## Quality Evaluation
- [Open as CSV](https://github.com/Dill-PICL/GOMAP-Paper-2019.1/blob/master/analyses/quantity/results/quantity_table.csv)
 `TODO` If it turns out that our predictions are good with hF but bad with more approriate metrics, explanation would be that score thresholds for the prediction tools used in the GOMAP pipeline have been chosen to maximize this hF value. It now seems reasonable to re-adjust these thresholds to maximize a different metric which will likely result in a drop in hF score but increase in other metrics. Again emphasizes the importance of choosing the right evaluation metric.
 Also shows how comparison between different pipelines/predictions can be difficult if chose different metric or optimized for different metric.
 Also: if an annotation is not present in the gold standard, there is no way of knowing whether that gene truly doesn't have that function or whether it has just never been characterized/examined. So we cannot distinguish between a biologically true negative and an actually false negative in the gold standard.
@@ -291,36 +290,33 @@ The scores we can generate so far are by far not as meaningful.
 
 \caption{(\#tab:quality-table)Quality evaluation of the used GO annotation sets.}
 \centering
+\resizebox{\linewidth}{!}{
 \begin{threeparttable}
-\begin{tabular}{llrr}
+\begin{tabular}{llrr>{}r|rrr}
 \toprule
-Genome & Dataset & SimGIC2 score & TC AUCPCR score\\
+\multicolumn{2}{c}{ } & \multicolumn{3}{c}{SimGIC2} & \multicolumn{3}{c}{TC-AUCPCR} \\
+\cmidrule(l{3pt}r{3pt}){3-5} \cmidrule(l{3pt}r{3pt}){6-8}
+Genome & Dataset & CC & MF & BP & CC & MF & BP\\
 \midrule
-\rowcolor{gray!6}  \textit{Hordeum vulgarum} & GOMAP & 0.158996 & 0.000477\\
-\cmidrule{1-4}
- & GOMAP & 0.253680 & 0.204084\\
+\rowcolor{gray!6}  \textit{Hordeum vulgarum} & GOMAP & 0.309334 & 0.424286 & 0.180110 & NaN & 0.000492 & 0.000388\\
+\cmidrule{1-8}
+ & GOMAP & 0.498631 & 0.454389 & 0.213624 & 0.272899 & 0.268926 & 0.141812\\
 
-\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-IEA & 0.330437 & 0.193740\\
-\cmidrule{1-4}
- & GOMAP & 0.218996 & 0.010039\\
+\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash \textit{Oryza sativa}} & Gramene61-IEA & 0.416283 & 0.415342 & 0.324981 & 0.170662 & 0.257685 & 0.126104\\
+\cmidrule{1-8}
+ & GOMAP & 0.473080 & 0.417054 & 0.202375 & 0.014552 & 0.005456 & 0.009284\\
 
-\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash \textit{Triticum aestivum}} & Gramene61-IEA & 0.175564 & 0.005397\\
-\cmidrule{1-4}
- & GOMAP & 0.052182 & 0.012709\\
+\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash \textit{Triticum aestivum}} & Gramene61-IEA & 0.384973 & 0.346840 & 0.191962 & 0.004446 & 0.006115 & 0.004811\\
+\cmidrule{1-8}
+ & GOMAP & 0.498574 & 0.434275 & 0.212010 & 0.274600 & 0.249346 & 0.133593\\
 
-\rowcolor{gray!6}   & Gramene49 & 0.091475 & 0.019127\\
-
-\multirow{-3}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 0.028721 & 0.004498\\
-\cmidrule{1-4}
-\rowcolor{gray!6}   & GOMAP & 0.257543 & 0.196845\\
-
-\multirow{-2}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v4} & Gramene61-IEA & 0.328777 & 0.188584\\
+\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v4} & Gramene61-IEA & 0.368491 & 0.411399 & 0.323139 & 0.159213 & 0.229186 & 0.130063\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/quality/results/quality_table.csv}{Download this table (CSV)}
 \end{tablenotes}
-\end{threeparttable}
+\end{threeparttable}}
 \end{table}
 
 <!--chapter:end:03-results.Rmd-->

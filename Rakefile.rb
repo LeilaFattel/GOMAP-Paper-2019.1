@@ -80,10 +80,13 @@ quality_targets = []
 FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
   genome = File.basename(File.dirname(f))
   # Reformat the Gold Standard GAF to the format ADS requires
-  file "analyses/quality/results/#{genome}/GoldStandard.tsv" => f do
+  file "analyses/quality/results/#{genome}/GoldStandard.C.tsv" => f do # the C aspect will be used representatively for all aspects
     sh "mkdir -p analyses/quality/results/#{genome}"
     sh "gunzip -k analyses/cleanup/results/#{genome}/GoldStandard.gaf.gz"
-    sh "tail -n+3 analyses/cleanup/results/#{genome}/GoldStandard.gaf | cut -f2,5 > analyses/quality/results/#{genome}/GoldStandard.tsv"
+    # All aspects of the GO are going to be evaluated individually
+    ["C","F","P"].each do |aspect|
+      sh "awk -F '\\t' 'BEGIN {OFS = FS}($9 == \"#{aspect}\")' analyses/cleanup/results/#{genome}/GoldStandard.gaf | cut -f 2,5 > analyses/quality/results/#{genome}/GoldStandard.#{aspect}.tsv"
+    end
     rm "analyses/cleanup/results/#{genome}/GoldStandard.gaf"
   end
 
@@ -91,19 +94,25 @@ FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
   FileList.new("analyses/cleanup/results/#{genome}/*.gaf.gz").to_a.each do |ds|
     dataset = File.basename(ds).split(".").first
     next if dataset == "GoldStandard" # We don't need to evaluate the GoldStandard against itself.
-    target = "analyses/quality/results/#{genome}/#{dataset}.SimGIC2"
-    file target => [ds, "analyses/quality/results/ads_files/ic.tab", "analyses/quality/results/#{genome}/GoldStandard.tsv"] do
+    # Datasets
+    target = "analyses/quality/results/#{genome}/#{dataset}.C.SimGIC2"
+    file target => [ds, "analyses/quality/results/ads_files/ic.tab", "analyses/quality/results/#{genome}/GoldStandard.C.tsv"] do
       # Reformat GAF to required format
       sh "gunzip -k analyses/cleanup/results/#{genome}/#{dataset}.gaf.gz"
-      # @TODO ADS requires a score for each prediction and they can't all be 1, so I'm adding a dummy entry
-      IO.write("analyses/quality/results/#{genome}/#{dataset}.predictions", "foobar\tGO:00000331\t0\n")
-      sh "tail -n+3 analyses/cleanup/results/#{genome}/#{dataset}.gaf | cut -f2,5 | awk '{print $0\"\\t1\"}' >> analyses/quality/results/#{genome}/#{dataset}.predictions"
+      # Again, all aspects of the GO are going to be evaluated individually
+      ["C","F","P"].each do |aspect|
+        # @TODO ADS requires a score for each prediction and they can't all be 1, so I'm adding a dummy entry
+        IO.write("analyses/quality/results/#{genome}/#{dataset}.#{aspect}.tsv", "foobar\tGO:00000331\t0\n")
+        sh "awk -F '\\t' 'BEGIN {OFS = FS}($9 == \"#{aspect}\")' analyses/cleanup/results/#{genome}/#{dataset}.gaf | cut -f 2,5 | awk '{print $0\"\\t1\"}' >> analyses/quality/results/#{genome}/#{dataset}.#{aspect}.tsv"
+      end
       rm "analyses/cleanup/results/#{genome}/#{dataset}.gaf"
 
       sh "gunzip -k data/go.obo.gz"
       Dir.chdir("analyses/shared/ads/") do # ADS requires to be run from the ads directory
-        sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.predictions -t ../../quality/results/#{genome}/GoldStandard.tsv -g -b ../../../data/go.obo -i ../../quality/results/ads_files/ic.tab ../../quality/results/ads_files/goparents.tab -m 'SF=SimGIC2' > ../../quality/results/#{genome}/#{dataset}.SimGIC2"
-        sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.predictions -t ../../quality/results/#{genome}/GoldStandard.tsv -g -b ../../../data/go.obo -m 'LIST=gene,TH=all,SUMF1=mean,SF=AUCPR' > ../../quality/results/#{genome}/#{dataset}.TC_AUCPCR"
+        ["C","F","P"].each do |aspect|
+          sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.#{aspect}.tsv -t ../../quality/results/#{genome}/GoldStandard.#{aspect}.tsv -g -b ../../../data/go.obo -i ../../quality/results/ads_files/ic.tab ../../quality/results/ads_files/goparents.tab -m 'SF=SimGIC2' > ../../quality/results/#{genome}/#{dataset}.#{aspect}.SimGIC2"
+          sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.#{aspect}.tsv -t ../../quality/results/#{genome}/GoldStandard.#{aspect}.tsv -g -b ../../../data/go.obo -m 'LIST=gene,TH=all,SUMF1=mean,SF=AUCPR' > ../../quality/results/#{genome}/#{dataset}.#{aspect}.TC_AUCPCR"
+        end
       end
       rm "data/go.obo"
     end
@@ -111,16 +120,27 @@ FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
   end
 end
 
-# Collect all SimGIC2 scores in a table
+# Collect all scores in a table
 file 'analyses/quality/results/quality_table.csv' => quality_targets do
   CSV.open("analyses/quality/results/quality_table.csv", "wb+") do |csv|
-    csv << ["genome", "dataset", "SimGIC2", "TC_AUCPCR"]
+    metrics = ["SimGIC2", "TC_AUCPCR"]
+    headers = ["genome", "dataset"]
+    metrics.each do |metric|
+      ["C", "F", "P"].each do |aspect|
+        headers << "#{metric}.#{aspect}"
+      end
+    end
+    csv << headers
     quality_targets.each do |t|
       dataset = File.basename(t).split(".").first
       genome = File.basename(File.dirname(t))
-      simgic2_score = IO.read(t).chomp
-      tc_aucpcr_score = IO.read("analyses/quality/results/#{genome}/#{dataset}.TC_AUCPCR").chomp
-      csv << [genome, dataset, simgic2_score, tc_aucpcr_score]
+      row = [genome, dataset]
+      metrics.each do |metric|
+        ["C", "F", "P"].each do |aspect|
+          row << IO.read("analyses/quality/results/#{genome}/#{dataset}.#{aspect}.#{metric}").chomp
+        end
+      end
+      csv << row
     end
   end
 end
