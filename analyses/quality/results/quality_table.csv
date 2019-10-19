@@ -1,0 +1,11 @@
+genome,dataset,SimGIC2,TC_AUCPCR
+Hordeum_vulgarum,GOMAP,0.158996,0.000477
+Oryza_sativa,GOMAP,0.253680,0.204084
+Oryza_sativa,Gramene61-IEA,0.330437,0.193740
+Triticum_aestivum,GOMAP,0.218996,0.010039
+Triticum_aestivum,Gramene61-IEA,0.175564,0.005397
+Zea_mays.B73.v3,GOMAP,0.052182,0.012709
+Zea_mays.B73.v3,Gramene49,0.091475,0.019127
+Zea_mays.B73.v3,Phytozome,0.028721,0.004498
+Zea_mays.B73.v4,GOMAP,0.257543,0.196845
+Zea_mays.B73.v4,Gramene61-IEA,0.328777,0.188584

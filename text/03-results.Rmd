@@ -6,7 +6,8 @@ dt2 <- read.csv("../analyses/cleanup/results/cleanup_table.csv", header=T, strin
 dt2$genome = format_genome(dt2$genome)
 kable(dt2, booktabs=TRUE, escape=F, caption = "Number of removed annotations during cleanup.", col.names=c("Genome", "Dataset", "Obsolete Annotations", "Duplicates")) %>%
  kable_styling(latex_options = c("striped")) %>%
- collapse_rows(columns = 1, latex_hline="major")
+ collapse_rows(columns = 1, latex_hline="major") %>%
+ footnote(general=c("\\\\href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/cleanup/results/cleanup_table.csv}{Download this table (CSV)}"), general_title="", threeparttable=T, escape=F)
 ```
 
 ```{r annotation-quantities}
@@ -29,13 +30,21 @@ kable(dt2, booktabs=T, digits=2, format.args=list(big.mark=","), escape=F, capti
   footnote(alphabet=c(
     "How many genes in the genome have at least one GO term from the CC, BF, MP aspect annotated to them? A = How many at least one from any aspect? ($\\\\textrm{A} = \\\\textrm{CC} \\\\cup \\\\textrm{BF} \\\\cup \\\\textrm{MP}$)",
     "How many annotations in the CC, BF, and MP aspect does this dataset contain? A = How many in total? $\\\\textrm{A} = \\\\textrm{CC} + \\\\textrm{BF} + \\\\textrm{MP}$",
-    "Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Ask your favorite statistician why $\\\\textrm{A} \\\\neq \\\\textrm{CC} + \\\\textrm{BF} +\\\\textrm{MP}$"
-  ), threeparttable=T, escape=F)
+    "Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Please note that $\\\\textrm{A} \\\\neq \\\\textrm{CC} + \\\\textrm{BF} +\\\\textrm{MP}$"),
+   general=c("\\\\href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/quantity/results/quantity_table.csv}{Download this table (CSV)}"), general_title="", threeparttable=T, escape=F)
 ```
 
 ## Quality Evaluation
-
+ [Open as CSV](https://github.com/Dill-PICL/GOMAP-Paper-2019.1/blob/master/analyses/quantity/results/quantity_table.csv)
 `TODO` If it turns out that our predictions are good with hF but bad with more approriate metrics, explanation would be that score thresholds for the prediction tools used in the GOMAP pipeline have been chosen to maximize this hF value. It now seems reasonable to re-adjust these thresholds to maximize a different metric which will likely result in a drop in hF score but increase in other metrics. Again emphasizes the importance of choosing the right evaluation metric.
+Also shows how comparison between different pipelines/predictions can be difficult if chose different metric or optimized for different metric.
+Also: if an annotation is not present in the gold standard, there is no way of knowing whether that gene truly doesn't have that function or whether it has just never been characterized/examined. So we cannot distinguish between a biologically true negative and an actually false negative in the gold standard.
+This poses a problem when annotations are predicted that are not found in the gold standard: Is this truly a wrong prediction or is the gold standard incomplete? Especially in our case where the predictions not only contain more annotations than the gold standard, but are also more diverse.
+In effect this means that a quality score as calculated above may not only describe the quality of the prediction, but to some extent also the completeness of the gold standard itself.
+At least we can see here that gold standards with a median of 3 annotations per gene resulted in higher quality scores than gold standards with less annotations per gene, even though predictions were generated the same way in all cases.
+`TODO maybe put a figure with regression quality score/median annotions per gene or something`
+In conclusion this means that truly making a statement about the quality of a prediction set would require the ideal and complete gold standard.
+The scores we can generate so far are by far not as meaningful.
 
 
 ```{r quality-table}
@@ -43,5 +52,6 @@ dt2 <- read.csv("../analyses/quality/results/quality_table.csv", header=T, strin
 dt2$genome = format_genome(dt2$genome)
 kable(dt2, booktabs=TRUE, escape=F, caption = "Quality evaluation of the used GO annotation sets.", col.names=c("Genome", "Dataset", "SimGIC2 score", "TC AUCPCR score")) %>%
  kable_styling(latex_options = c("striped")) %>%
- collapse_rows(columns = 1, latex_hline="major")
+ collapse_rows(columns = 1, latex_hline="major") %>%
+ footnote(general=c("\\\\href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/quality/results/quality_table.csv}{Download this table (CSV)}"), general_title="", threeparttable=T, escape=F)
 ```

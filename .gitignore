@@ -3,3 +3,5 @@
 analyses/*/results/*
 !**/.gitkeep
 !analyses/cleanup/results/cleanup_table.csv
+!analyses/quantity/results/quantity_table.csv
+!analyses/quality/results/quality_table.csv

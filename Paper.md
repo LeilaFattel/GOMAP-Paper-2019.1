@@ -94,6 +94,9 @@ Hello, how are we doing?
 
 # Methods
 
+## Generating Predictions
+Used GOMAP on condo lalala. Input files are (usually) published along results.
+
 ## Clean up
 All functional annotation sets were cleaned up the following way (using definitions from the Gene Ontology version 2019-07-01):
 
@@ -103,17 +106,28 @@ All functional annotation sets were cleaned up the following way (using definiti
 Table 1 provides information on the number of annotations that were removed this way from each dataset.
 All further analyses were performed on the cleaned datasets since we assume the user will only be interested in still valid and non-redundant functional annotations.
 
-## Choosing the right evaluation metric
-A plethora of different metric to evaluate the quality of functional annotation predictions is available using different approaches and there seems to be no clear standard yet. `TODO: THIS IS WEAK`
-Additionally, each of the metrics has a different focus and lalala so choosing a metric for quality evaluation is not trivial.
+## Quantitative Evaluation
+lalala lololo table xyz
+
+## Quality Evaluation
+Quality evaluation of gene function predictions is not trivial and usually done by comparing the set of predicted functions of a gene against a *gold standard* consisting of annotations that are assumed to be correct.
+We used annotations that were created or in some way curated with human participation for gold standards.
+There are a plethora of different metrics to perform the comparison of predictions against this gold standard.
 When we first published GOMAP [@Wimalanathan2018], we used a modified version of the hierarchical evaluation metrics originally introduced in [@Verspoor2006] because they were simple, clear, and part of an earlier attempt at unifying and standardizing GO annotation comparisons [@Defoin-Platel2011].
 In the meantime, @Plyusnin2018 have published an approach for evaluating different metrics showing substantial differences within the robustness of different approaches.
 `TODO DESCRIBE THEIR APPROACH`
 We have applied their method on the Gold Standards available to us to determine which evaluation metric is the most appropriate in our case.
 The results of this analysis can be seen in `TODO`.
 
-We then evaluated our predictions and the other annotation sets using the best performing metrics as well as the one we previously used.
-`TODO`
+We then evaluated our predictions and the other annotation sets using the best performing metrics as well as the one we previously used (Table `TODO`).
+
+## Phylogenetic Tree Construction
+To demonstrate that a more top-level and holistic use of whole-genome functional predictions can still be useful we devised some simple ways of applying phylogenetic methods to our predictions.
+### Distance Based
+### Character Based
+
+## Ensuring Reproducibility
+containerization, github...
 
 <!--chapter:end:02-methods.Rmd-->
 
@@ -124,6 +138,7 @@ We then evaluated our predictions and the other annotation sets using the best p
 
 \caption{(\#tab:cleanup-table)Number of removed annotations during cleanup.}
 \centering
+\begin{threeparttable}
 \begin{tabular}{llrr}
 \toprule
 Genome & Dataset & Obsolete Annotations & Duplicates\\
@@ -177,6 +192,10 @@ Genome & Dataset & Obsolete Annotations & Duplicates\\
 \textit{Zea mays} W22 & GOMAP & 754 & 82\\
 \bottomrule
 \end{tabular}
+\begin{tablenotes}
+\item \href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/cleanup/results/cleanup_table.csv}{Download this table (CSV)}
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 \begin{table}[t]
@@ -193,11 +212,11 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \midrule
 \rowcolor{gray!6}  \textit{Arachis hypogaea} & 67,124 & GOMAP & 85.91 & 84.70 & 100.00 & 100.00 & 153,433 & 132,944 & 493,799 & 780,176 & 2 & 2 & 6 & 10\\
 \cmidrule{1-15}
-\textit{Brachypodium distachyon} & 100 & GOMAP & 27,923.00 & 29,292.00 & 34,309.00 & 34,310.00 & 75,877 & 69,709 & 255,807 & 401,393 & 2 & 2 & 6 & 10\\
+\textit{Brachypodium distachyon} & 34,310 & GOMAP & 81.38 & 85.37 & 100.00 & 100.00 & 75,877 & 69,709 & 255,807 & 401,393 & 2 & 2 & 6 & 10\\
 \cmidrule{1-15}
 \rowcolor{gray!6}  \textit{Glycine max} & 52,872 & GOMAP & 87.04 & 88.96 & 100.00 & 100.00 & 129,215 & 113,827 & 417,555 & 660,597 & 2 & 2 & 6 & 11\\
 \cmidrule{1-15}
-\textit{Gossypium raimondii} & 100 & GOMAP & 34,908.00 & 34,651.00 & 37,504.00 & 37,505.00 & 96,793 & 85,511 & 307,921 & 490,225 & 2 & 2 & 6 & 11\\
+\textit{Gossypium raimondii} & 37,505 & GOMAP & 93.08 & 92.39 & 100.00 & 100.00 & 96,793 & 85,511 & 307,921 & 490,225 & 2 & 2 & 6 & 11\\
 \cmidrule{1-15}
 \rowcolor{gray!6}   &  & GOMAP & 88.68 & 91.79 & 100.00 & 100.00 & 88,130 & 80,282 & 272,823 & 441,235 & 2 & 2 & 5 & 10\\
 
@@ -215,7 +234,7 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \cmidrule{1-15}
 \textit{Phaseolus vulgaris} & 27,433 & GOMAP & 94.54 & 93.10 & 100.00 & 100.00 & 72,005 & 64,583 & 229,630 & 366,218 & 2 & 2 & 6 & 11\\
 \cmidrule{1-15}
-\rowcolor{gray!6}  \textit{Sorghum bicolor} & 100 & GOMAP & 28,154.00 & 29,353.00 & 34,128.00 & 34,129.00 & 76,689 & 70,190 & 259,413 & 406,292 & 2 & 2 & 6 & 10\\
+\rowcolor{gray!6}  \textit{Sorghum bicolor} & 34,129 & GOMAP & 82.49 & 86.01 & 100.00 & 100.00 & 76,689 & 70,190 & 259,413 & 406,292 & 2 & 2 & 6 & 10\\
 \cmidrule{1-15}
  &  & GOMAP & 88.61 & 91.01 & 100.00 & 100.00 & 267,741 & 218,623 & 785,960 & 1,272,324 & 2 & 2 & 6 & 10\\
 
@@ -225,44 +244,54 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \cmidrule{1-15}
 \rowcolor{gray!6}  \textit{Vigna unguiculata} & 29,773 & GOMAP & 91.27 & 91.10 & 100.00 & 100.00 & 75,867 & 68,313 & 243,278 & 387,458 & 2 & 2 & 6 & 11\\
 \cmidrule{1-15}
- &  & GOMAP & 34,866.00 & 38,073.00 & 39,468.00 & 39,469.00 & 135,211 & 87,420 & 291,251 & 513,882 & 3 & 2 & 6 & 11\\
+ &  & GOMAP & 88.34 & 96.46 & 100.00 & 100.00 & 135,211 & 87,420 & 291,251 & 513,882 & 3 & 2 & 6 & 11\\
 
-\rowcolor{gray!6}   &  & GoldStandard & 1,548.00 & 60.00 & 151.00 & 1,634.00 & 1,565 & 65 & 299 & 1,929 & 1 & 0 & 0 & 1\\
+\rowcolor{gray!6}   &  & GoldStandard & 3.92 & 0.15 & 0.38 & 4.14 & 1,565 & 65 & 299 & 1,929 & 1 & 0 & 0 & 1\\
 
- &  & Gramene49 & 11,834.00 & 17,991.00 & 15,800.00 & 21,926.00 & 20,072 & 31,056 & 30,089 & 81,217 & 1 & 1 & 1 & 3\\
+ &  & Gramene49 & 29.98 & 45.58 & 40.03 & 55.55 & 20,072 & 31,056 & 30,089 & 81,217 & 1 & 1 & 1 & 3\\
 
-\rowcolor{gray!6}  \multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} &  & Phytozome & 4,524.00 & 13,728.00 & 11,365.00 & 16,132.00 & 4,787 & 19,044 & 13,100 & 36,931 & 0 & 1 & 1 & 2\\
+\rowcolor{gray!6}  \multirow{-4}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & \multirow{-4}{*}{\raggedleft\arraybackslash 39,469} & Phytozome & 11.46 & 34.78 & 28.79 & 40.87 & 4,787 & 19,044 & 13,100 & 36,931 & 0 & 1 & 1 & 2\\
+\cmidrule{1-15}
+ &  & GOMAP & 93.37 & 94.95 & 100.00 & 100.00 & 88,827 & 82,251 & 278,719 & 449,797 & 2 & 2 & 6 & 10\\
 
- &  & GOMAP & 36,717.00 & 37,337.00 & 39,323.00 & 39,324.00 & 88,827 & 82,251 & 278,719 & 449,797 & 2 & 2 & 6 & 10\\
+\rowcolor{gray!6}   &  & GoldStandard & 21.23 & 25.60 & 30.82 & 38.07 & 11,510 & 15,019 & 25,737 & 52,428 & 1 & 1 & 1 & 3\\
 
-\rowcolor{gray!6}   &  & GoldStandard & 8,349.00 & 10,067.00 & 12,120.00 & 14,971.00 & 11,510 & 15,019 & 25,737 & 52,428 & 1 & 1 & 1 & 3\\
-
-\multirow{-3}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v4} &  & Gramene61-IEA & 14,774.00 & 22,064.00 & 23,965.00 & 29,152.00 & 20,265 & 47,657 & 58,110 & 126,525 & 1 & 1 & 2 & 3\\
-
-\rowcolor{gray!6}  \textit{Zea mays} Mo17 &  & GOMAP & 33,618.00 & 35,105.00 & 38,619.00 & 38,620.00 & 87,567 & 79,214 & 277,787 & 444,568 & 2 & 2 & 6 & 10\\
-
-\textit{Zea mays} PH207 &  & GOMAP & 35,170.00 & 36,762.00 & 40,556.00 & 40,557.00 & 90,617 & 85,500 & 288,677 & 464,794 & 2 & 2 & 6 & 10\\
-
-\rowcolor{gray!6}  \textit{Zea mays} W22 & \multirow{-10}{*}{\raggedleft\arraybackslash 100} & GOMAP & 36,987.00 & 37,685.00 & 40,689.00 & 40,690.00 & 95,390 & 85,039 & 289,780 & 470,209 & 2 & 2 & 6 & 10\\
+\multirow{-3}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v4} & \multirow{-3}{*}{\raggedleft\arraybackslash 39,324} & Gramene61-IEA & 37.57 & 56.11 & 60.94 & 74.13 & 20,265 & 47,657 & 58,110 & 126,525 & 1 & 1 & 2 & 3\\
+\cmidrule{1-15}
+\rowcolor{gray!6}  \textit{Zea mays} Mo17 & 38,620 & GOMAP & 87.05 & 90.90 & 100.00 & 100.00 & 87,567 & 79,214 & 277,787 & 444,568 & 2 & 2 & 6 & 10\\
+\cmidrule{1-15}
+\textit{Zea mays} PH207 & 40,557 & GOMAP & 86.72 & 90.64 & 100.00 & 100.00 & 90,617 & 85,500 & 288,677 & 464,794 & 2 & 2 & 6 & 10\\
+\cmidrule{1-15}
+\rowcolor{gray!6}  \textit{Zea mays} W22 & 40,690 & GOMAP & 90.90 & 92.61 & 100.00 & 100.00 & 95,390 & 85,039 & 289,780 & 470,209 & 2 & 2 & 6 & 10\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
+\item \href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/quantity/results/quantity_table.csv}{Download this table (CSV)}
 \item[a] How many genes in the genome have at least one GO term from the CC, BF, MP aspect annotated to them? A = How many at least one from any aspect? ($\textrm{A} = \textrm{CC} \cup \textrm{BF} \cup \textrm{MP}$)
 \item[b] How many annotations in the CC, BF, and MP aspect does this dataset contain? A = How many in total? $\textrm{A} = \textrm{CC} + \textrm{BF} + \textrm{MP}$
-\item[c] Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Ask your favorite statistician why $\textrm{A} \neq \textrm{CC} + \textrm{BF} +\textrm{MP}$
+\item[c] Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Please note that $\textrm{A} \neq \textrm{CC} + \textrm{BF} +\textrm{MP}$
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
 
 ## Quality Evaluation
-
+ [Open as CSV](https://github.com/Dill-PICL/GOMAP-Paper-2019.1/blob/master/analyses/quantity/results/quantity_table.csv)
 `TODO` If it turns out that our predictions are good with hF but bad with more approriate metrics, explanation would be that score thresholds for the prediction tools used in the GOMAP pipeline have been chosen to maximize this hF value. It now seems reasonable to re-adjust these thresholds to maximize a different metric which will likely result in a drop in hF score but increase in other metrics. Again emphasizes the importance of choosing the right evaluation metric.
+Also shows how comparison between different pipelines/predictions can be difficult if chose different metric or optimized for different metric.
+Also: if an annotation is not present in the gold standard, there is no way of knowing whether that gene truly doesn't have that function or whether it has just never been characterized/examined. So we cannot distinguish between a biologically true negative and an actually false negative in the gold standard.
+This poses a problem when annotations are predicted that are not found in the gold standard: Is this truly a wrong prediction or is the gold standard incomplete? Especially in our case where the predictions not only contain more annotations than the gold standard, but are also more diverse.
+In effect this means that a quality score as calculated above may not only describe the quality of the prediction, but to some extent also the completeness of the gold standard itself.
+At least we can see here that gold standards with a median of 3 annotations per gene resulted in higher quality scores than gold standards with less annotations per gene, even though predictions were generated the same way in all cases.
+`TODO maybe put a figure with regression quality score/median annotions per gene or something`
+In conclusion this means that truly making a statement about the quality of a prediction set would require the ideal and complete gold standard.
+The scores we can generate so far are by far not as meaningful.
 
 
 \begin{table}[t]
 
 \caption{(\#tab:quality-table)Quality evaluation of the used GO annotation sets.}
 \centering
+\begin{threeparttable}
 \begin{tabular}{llrr}
 \toprule
 Genome & Dataset & SimGIC2 score & TC AUCPCR score\\
@@ -288,6 +317,10 @@ Genome & Dataset & SimGIC2 score & TC AUCPCR score\\
 \multirow{-2}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v4} & Gramene61-IEA & 0.328777 & 0.188584\\
 \bottomrule
 \end{tabular}
+\begin{tablenotes}
+\item \href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/quality/results/quality_table.csv}{Download this table (CSV)}
+\end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 <!--chapter:end:03-results.Rmd-->
