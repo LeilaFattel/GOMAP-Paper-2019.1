@@ -8,6 +8,7 @@ All functional annotation sets were cleaned up the following way (using definiti
 
 1. Any annotations where the GO accession was marked as obsolete were removed.
 2. Some terms in the GO have 'alternative ids'. When naively removing duplicates, two entries will not be recognized as duplicates if they have different accessions pointing to the same GO term. Therefore, all GO accessions were changed to their respecitve 'main id' and the dataset was again scanned for duplicates.
+3. Any annotations with modifiers (NOT, contributes_to...) were removed since no tool used in the further analysis can handle them.
 
 Table 1 provides information on the number of annotations that were removed this way from each dataset.
 All further analyses were performed on the cleaned datasets since we assume the user will only be interested in still valid and non-redundant functional annotations.

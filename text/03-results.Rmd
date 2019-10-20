@@ -4,8 +4,8 @@
 ```{r cleanup-table}
 dt2 <- read.csv("../analyses/cleanup/results/cleanup_table.csv", header=T, stringsAsFactors=F)
 dt2$genome = format_genome(dt2$genome)
-kable(dt2, booktabs=TRUE, escape=F, caption = "Number of removed annotations during cleanup.", col.names=c("Genome", "Dataset", "Obsolete Annotations", "Duplicates")) %>%
- kable_styling(latex_options = c("striped")) %>%
+kable(dt2, booktabs=TRUE, escape=F, caption = "Number of removed annotations during cleanup.", col.names=c("Genome", "Dataset", "Obsolete Annotations", "Duplicates", "Annotations with Modifiers")) %>%
+ kable_styling(latex_options = c("striped", "scale_down")) %>%
  collapse_rows(columns = 1, latex_hline="major") %>%
  footnote(general=c("\\\\href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/cleanup/results/cleanup_table.csv}{Download this table (CSV)}"), general_title="", threeparttable=T, escape=F)
 ```
@@ -51,7 +51,7 @@ dt2 <- read.csv("../analyses/quality/results/quality_table.csv", header=T, strin
 dt2$genome = format_genome(dt2$genome)
 headers_above = c(a = 2, b = 3, c = 3)
 names(headers_above) <- c(" ", "SimGIC2", "TC-AUCPCR")
-kable(dt2, booktabs=TRUE, escape=F, caption = "Quality evaluation of the used GO annotation sets.", col.names=c("Genome", "Dataset", "CC", "MF", "BP", "CC", "MF", "BP")) %>%
+kable(dt2, booktabs=TRUE, escape=F, caption = "Quality evaluation of the used GO annotation sets.", col.names=c("Genome", "Dataset", "CC", "BF", "MP", "CC", "BF", "MP")) %>%
  kable_styling(latex_options = c("striped", "scale_down")) %>%
  add_header_above(headers_above, escape=F)%>%
  column_spec(c(5), border_right = T) %>%
