@@ -21,7 +21,7 @@ Quality evaluation of gene function predictions is not trivial and usually done 
 We used annotations that were created or in some way curated with human participation for gold standards.
 There are a plethora of different metrics to perform the comparison of predictions against this gold standard.
 When we first published GOMAP [@Wimalanathan2018], we used a modified version of the hierarchical evaluation metrics originally introduced in [@Verspoor2006] because they were simple, clear, and part of an earlier attempt at unifying and standardizing GO annotation comparisons [@Defoin-Platel2011].
-In the meantime, @Plyusnin2018 have published an approach for evaluating different metrics showing substantial differences within the robustness of different approaches.
+In the meantime, @Plyusnin2019 have published an approach for evaluating different metrics showing substantial differences within the robustness of different approaches.
 `TODO DESCRIBE THEIR APPROACH`
 We have applied their method on the Gold Standards available to us to determine which evaluation metric is the most appropriate in our case.
 The results of this analysis can be seen in `TODO`.
