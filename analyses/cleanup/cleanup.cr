@@ -56,6 +56,20 @@ else
     Ontology.from_json(gofile)
   end
 
+  # By supplying a map file you can make cleanup change the ids in the id column
+  mapping_present = false
+  object_id_map = Hash(String, String).new # Old id -> new id
+  if File.exists? ARGV.first.chomp(".gz").chomp(".gaf") + ".map.gz"
+    mapping_present = true
+    Gzip::Reader.open(ARGV.first.chomp(".gz").chomp(".gaf") + ".map.gz") do |mapfile|
+      reader = CSV.new(mapfile, separator:'\t')
+      while reader.next
+        row = reader.row.to_a
+        object_id_map[row[0]] = row[1]
+      end
+    end
+  end
+
   puts " Processing " + ARGV.first
   n_obsolete = 0
   n_duplicates = 0
@@ -85,7 +99,10 @@ else
             n_obsolete += 1
             next
           end
-          if printed_tuples.add?({row[1], row[4]}) # This returns false if the tuple is already present in the sent
+          if mapping_present && object_id_map.has_key?(row[1])
+            row[1] = object_id_map[row[1]]
+          end
+          if printed_tuples.add?({row[1], row[4]}) # This returns false if the tuple is already present in the set
             writer.row row.to_a
           else
             n_duplicates += 1

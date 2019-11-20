@@ -115,7 +115,7 @@ Quality evaluation of gene function predictions is not trivial and usually done 
 We used annotations that were created or in some way curated with human participation for gold standards.
 There are a plethora of different metrics to perform the comparison of predictions against this gold standard.
 When we first published GOMAP [@Wimalanathan2018], we used a modified version of the hierarchical evaluation metrics originally introduced in [@Verspoor2006] because they were simple, clear, and part of an earlier attempt at unifying and standardizing GO annotation comparisons [@Defoin-Platel2011].
-In the meantime, @Plyusnin2018 have published an approach for evaluating different metrics showing substantial differences within the robustness of different approaches.
+In the meantime, @Plyusnin2019 have published an approach for evaluating different metrics showing substantial differences within the robustness of different approaches.
 `TODO DESCRIBE THEIR APPROACH`
 We have applied their method on the Gold Standards available to us to determine which evaluation metric is the most appropriate in our case.
 The results of this analysis can be seen in `TODO`.
@@ -181,7 +181,7 @@ Genome & Dataset & Obsolete Annotations & Duplicates & Annotations with Modifier
 \cmidrule{1-5}
  & GOMAP & 1106 & 70 & 709\\
 
-\rowcolor{gray!6}   & GoldStandard-OFF & 1 & 0 & 0\\
+\rowcolor{gray!6}   & GoldStandard & 1 & 11 & NA\\
 
  & Gramene49 & 94 & 2 & 0\\
 
@@ -254,7 +254,7 @@ Genome & Genes & Dataset & CC & BF & MP & A & CC & BF & MP & A & CC & BF & MP & 
 \cmidrule{1-15}
  &  & GOMAP & 88.33 & 96.42 & 99.99 & 100.00 & 134,917 & 87,166 & 291,091 & 513,174 & 3 & 2 & 6 & 11\\
 
-\rowcolor{gray!6}   &  & GoldStandard-OFF & 3.92 & 0.15 & 0.38 & 4.14 & 1,565 & 65 & 299 & 1,929 & 1 & 0 & 0 & 1\\
+\rowcolor{gray!6}   &  & GoldStandard & 3.89 & 0.15 & 0.38 & 4.10 & 1,554 & 65 & 299 & 1,918 & 1 & 0 & 0 & 1\\
 
  &  & Gramene49 & 29.98 & 45.58 & 40.03 & 55.55 & 20,072 & 31,056 & 30,089 & 81,217 & 1 & 1 & 1 & 3\\
 
@@ -316,9 +316,15 @@ Genome & Dataset & CC & BF & MP & CC & BF & MP\\
 
 \rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash \textit{Triticum aestivum}} & Gramene61-IEA & 0.384973 & 0.346840 & 0.191962 & 0.004446 & 0.006115 & 0.004811\\
 \cmidrule{1-8}
- & GOMAP & 0.498781 & 0.429594 & 0.212130 & 0.276072 & 0.245183 & 0.133683\\
+ & GOMAP & 0.235407 & 0.348389 & 0.096186 & 0.035907 & 0.001639 & 0.001017\\
 
-\rowcolor{gray!6}  \multirow{-2}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v4} & Gramene61-IEA & 0.368491 & 0.411399 & 0.323139 & 0.159213 & 0.229186 & 0.130063\\
+\rowcolor{gray!6}   & Gramene49 & 0.299075 & 0.359259 & 0.164630 & 0.055498 & 0.003230 & 0.001965\\
+
+\multirow{-3}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v3} & Phytozome & 0.186238 & 0.347164 & 0.100965 & 0.014873 & 0.003058 & 0.000540\\
+\cmidrule{1-8}
+\rowcolor{gray!6}   & GOMAP & 0.498781 & 0.429594 & 0.212130 & 0.276072 & 0.245183 & 0.133683\\
+
+\multirow{-2}{*}{\raggedright\arraybackslash \textit{Zea mays} B73.v4} & Gramene61-IEA & 0.368491 & 0.411399 & 0.323139 & 0.159213 & 0.229186 & 0.130063\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
