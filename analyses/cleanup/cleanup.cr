@@ -25,7 +25,7 @@ def update_csv(genome, dataset, obsolete, duplicates, modified)
     selected_elements = table.select {|r| r[0] == genome && r[1] == dataset }
     case selected_elements.size
     when 0
-      table << [genome, dataset, obsolete.to_s, duplicates.to_s]
+      table << [genome, dataset, obsolete.to_s, duplicates.to_s, modified.to_s]
     when 1
       selected_elements.first[2] = obsolete.to_s
       selected_elements.first[3] = duplicates.to_s

@@ -1,14 +1,15 @@
 genome,n_genes
 Arachis_hypogaea,67124
 Brachypodium_distachyon,34310
+Cannabis_sativa,33677
 Glycine_max,52872
 Gossypium_raimondii,37505
-Hordeum_vulgarum,39734
+Hordeum_vulgare,39734
 Medicago_truncatula.A17,50444
 Medicago_truncatula.R108,55706
 Oryza_sativa,35825
 Phaseolus_vulgaris,27433
-PINE,100
+Pinus_lambertiana,31007
 Sorghum_bicolor,34129
 Triticum_aestivum,107891
 Vigna_unguiculata,29773
