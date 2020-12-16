@@ -59,17 +59,6 @@ def sample_from_set(set, percentage)
   set.to_a.sample(terms_to_sample).to_set
 end
 
-def add_ancestors_to_set(set, ontology)
-  i = 0
-  set.inject(Set.new) do |s, term| 
-    if s.add? term # returns nil if term already present, then also all ancestors are already present
-      s.merge(ontology.ancestors_of(term, s))
-    else
-      s
-    end
-  end
-end
-
 ontology = Ontology.from_json_file("analyses/cleanup/results/GO.json")
 
 Dir.glob("data/desired_trees/*.yaml").each do |desired_tree|
@@ -107,10 +96,10 @@ Dir.glob("data/desired_trees/*.yaml").each do |desired_tree|
       yaml["jackknives"]["n_trees"].times do |jackknife_index|
         puts " #{p}%, tree #{jackknife_index}"
         jackknifed_sets_original = original_sets.each_with_object({}) { |(name, set), a| a[name] = sample_from_set(set, p)}
-        jackknifed_sets_with_ancestors = jackknifed_sets_original.each_with_object({}) { |(name, set), a | a[name] = add_ancestors_to_set(set, ontology)}
+        jackknifed_sets_with_ancestors = jackknifed_sets_original.each_with_object({}) { |(name, set), a | a[name] = ontology.set_with_ancestors(set)}
 
-        write_distance_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/distance_matrix_jackknifed_#{p}.phy", "a") if yaml["nj"]
-        write_binary_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/binary_matrix_jackknifed_#{p}.phy", "a") if yaml["parsimony"]
+        write_distance_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/distance_matrix_jackknifed_#{p}.phy", "a") if yaml["nj"]
+        write_binary_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/binary_matrix_jackknifed_#{p}.phy", "a") if yaml["parsimony"]
       end
 
     end
