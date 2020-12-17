@@ -59,6 +59,16 @@ def sample_from_set(set, percentage)
   set.to_a.sample(terms_to_sample).to_set
 end
 
+def run_phylip(tree_name, phylip_bin, outtree_name, script)
+  Dir.chdir("analyses/treebuilding/results/trees/#{tree_name}") do
+    File.write("phylip.in", script)
+    system("#{phylip_bin} < phylip.in")
+    FileUtils.mv("outtree", outtree_name)
+    FileUtils.rm("outfile")
+    FileUtils.rm("phylip.in")
+  end
+end
+
 ontology = Ontology.from_json_file("analyses/cleanup/results/GO.json")
 
 Dir.glob("data/desired_trees/*.yaml").each do |desired_tree|
@@ -78,11 +88,13 @@ Dir.glob("data/desired_trees/*.yaml").each do |desired_tree|
   if yaml["nj"] # Build a Neighbor-Joining tree
     puts "Building neighbor joining tree"
     write_distance_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/distance_matrix.phy")
+    run_phylip(name, "neighbor", "nj.tree", "distance_matrix.phy\nY")
   end
 
   if yaml["parsimony"] # Build parsimony tree
     puts "Building parsimony tree"
     write_binary_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/binary_matrix.phy")
+    run_phylip(name, "pars", "parsimony.tree", "binary_matrix.phy\nY")
   end
 
   if yaml.keys.include? "jackknives"
@@ -98,8 +110,24 @@ Dir.glob("data/desired_trees/*.yaml").each do |desired_tree|
         jackknifed_sets_original = original_sets.each_with_object({}) { |(name, set), a| a[name] = sample_from_set(set, p)}
         jackknifed_sets_with_ancestors = jackknifed_sets_original.each_with_object({}) { |(name, set), a | a[name] = ontology.set_with_ancestors(set)}
 
-        write_distance_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/distance_matrix_jackknifed_#{p}.phy", "a") if yaml["nj"]
-        write_binary_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/binary_matrix_jackknifed_#{p}.phy", "a") if yaml["parsimony"]
+        if yaml["nj"]
+          write_distance_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/distance_matrix_jackknifed_#{p}.phy", "a")
+        end
+
+        if yaml["parsimony"]
+          write_binary_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/binary_matrix_jackknifed_#{p}.phy", "a")
+        end
+      end
+
+      if yaml["nj"]
+        run_phylip(name, "neighbor", "nj_jackknifed_#{p}_all.tree", [
+          "distance_matrix_jackknifed_#{p}.phy",
+          "M",
+          yaml["jackknives"]["n_trees"],
+          (2*rand(1000)+1).to_s,
+          "Y"
+        ].join("\n"))
+        run_phylip(name, "consense", "nj_jackknifed_#{p}.tree", "nj_jackknifed_#{p}_all.tree\nY")
       end
 
     end
