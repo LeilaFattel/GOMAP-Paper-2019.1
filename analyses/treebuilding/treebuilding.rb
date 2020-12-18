@@ -94,7 +94,13 @@ ARGV.each do |desired_tree|
   if yaml["parsimony"] # Build parsimony tree
     puts "Building parsimony tree"
     write_binary_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/binary_matrix.phy")
-    run_phylip(name, "pars", "parsimony.tree", "binary_matrix.phy\nY")
+    run_phylip(name, "pars", "parsimony.tree", [
+          "binary_matrix.phy",
+          "J",
+          2*rand(1000)+1,
+          2*Math.sqrt(yaml["species"].length).ceil, # number of times to jumble species
+          "Y"
+        ].join("\n"))
   end
 
   if yaml.keys.include? "jackknives"
