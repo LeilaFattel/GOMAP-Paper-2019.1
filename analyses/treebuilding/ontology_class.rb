@@ -33,7 +33,7 @@ class Ontology
     @main_id.include?(go_id) ? @main_id[go_id] : go_id
   end
 
-  def ancestors_of(go_id, current_set = nil)
+  def ancestors_of(go_id)
     return @ancestors_of[go_id] if @ancestors_of.keys.include? go_id # We don't need to calculate it if we already have done so before
     ancestors = Set.new
     unless @parents.keys.include? go_id
@@ -41,7 +41,7 @@ class Ontology
       return ancestors
     end
     @parents[go_id].each do |p|
-    #  if (current_set.nil? or !current_set.include?(p)) and ancestors.add?(p)
+    #  if ancestors.add?(p) # for some reason this changes the results.
         ancestors.merge(ancestors_of(p))
     #  end
     end
@@ -52,7 +52,7 @@ class Ontology
   def set_with_ancestors(set)
     set.inject(Set.new) do |s, term| 
       if s.add? term # returns nil if term already present, then also all ancestors are already present
-        s.merge(ancestors_of(term, s))
+        s.merge(ancestors_of(term))
       else
         s
       end

@@ -2,7 +2,6 @@
 species:
   - Arachis_hypogaea
   - Cannabis_sativa
-  - Glycine_max
   - Gossypium_raimondii
   - Hordeum_vulgare
   - Oryza_sativa
@@ -20,6 +19,6 @@ parsimony: yes
 nj: yes
 
 jackknives:
-  n_trees: 1000
-  percentages: [100, 90, 80, 70]
+  n_trees: 100
+  percentages: [10, 20, 30, 40, 50, 60, 70, 80, 90]
 ...

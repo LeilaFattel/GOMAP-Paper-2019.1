@@ -71,7 +71,7 @@ end
 
 ontology = Ontology.from_json_file("analyses/cleanup/results/GO.json")
 
-Dir.glob("data/desired_trees/*.yaml").each do |desired_tree|
+ARGV.each do |desired_tree|
   name = desired_tree.split(".").first.split("/").last
   puts name
 
@@ -128,6 +128,19 @@ Dir.glob("data/desired_trees/*.yaml").each do |desired_tree|
           "Y"
         ].join("\n"))
         run_phylip(name, "consense", "nj_jackknifed_#{p}.tree", "nj_jackknifed_#{p}_all.tree\nY")
+      end
+
+      if yaml["parsimony"]
+        run_phylip(name, "pars", "parsimony_jackknifed_#{p}_all.tree", [
+          "binary_matrix_jackknifed_#{p}.phy",
+          "M",
+          "D",
+          yaml["jackknives"]["n_trees"],
+          (2*rand(1000)+1).to_s,
+          2*Math.sqrt(yaml["species"].length).ceil, # number of times to jumble species
+          "Y"
+        ].join("\n"))
+        run_phylip(name, "consense", "parsimony_jackknifed_#{p}.tree", "parsimony_jackknifed_#{p}_all.tree\nY")
       end
 
     end

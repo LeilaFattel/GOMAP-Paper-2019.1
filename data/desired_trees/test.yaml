@@ -1,13 +1,9 @@
 ---
 species:
   - Arachis_hypogaea
-  - Brachypodium_distachyon
   - Cannabis_sativa
-  - Glycine_max
   - Gossypium_raimondii
   - Hordeum_vulgare
-  - Medicago_truncatula.A17
-  - Medicago_truncatula.R108
   - Oryza_sativa
   - Phaseolus_vulgaris
   - Pinus_lambertiana
@@ -23,6 +19,6 @@ parsimony: yes
 nj: yes
 
 jackknives:
-  n_trees: 100
-  percentages: [40, 50]
+  n_trees: 5
+  percentages: [0, 20]
 ...
