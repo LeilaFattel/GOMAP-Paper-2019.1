@@ -59,11 +59,21 @@ def sample_from_set(set, percentage)
   set.to_a.sample(terms_to_sample).to_set
 end
 
-def run_phylip(tree_name, phylip_bin, outtree_name, script)
+def run_phylip(tree_name, phylip_bin, outtree_name, script, taxon_map = nil)
   Dir.chdir("analyses/treebuilding/results/trees/#{tree_name}") do
     File.write("phylip.in", script)
     system("#{phylip_bin} < phylip.in")
-    FileUtils.mv("outtree", outtree_name)
+    if taxon_map
+      # Rename species back to original names
+      newick = File.read("outtree")
+      taxon_map.each do |species, id|
+        newick.gsub!(id, species)
+      end
+      File.write(outtree_name, newick)
+      FileUtils.rm("outtree")
+    else
+      FileUtils.mv("outtree", outtree_name)
+    end
     FileUtils.rm("outfile")
     FileUtils.rm("phylip.in")
   end
@@ -81,14 +91,17 @@ ARGV.each do |desired_tree|
 
   yaml = YAML.load(File.read(desired_tree))
 
+  # Map each species name to a unique id of the form !a3! which is later translated back in the final tree
+  species_map = yaml["species"].map.with_index { |s, i| [s, "!#{i.to_s(36)}!"] }.to_h
+
   ancestor_sets = yaml["species"].each_with_object({}) do |s, a|
-    a[s] = JSON.parse(File.read("analyses/treebuilding/results/sets/with_ancestors/#{s}.json")).map(&:to_sym).to_set
+    a[species_map[s]] = JSON.parse(File.read("analyses/treebuilding/results/sets/with_ancestors/#{s}.json")).map(&:to_sym).to_set
   end
 
   if yaml["nj"] # Build a Neighbor-Joining tree
     puts "Building neighbor joining tree"
     write_distance_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/distance_matrix.phy")
-    run_phylip(name, "neighbor", "nj.tree", "distance_matrix.phy\nY")
+    run_phylip(name, "neighbor", "nj.tree", "distance_matrix.phy\nY", species_map)
   end
 
   if yaml["parsimony"] # Build parsimony tree
@@ -100,13 +113,13 @@ ARGV.each do |desired_tree|
           2*rand(1000)+1,
           2*Math.sqrt(yaml["species"].length).ceil, # number of times to jumble species
           "Y"
-        ].join("\n"))
+        ].join("\n"), species_map)
   end
 
   if yaml.keys.include? "jackknives"
     puts "Jackknifing trees..."
     original_sets = yaml["species"].each_with_object({}) do |s, a|
-      a[s] = JSON.parse(File.read("analyses/treebuilding/results/sets/original/#{s}.json")).map(&:to_sym).to_set
+      a[species_map[s]] = JSON.parse(File.read("analyses/treebuilding/results/sets/original/#{s}.json")).map(&:to_sym).to_set
     end
 
     yaml["jackknives"]["percentages"].each do |p|
@@ -133,7 +146,7 @@ ARGV.each do |desired_tree|
           (2*rand(1000)+1).to_s,
           "Y"
         ].join("\n"))
-        run_phylip(name, "consense", "nj_jackknifed_#{p}.tree", "nj_jackknifed_#{p}_all.tree\nY")
+        run_phylip(name, "consense", "nj_jackknifed_#{p}.tree", "nj_jackknifed_#{p}_all.tree\nY", species_map)
       end
 
       if yaml["parsimony"]
@@ -146,7 +159,7 @@ ARGV.each do |desired_tree|
           2*Math.sqrt(yaml["species"].length).ceil, # number of times to jumble species
           "Y"
         ].join("\n"))
-        run_phylip(name, "consense", "parsimony_jackknifed_#{p}.tree", "parsimony_jackknifed_#{p}_all.tree\nY")
+        run_phylip(name, "consense", "parsimony_jackknifed_#{p}.tree", "parsimony_jackknifed_#{p}_all.tree\nY", species_map)
       end
 
     end
