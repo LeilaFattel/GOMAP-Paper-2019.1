@@ -112,6 +112,7 @@ FileList.new("analyses/cleanup/results/*/GoldStandard.gaf.gz").to_a.each do |f|
         ["C","F","P"].each do |aspect|
           sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.#{aspect}.tsv -t ../../quality/results/#{genome}/GoldStandard.#{aspect}.tsv -g -b ../../../data/go.obo -i ../../quality/results/ads_files/ic.tab ../../quality/results/ads_files/goparents.tab -m 'SF=SimGIC2' > ../../quality/results/#{genome}/#{dataset}.#{aspect}.SimGIC2"
           sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.#{aspect}.tsv -t ../../quality/results/#{genome}/GoldStandard.#{aspect}.tsv -g -b ../../../data/go.obo -m 'LIST=gene,TH=all,SUMF1=mean,SF=AUCPR' > ../../quality/results/#{genome}/#{dataset}.#{aspect}.TC_AUCPCR"
+          sh "bin/goscores -p ../../quality/results/#{genome}/#{dataset}.#{aspect}.tsv -t ../../quality/results/#{genome}/GoldStandard.#{aspect}.tsv -g -b ../../../data/go.obo -m 'LIST=go,SF=Fmax' > ../../quality/results/#{genome}/#{dataset}.#{aspect}.Fmax"
         end
       end
       rm "data/go.obo"
@@ -123,7 +124,7 @@ end
 # Collect all scores in a table
 file 'analyses/quality/results/quality_table.csv' => quality_targets do
   CSV.open("analyses/quality/results/quality_table.csv", "wb+") do |csv|
-    metrics = ["SimGIC2", "TC_AUCPCR"]
+    metrics = ["SimGIC2", "TC_AUCPCR", "Fmax"]
     headers = ["genome", "dataset"]
     metrics.each do |metric|
       ["C", "F", "P"].each do |aspect|

@@ -5,7 +5,7 @@ Cannabis_sativa,GOMAP,1714,6,757
 Glycine_max,GOMAP,3333,10,930
 Gossypium_raimondii,GOMAP,1781,7,822
 Hordeum_vulgare,GOMAP,1877,8,815
-Hordeum_vulgare,GoldStandard,0,4,0
+Hordeum_vulgare,GoldStandard,1,9,0
 Medicago_truncatula.A17,GOMAP,2673,10,798
 Medicago_truncatula.A17,GoldStandard,0,7,0
 Medicago_truncatula.A17,Gramene62-IEA,429,251,0
@@ -16,6 +16,8 @@ Oryza_sativa,Gramene61-IEA,242,28,0
 Phaseolus_vulgaris,GOMAP,1190,6,783
 Pinus_lambertiana,GOMAP,1839,4,587
 Sorghum_bicolor,GOMAP,2384,66,783
+Sorghum_bicolor,GoldStandard,178,219,0
+Sorghum_bicolor,Gramene63-IEA,278,198,0
 Triticum_aestivum,GOMAP,9624,17,1132
 Triticum_aestivum,GoldStandard,0,10,0
 Triticum_aestivum,Gramene61-IEA,706,88,0

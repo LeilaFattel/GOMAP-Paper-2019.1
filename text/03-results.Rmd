@@ -21,16 +21,16 @@ names(headers_above) <- c(" ",
   paste0("Genes Annotated[\\\\%]", footnote_marker_alphabet(1, double_escape=T)), 
   paste0("Annotations", footnote_marker_alphabet(2, double_escape=T)),
   paste0("Median Ann. per G.", footnote_marker_alphabet(3, double_escape=T)))
-kable(dt2, booktabs=T, digits=2, format.args=list(big.mark=","), escape=F, caption = "Quantitative metrics of the cleaned functional annotation sets. CC, BF, MP, and A refer to the aspects of the GO: Cellular Component, Biological Function, Molecular Process, and Any/All.", col.names=c("Genome", "Genes", "Dataset", "CC", "BF", "MP", "A","CC", "BF", "MP", "A","CC", "BF", "MP", "A")) %>%
+kable(dt2, booktabs=T, digits=2, format.args=list(big.mark=","), escape=F, caption = "Quantitative metrics of the cleaned functional annotation sets. CC, MF, BP, and A refer to the aspects of the GO: Cellular Component, Molecular Function, Biological Process, and Any/All.", col.names=c("Genome", "Genes", "Dataset", "CC", "MF", "BP", "A","CC", "MF", "BP", "A","CC", "MF", "BP", "A")) %>%
   kable_styling(latex_options = c("striped", "scale_down")) %>%
   add_header_above(headers_above, escape=F)%>%
   column_spec(c(15), bold = T) %>%
   column_spec(c(7,11), bold=T, border_right = T) %>%
   collapse_rows(columns = 1:2, latex_hline="major") %>%
   footnote(alphabet=c(
-    "How many genes in the genome have at least one GO term from the CC, BF, MP aspect annotated to them? A = How many at least one from any aspect? ($\\\\textrm{A} = \\\\textrm{CC} \\\\cup \\\\textrm{BF} \\\\cup \\\\textrm{MP}$)",
-    "How many annotations in the CC, BF, and MP aspect does this dataset contain? A = How many in total? $\\\\textrm{A} = \\\\textrm{CC} + \\\\textrm{BF} + \\\\textrm{MP}$",
-    "Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Please note that $\\\\textrm{A} \\\\neq \\\\textrm{CC} + \\\\textrm{BF} +\\\\textrm{MP}$"),
+    "How many genes in the genome have at least one GO term from the CC, MF, BP aspect annotated to them? A = How many at least one from any aspect? ($\\\\textrm{A} = \\\\textrm{CC} \\\\cup \\\\textrm{MF} \\\\cup \\\\textrm{BP}$)",
+    "How many annotations in the CC, MF, and BP aspect does this dataset contain? A = How many in total? $\\\\textrm{A} = \\\\textrm{CC} + \\\\textrm{MF} + \\\\textrm{BP}$",
+    "Take a typical gene that is present in the annotation set. How many annotations does it have in each aspect? A = How many in total? Please note that $\\\\textrm{A} \\\\neq \\\\textrm{CC} + \\\\textrm{MF} +\\\\textrm{BP}$"),
    general=c("\\\\href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/quantity/results/quantity_table.csv}{Download this table (CSV)}"), general_title="", threeparttable=T, escape=F)
 ```
 
@@ -49,12 +49,12 @@ The scores we can generate so far are by far not as meaningful.
 ```{r quality-table}
 dt2 <- read.csv("../analyses/quality/results/quality_table.csv", header=T, stringsAsFactors=F)
 dt2$genome = format_genome(dt2$genome)
-headers_above = c(a = 2, b = 3, c = 3)
-names(headers_above) <- c(" ", "SimGIC2", "TC-AUCPCR")
-kable(dt2, booktabs=TRUE, escape=F, caption = "Quality evaluation of the used GO annotation sets.", col.names=c("Genome", "Dataset", "CC", "BF", "MP", "CC", "BF", "MP")) %>%
+headers_above = c(a = 2, b = 3, c = 3, d = 3)
+names(headers_above) <- c(" ", "SimGIC2", "TC-AUCPCR", "Fmax")
+kable(dt2, booktabs=TRUE, escape=F, caption = "Quality evaluation of the used GO annotation sets.", col.names=c("Genome", "Dataset", "CC", "MF", "BP", "CC", "MF", "BP", "CC", "MF", "BP")) %>%
  kable_styling(latex_options = c("striped", "scale_down")) %>%
  add_header_above(headers_above, escape=F)%>%
- column_spec(c(5), border_right = T) %>%
+ column_spec(c(5, 8), border_right = T) %>%
  collapse_rows(columns = 1, latex_hline="major") %>%
  footnote(general=c("\\\\href{https://raw.githubusercontent.com/Dill-PICL/GOMAP-Paper-2019.1/master/analyses/quality/results/quality_table.csv}{Download this table (CSV)}"), general_title="", threeparttable=T, escape=F)
 ```
