@@ -13,7 +13,7 @@ Unless otherwise noted, the Gold Standards were downloaded from [Gramene Biomart
 1. *CHOOSE DATABASE* -> Plant Genes 63
 2. *CHOOSE DATASET* -> `<plant species/annotation>`
 3. on the left hand side, select *Filters*, open *GENE ONTOLOGY* and select all evidence codes but IEA (IBA,IC,IDA,IEP,IGC,IGI,IMP,IPI,ISO,ISS,NAS,ND,RCA,TAS)
-4. again on the left hand side, select *Attributes*, open *GENE* and make sure only Gene stable ID is checked, then open *EXTERNAL* and check _GO term accession, GO term evidence code,_ and _GO domain_.
+4. again on the left hand side, select *Attributes*, open *GENE* and make sure only Gene stable ID is checked, then open *EXTERNAL* and check _GO term accession, GO term evidence code,_ and _GO domain_ (in exactly this order).
 5. Then click *Results* in the black top bar menu and export all results to a TSV file (check *Unique results only*).
 
 The file was saved to `GoldStandard.tsv` and then converted to GAF format using our `biomart2gaf.sh` script: `bash ../biomart2gaf.sh GoldStandard.tsv "Gramene/Plant_Genes_63/<plant species/annotation>" "<taxon id>" > GoldStandard.gaf`
