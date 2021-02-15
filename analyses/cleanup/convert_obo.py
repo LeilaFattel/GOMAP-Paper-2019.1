@@ -16,6 +16,14 @@
 #   "GO:93743":"Something else",
 #   ...
 # }
+#
+# The GO_aspects.json file looks like this:
+# {
+#   "GO:43334":"P",
+#   "GO:93743":"F",
+#   ...
+# }
+
 
 import obo_parser
 import json
@@ -25,6 +33,12 @@ parents = {}
 main_id = {}
 obsolete = []
 go_names = {}
+go_aspects = {}
+go_aspect_mapping = {
+    "biological_process": "P",
+    "molecular_function": "F",
+    "cellular_component": "C"
+}
 with gzip.open("data/go.obo.gz") as obofile:
   parser = obo_parser.Parser(obofile)
   for stanza in parser:
@@ -47,8 +61,14 @@ with gzip.open("data/go.obo.gz") as obofile:
     else:
       go_names[go_id] = stanza.tags['name'][0]
 
+    # Also save obsolete aspects bc they are used on non-cleaned annotations
+    go_aspects[go_id] = go_aspect_mapping[stanza.tags['namespace'][0]]
+
 with open('analyses/cleanup/results/GO.json', 'w') as f:
   f.write(json.dumps({"parents":parents,"main_id":main_id,"obsolete":obsolete},indent=2))
 
 with open('analyses/cleanup/results/GO_names.json', 'w') as f:
   f.write(json.dumps(go_names,indent=2))
+
+with open('analyses/cleanup/results/GO_aspects.json', 'w') as f:
+  f.write(json.dumps(go_aspects,indent=2))

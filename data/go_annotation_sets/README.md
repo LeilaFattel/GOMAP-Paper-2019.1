@@ -16,10 +16,15 @@ Unless otherwise noted, the Gold Standards were downloaded from [Gramene Biomart
 4. again on the left hand side, select *Attributes*, open *GENE* and make sure only Gene stable ID is checked, then open *EXTERNAL* and check _GO term accession, GO term evidence code,_ and _GO domain_ (in exactly this order).
 5. Then click *Results* in the black top bar menu and export all results to a TSV file (check *Unique results only*).
 
-The file was saved to `GoldStandard.tsv` and then converted to GAF format using our `biomart2gaf.sh` script: `bash ../biomart2gaf.sh GoldStandard.tsv "Gramene/Plant_Genes_63/<plant species/annotation>" "<taxon id>" > GoldStandard.gaf`
+The file was saved to `GoldStandard.tsv` and then converted to GAF format using our `gramene2gaf.sh` script: `bash ../gramene2gaf.sh GoldStandard.tsv "Gramene/Plant_Genes_63/<plant species/annotation>" "<taxon id>" > GoldStandard.gaf`
 
-## Gramene61-IEA
+## Gramene63-IEA
 Completely analogous to the Gold Standard, just select entries with IEA evidence code.
+
+## Phytozome12
+Annotations were downloaded from [Phytozome Biomart](https://phytozome.jgi.doe.gov/biomart/martview/), selecting V12 Genomes and Families, V12 Genomes, and then Filtering for the species and only selecting _Gene Name_ and _GO ID_ as the output attributes.
+Results were downloaded in TSV format and saved to `Phytozome12.tsv` and then converted to GAF using the `phytozome2gaf.rb` script: `ruby ../phytozome2gaf.rb Phytozome12.tsv "Phytozome12/Genomes/Vigna_unguiculata_v1.1_early_release" "3917" ../../../analyses/cleanup/results/GO_aspects.json > Phytozome12.gaf`.
+This requires the file `GO_aspects.json` (as Phytozome does not provide the aspect of each GO term unlike Gramene), which is generated during cleanup.
 
 ## Exceptions
 Any exceptions from these sources are noted in individual READMEs in that specific species folder.
