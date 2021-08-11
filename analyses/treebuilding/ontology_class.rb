@@ -41,9 +41,9 @@ class Ontology
       return ancestors
     end
     @parents[go_id].each do |p|
-    #  if ancestors.add?(p) # for some reason this changes the results.
+      if ancestors.add?(p)
         ancestors.merge(ancestors_of(p))
-    #  end
+      end
     end
     @ancestors_of[go_id] = ancestors
     ancestors

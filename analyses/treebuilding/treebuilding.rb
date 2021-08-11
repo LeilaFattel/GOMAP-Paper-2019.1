@@ -1,8 +1,8 @@
 require "yaml"
 require "json"
 require "set"
-require "pry"
 require "fileutils"
+require "csv"
 
 require_relative "ontology_class"
 
@@ -54,6 +54,20 @@ def write_binary_matrix(annotation_sets, filepath, filemode="w")
   end
 end
 
+def write_binary_csv(annotation_sets, filepath, taxon_map = nil)
+  columns = annotation_sets.values.map(&:to_a).flatten.uniq
+  CSV.open(filepath, "wb") do |csv|
+    csv << ["taxon"] + columns
+    annotation_sets.each do |species, set|
+      if taxon_map
+        csv << [taxon_map.key(species)] + columns.map {|t| set.include?(t) ? 1 : 0 }
+      else
+        csv << [species] + columns.map {|t| set.include?(t) ? 1 : 0 }
+      end
+    end
+  end
+end
+
 def sample_from_set(set, percentage)
   terms_to_sample = (set.length * (1.0 - percentage.to_f/100)).floor
   set.to_a.sample(terms_to_sample).to_set
@@ -94,8 +108,15 @@ ARGV.each do |desired_tree|
   # Map each species name to a unique id of the form !a3! which is later translated back in the final tree
   species_map = yaml["species"].map.with_index { |s, i| [s, "!#{i.to_s(36)}!"] }.to_h
 
-  ancestor_sets = yaml["species"].each_with_object({}) do |s, a|
-    a[species_map[s]] = JSON.parse(File.read("analyses/treebuilding/results/sets/with_ancestors/#{s}.json")).map(&:to_sym).to_set
+  if yaml.keys.include?("exclude_terms")
+    # Terms should be excluded from the original sets, so we need to re-do the ancestor adding
+    ancestor_sets = yaml["species"].each_with_object({}) do |s, a|
+      a[species_map[s]] = ontology.set_with_ancestors(JSON.parse(File.read("analyses/treebuilding/results/sets/original/#{s}.json")).map(&:to_sym).to_set - yaml["exclude_terms"].map(&:to_sym).to_set)
+    end
+  else
+    ancestor_sets = yaml["species"].each_with_object({}) do |s, a|
+      a[species_map[s]] = JSON.parse(File.read("analyses/treebuilding/results/sets/with_ancestors/#{s}.json")).map(&:to_sym).to_set
+    end
   end
 
   if yaml["nj"] # Build a Neighbor-Joining tree
@@ -107,6 +128,7 @@ ARGV.each do |desired_tree|
   if yaml["parsimony"] # Build parsimony tree
     puts "Building parsimony tree"
     write_binary_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/binary_matrix.phy")
+    write_binary_csv(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/binary_matrix.csv", species_map)
     run_phylip(name, "pars", "parsimony.tree", [
           "binary_matrix.phy",
           "J",

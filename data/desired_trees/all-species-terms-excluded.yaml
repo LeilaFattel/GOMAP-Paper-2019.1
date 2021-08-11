@@ -1,0 +1,39 @@
+---
+species:
+  - Arachis_hypogaea
+  - Brachypodium_distachyon
+  - Cannabis_sativa
+  - Glycine_max
+  - Gossypium_raimondii
+  - Hordeum_vulgare
+  - Medicago_truncatula.A17
+  - Medicago_truncatula.R108
+  - Oryza_sativa
+  - Phaseolus_vulgaris
+  - Pinus_lambertiana
+  - Sorghum_bicolor
+  - Triticum_aestivum
+  - Vigna_unguiculata
+  - Zea_mays.B73.v4
+  - Zea_mays.Mo17
+  - Zea_mays.PH207
+  - Zea_mays.W22
+  
+parsimony: yes
+nj: yes
+
+exclude_terms:
+  - GO:0045676 
+  - GO:0060789   
+  - GO:0061029    
+  - GO:0048707    
+  - GO:0061198    
+  - GO:0042475
+  - GO:0045678
+  - GO:0007560
+  - GO:0035069
+
+jackknives:
+  n_trees: 100
+  percentages: []
+...
