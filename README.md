@@ -5,7 +5,7 @@ Publication in the works
 
 Reproducing this paper or using part of the software
 ------------
-To make it all easy for you, we have bundled everything that's required to run our analyses and typeset the paper in a [singularity container](https://sylabs.io/).
+To make it all easy for you, we have bundled everything that's required to run our analyses in a [singularity container](https://sylabs.io/).
 You may also just want to use our software for your own data or play around with our data to explore it for yourself.
 Please [install singularity](https://sylabs.io/guides/3.3/user-guide/quick_start.html#quick-installation-steps) and then follow these steps:
 
@@ -19,7 +19,7 @@ cd GOMAP-Paper-2019.1
 # 3. Pull the singularity container
 singularity pull library://merlin/default/gomap-paper-2019.1
 
-# 4a. To re-perform all analyses and re-render the paper (e.g. after you've modified data or scripts)
+# 4a. To re-perform all analyses (e.g. after you've modified data or scripts)
 ./gomap-paper-2019.1_latest.sif # OR
 singularity run gomap-paper-2019.1_latest.sif
 
@@ -39,4 +39,3 @@ Project Organization
     │   ├── cleanup           <- cleans up and prepares go annotation sets for future analyses
     │   └── quantity          <- generates quantitative information about the go annotation sets
     ├── spec                  <- unit tests for the analyses written in crystal
-    └── text                  <- texts for the paper

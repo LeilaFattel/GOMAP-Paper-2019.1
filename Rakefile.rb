@@ -1,13 +1,6 @@
 require "csv"
 
-task :default => 'Paper.pdf'
-
-desc 'Typeset the Paper'
-file 'Paper.pdf' => ['analyses/quantity/results/quantity_table.csv', 'analyses/quality/results/quality_table.csv'] + FileList.new("text/*") do
-  rm_f 'text/_main.Rmd'
-  sh %q(R -e 'library("bookdown"); xfun::in_dir("text", render_book("index.Rmd", output_file="../../Paper.pdf", clean=T))')
-end
-
+task :default => ['analyses/cleanup/results/cleanup_table.csv', 'analyses/quantity/results/quantity_table.csv', 'analyses/quality/results/quality_table.csv']
 
 # Cleanup
 ## cleanup executable
@@ -24,7 +17,7 @@ go_files.each do |f|
 end
 
 ## Collect everything that needs to be up-to-date after cleanup
-cleanup_targets = [] # ['analyses/cleanup/results/cleanup_table.csv']
+cleanup_targets = ['analyses/cleanup/results/cleanup_table.csv']
 
 ## For each raw dataset there should be an up-to-date cleaned one
 FileList.new("data/go_annotation_sets/*/*.gaf.gz").to_a.each do |f|
