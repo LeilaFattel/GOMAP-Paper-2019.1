@@ -15,9 +15,9 @@ class GOSet < Set
     JSON.parse(File.read("analyses/treebuilding/results/sets/with_ancestors/#{species_name}.json")).map(&:to_sym).to_set
   end
 
-  def output
+  def output(print_name = true)
     self.each do |t|
-      if @go_names.key?(t.to_s)
+      if @go_names.key?(t.to_s) and print_name
         puts("#{t} - #{@go_names[t.to_s]}")
       else
         puts(t)

@@ -108,82 +108,87 @@ ARGV.each do |desired_tree|
   # Map each species name to a unique id of the form !a3! which is later translated back in the final tree
   species_map = yaml["species"].map.with_index { |s, i| [s, "!#{i.to_s(36)}!"] }.to_h
 
-  if yaml.keys.include?("exclude_terms")
-    # Terms should be excluded from the original sets, so we need to re-do the ancestor adding
-    ancestor_sets = yaml["species"].each_with_object({}) do |s, a|
-      a[species_map[s]] = ontology.set_with_ancestors(JSON.parse(File.read("analyses/treebuilding/results/sets/original/#{s}.json")).map(&:to_sym).to_set - yaml["exclude_terms"].map(&:to_sym).to_set)
-    end
-  else
-    ancestor_sets = yaml["species"].each_with_object({}) do |s, a|
-      a[species_map[s]] = JSON.parse(File.read("analyses/treebuilding/results/sets/with_ancestors/#{s}.json")).map(&:to_sym).to_set
-    end
-  end
+  ["C", "F", "P", "A"].each do |aspect|
 
-  if yaml["nj"] # Build a Neighbor-Joining tree
-    puts "Building neighbor joining tree"
-    write_distance_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/distance_matrix.phy")
-    run_phylip(name, "neighbor", "nj.tree", "distance_matrix.phy\nY", species_map)
-  end
-
-  if yaml["parsimony"] # Build parsimony tree
-    puts "Building parsimony tree"
-    write_binary_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/binary_matrix.phy")
-    write_binary_csv(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/binary_matrix.csv", species_map)
-    run_phylip(name, "pars", "parsimony.tree", [
-          "binary_matrix.phy",
-          "J",
-          2*rand(1000)+1,
-          2*Math.sqrt(yaml["species"].length).ceil, # number of times to jumble species
-          "Y"
-        ].join("\n"), species_map)
-  end
-
-  if yaml.keys.include? "jackknives"
-    puts "Jackknifing trees..."
-    original_sets = yaml["species"].each_with_object({}) do |s, a|
-      a[species_map[s]] = JSON.parse(File.read("analyses/treebuilding/results/sets/original/#{s}.json")).map(&:to_sym).to_set
+    if yaml.keys.include?("exclude_terms")
+      # Terms should be excluded from the original sets, so we need to re-do the ancestor adding
+      ancestor_sets = yaml["species"].each_with_object({}) do |s, a|
+        a[species_map[s]] = ontology.set_with_ancestors(JSON.parse(File.read("analyses/treebuilding/results/sets/original/#{s}.json"))[aspect].map(&:to_sym).to_set - yaml["exclude_terms"].map(&:to_sym).to_set)
+      end
+    else
+      ancestor_sets = yaml["species"].each_with_object({}) do |s, a|
+        a[species_map[s]] = JSON.parse(File.read("analyses/treebuilding/results/sets/with_ancestors/#{s}.json"))[aspect].map(&:to_sym).to_set
+      end
     end
 
-    yaml["jackknives"]["percentages"].each do |p|
+    if yaml["nj"] # Build a Neighbor-Joining tree
+      puts "Building neighbor joining tree for aspect #{aspect}"
+      write_distance_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/distance_matrix_#{aspect}.phy")
+      run_phylip(name, "neighbor", "nj_#{aspect}.tree", "distance_matrix_#{aspect}.phy\nY", species_map)
+    end
 
-      yaml["jackknives"]["n_trees"].times do |jackknife_index|
-        puts " #{p}%, tree #{jackknife_index}"
-        jackknifed_sets_original = original_sets.each_with_object({}) { |(name, set), a| a[name] = sample_from_set(set, p)}
-        jackknifed_sets_with_ancestors = jackknifed_sets_original.each_with_object({}) { |(name, set), a | a[name] = ontology.set_with_ancestors(set)}
+    if yaml["parsimony"] # Build parsimony tree
+      puts "Building parsimony tree for aspect #{aspect}"
+      write_binary_matrix(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/binary_matrix_#{aspect}.phy")
+      write_binary_csv(ancestor_sets, "analyses/treebuilding/results/trees/#{name}/binary_matrix_#{aspect}.csv", species_map)
+      run_phylip(name, "pars", "parsimony_#{aspect}.tree", [
+            "binary_matrix_#{aspect}.phy",
+            "J",
+            2*rand(1000)+1,
+            2*Math.sqrt(yaml["species"].length).ceil, # number of times to jumble species
+            "Y"
+          ].join("\n"), species_map)
+    end
+
+    if yaml.keys.include? "jackknives"
+      puts "Jackknifing trees for aspect #{aspect}..."
+      original_sets = yaml["species"].each_with_object({}) do |s, a|
+        a[species_map[s]] = JSON.parse(File.read("analyses/treebuilding/results/sets/original/#{s}.json"))[aspect].map(&:to_sym).to_set
+      end
+
+      original_set = original_set - yaml["exclude_terms"].map(&:to_sym).to_set if yaml.keys.include?("exclude_terms")
+
+      yaml["jackknives"]["percentages"].each do |p|
+
+        yaml["jackknives"]["n_trees"].times do |jackknife_index|
+          puts " #{p}%, tree #{jackknife_index}"
+          jackknifed_sets_original = original_sets.each_with_object({}) { |(name, set), a| a[name] = sample_from_set(set, p)}
+          jackknifed_sets_with_ancestors = jackknifed_sets_original.each_with_object({}) { |(name, set), a | a[name] = ontology.set_with_ancestors(set)}
+
+          if yaml["nj"]
+            write_distance_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/distance_matrix_jackknifed_#{aspect}_#{p}.phy", "a")
+          end
+
+          if yaml["parsimony"]
+            write_binary_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/binary_matrix_jackknifed_#{aspect}_#{p}.phy", "a")
+          end
+        end
 
         if yaml["nj"]
-          write_distance_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/distance_matrix_jackknifed_#{p}.phy", "a")
+          run_phylip(name, "neighbor", "nj_jackknifed_#{aspect}_#{p}_all.tree", [
+            "distance_matrix_jackknifed_#{aspect}_#{p}.phy",
+            "M",
+            yaml["jackknives"]["n_trees"],
+            (2*rand(1000)+1).to_s,
+            "Y"
+          ].join("\n"))
+          run_phylip(name, "consense", "nj_jackknifed_#{aspect}_#{p}.tree", "nj_jackknifed_#{aspect}_#{p}_all.tree\nY", species_map)
         end
 
         if yaml["parsimony"]
-          write_binary_matrix(jackknifed_sets_with_ancestors, "analyses/treebuilding/results/trees/#{name}/binary_matrix_jackknifed_#{p}.phy", "a")
+          run_phylip(name, "pars", "parsimony_jackknifed_#{aspect}_#{p}_all.tree", [
+            "binary_matrix_jackknifed_#{aspect}_#{p}.phy",
+            "M",
+            "D",
+            yaml["jackknives"]["n_trees"],
+            (2*rand(1000)+1).to_s,
+            2*Math.sqrt(yaml["species"].length).ceil, # number of times to jumble species
+            "Y"
+          ].join("\n"))
+          run_phylip(name, "consense", "parsimony_jackknifed_#{aspect}_#{p}.tree", "parsimony_jackknifed_#{aspect}_#{p}_all.tree\nY", species_map)
         end
-      end
 
-      if yaml["nj"]
-        run_phylip(name, "neighbor", "nj_jackknifed_#{p}_all.tree", [
-          "distance_matrix_jackknifed_#{p}.phy",
-          "M",
-          yaml["jackknives"]["n_trees"],
-          (2*rand(1000)+1).to_s,
-          "Y"
-        ].join("\n"))
-        run_phylip(name, "consense", "nj_jackknifed_#{p}.tree", "nj_jackknifed_#{p}_all.tree\nY", species_map)
       end
-
-      if yaml["parsimony"]
-        run_phylip(name, "pars", "parsimony_jackknifed_#{p}_all.tree", [
-          "binary_matrix_jackknifed_#{p}.phy",
-          "M",
-          "D",
-          yaml["jackknives"]["n_trees"],
-          (2*rand(1000)+1).to_s,
-          2*Math.sqrt(yaml["species"].length).ceil, # number of times to jumble species
-          "Y"
-        ].join("\n"))
-        run_phylip(name, "consense", "parsimony_jackknifed_#{p}.tree", "parsimony_jackknifed_#{p}_all.tree\nY", species_map)
-      end
-
     end
   end
 end
