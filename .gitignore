@@ -1,5 +1,6 @@
 *.pyc
 *.sif
+.DS_Store
 analyses/*/results/*
 !**/.gitkeep
 !analyses/cleanup/results/cleanup_table.csv
