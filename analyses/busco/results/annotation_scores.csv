@@ -1,0 +1,69 @@
+﻿Genomes,Category,BUSCO_Score
+G. raimondii,Complete & Single Copy,34.8
+G. raimondii,Complete & Duplicate Copy,64.1
+G. raimondii,Fragmented,0.4
+G. raimondii,Missing,0.7
+C. sativa,Complete & Single Copy,74.2
+C. sativa,Complete & Duplicate Copy,20.5
+C. sativa,Fragmented,0.5
+C. sativa,Missing,4.8
+A. hypogaea,Complete & Single Copy,7.2
+A. hypogaea,Complete & Duplicate Copy,85.5
+A. hypogaea,Fragmented,0.4
+A. hypogaea,Missing,6.6
+M. truncatula A17,Complete & Single Copy,76.2
+M. truncatula A17,Complete & Duplicate Copy,22.8
+M. truncatula A17,Fragmented,0.4
+M. truncatula A17,Missing,0.6
+M. truncatula R108,Complete & Single Copy,79
+M. truncatula R108,Complete & Duplicate Copy,15.6
+M. truncatula R108,Fragmented,2.1
+M. truncatula R108,Missing,3.3
+G. max,Complete & Single Copy,25
+G. max,Complete & Duplicate Copy,74.7
+G. max,Fragmented,0.1
+G. max,Missing,0.2
+P. vulgaris,Complete & Single Copy,74.2
+P. vulgaris,Complete & Duplicate Copy,24.7
+P. vulgaris,Fragmented,0.3
+P. vulgaris,Missing,0.8
+V. unguiculata,Complete & Single Copy,68.4
+V. unguiculata,Complete & Duplicate Copy,30.1
+V. unguiculata,Fragmented,0.4
+V. unguiculata,Missing,1.1
+O. sativa,Complete & Single Copy,81.6
+O. sativa,Complete & Duplicate Copy,9.3
+O. sativa,Fragmented,2.9
+O. sativa,Missing,6.2
+B. distachyon,Complete & Single Copy,69.5
+B. distachyon,Complete & Duplicate Copy,29.5
+B. distachyon,Fragmented,0.2
+B. distachyon,Missing,0.8
+T. aestivum,Complete & Single Copy,1.2
+T. aestivum,Complete & Duplicate Copy,98.4
+T. aestivum,Fragmented,0
+T. aestivum,Missing,0.4
+H. vulgare,Complete & Single Copy,76.9
+H. vulgare,Complete & Duplicate Copy,5.1
+H. vulgare,Fragmented,4.2
+H. vulgare,Missing,13.8
+S. bicolor,Complete & Single Copy,82.4
+S. bicolor,Complete & Duplicate Copy,16.8
+S. bicolor,Fragmented,0.2
+S. bicolor,Missing,0.6
+Z. mays B73,Complete & Single Copy,82.4
+Z. mays B73,Complete & Duplicate Copy,14.5
+Z. mays B73,Fragmented,0.7
+Z. mays B73,Missing,2.4
+Z. mays PH207,Complete & Single Copy,78.3
+Z. mays PH207,Complete & Duplicate Copy,11.7
+Z. mays PH207,Fragmented,4.7
+Z. mays PH207,Missing,5.3
+Z. mays W22,Complete & Single Copy,62.5
+Z. mays W22,Complete & Duplicate Copy,32.1
+Z. mays W22,Fragmented,2
+Z. mays W22,Missing,3.4
+Z. mays Mo17,Complete & Single Copy,77.3
+Z. mays Mo17,Complete & Duplicate Copy,16.5
+Z. mays Mo17,Fragmented,2.2
+Z. mays Mo17,Missing,4
