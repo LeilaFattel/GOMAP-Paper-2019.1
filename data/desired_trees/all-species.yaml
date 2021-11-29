@@ -22,7 +22,9 @@ species:
 parsimony: yes
 nj: yes
 
+aspects: ["A"]
+
 jackknives:
   n_trees: 100
-  percentages: [10,15,5]
+  percentages: [40]
 ...

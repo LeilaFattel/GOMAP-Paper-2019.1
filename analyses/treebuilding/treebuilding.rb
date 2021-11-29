@@ -108,8 +108,9 @@ ARGV.each do |desired_tree|
   # Map each species name to a unique id of the form !a3! which is later translated back in the final tree
   species_map = yaml["species"].map.with_index { |s, i| [s, "!#{i.to_s(36)}!"] }.to_h
 
-  ["C", "F", "P", "A"].each do |aspect|
+  aspects = yaml.keys.include?("aspects") ? yaml["aspects"] : ["A", "F", "P", "C"] 
 
+  aspects.each do |aspect|
     if yaml.keys.include?("exclude_terms")
       # Terms should be excluded from the original sets, so we need to re-do the ancestor adding
       ancestor_sets = yaml["species"].each_with_object({}) do |s, a|
